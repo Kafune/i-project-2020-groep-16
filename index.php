@@ -1,7 +1,7 @@
 <?php
-    $title = 'Eenmaal Andermaal!';
-    $siteNaam = 'Welkom!';
-    $huidigeJaar = 2019;
+    $title = 'Welkom';
+    $siteNaam = 'Eenmaal Andermaal!';
+    $huidigeJaar = 2020;
 ?>
 <!doctype html>
 <html lang="nl">
