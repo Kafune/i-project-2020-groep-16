@@ -1,0 +1,29 @@
+{
+  "name": "i-project-2020-groep-16",
+  "version": "1.0.0",
+  "description": "Dit is een try out voor een nieuwe readme. Wij team 'retty-cool' bouwen het komende blok een echt werkende veilingsite met [PHP](https://www.php.net/manual/en/intro-whatis.php), [SQL Server](https://docs.microsoft.com/en-us/sql/t-sql/language-reference?view=sql-server-ver15) database en - natuurlijk - [HTML5](https://developer.mozilla.org/nl/docs/Web/Guide/HTML/HTML5) en [CSS3](https://developer.mozilla.org/nl/docs/Web/CSS).",
+  "main": "sass/mystyles.scss",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HANICA-I-PR/i-project-2020-groep-16.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HANICA-I-PR/i-project-2020-groep-16/issues"
+  },
+  "homepage": "https://github.com/HANICA-I-PR/i-project-2020-groep-16#readme",
+  "devDependencies": {
+    "bulma": "^0.8.2",
+    "node-sass": "^4.13.1"
+  }
+}
