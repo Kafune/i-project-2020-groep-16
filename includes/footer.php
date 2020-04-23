@@ -2,7 +2,7 @@
 ?>
 <link rel="stylesheet" href="styles/css/mystyles.css">
 
-<footer class="footer has-text-centered">
+<footer class="footer">
     <div class="columns">
         <div class="column">
             <b>Over</b>

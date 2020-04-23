@@ -76,5 +76,4 @@ thumbs.db
 
 #eigen bestanden i-project
 .idea/
-node_modules/
 /.idea/
