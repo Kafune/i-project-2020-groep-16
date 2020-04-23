@@ -5,37 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My custom Bulma website</title>
-    <link rel="stylesheet" href="styles/bulma.min.css">
     <link rel="stylesheet" href="css/mystyles.css">
 </head>
 <body>
-<h1 class="title">
-    Bulma
-</h1>
-
-<p class="subtitle">
-    Modern CSS framework based on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">Flexbox</a>
-</p>
-
-<div class="field">
-    <div class="control">
-        <input class="input" type="text" placeholder="Input">
+<nav class="navbar is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item image">
+            <img src="Sources/Logo.png" alt="Eenmaal Andermaal">
+        </a>
+        <div class="navbar-burger burger" data-target="navMenuColorprimary-example">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-</div>
 
-<div class="field">
-    <p class="control">
-          <span class="select">
-            <select>
-              <option>Select dropdown</option>
-            </select>
-          </span>
-    </p>
-</div>
 
-<div class="buttons">
-    <a class="button is-primary">Primary</a>
-    <a class="button is-link">Link</a>
-</div>
+    <div class="navbar-menu">
+        <div class="navbar-start" style="margin-left: 1rem">
+            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item" href="#">Categoriën</a>
+            <a class="navbar-item" href="#">Top Veilingen</a>
+            <a class="navbar-item" href="#">Contact</a>
+        </div>
+        <div class="navbar-end">
+            <a class="button is-black" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
+            <a class="button is-black" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>
+        </div>
+    </div>
+
+
+</nav>
+
+</section>
 </body>
 </html>
