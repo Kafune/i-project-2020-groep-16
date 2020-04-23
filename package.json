@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-build": "node-sass --omit-source-map-url styles/sass/mystyles.scss styles/css/mystyles.css",
     "css-watch": "npm run css-build -- --watch",
     "start": "npm run css-watch"
   },
