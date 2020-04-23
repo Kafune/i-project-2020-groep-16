@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
 </head>
 <body>
 <nav class="navbar is-primary">
@@ -36,6 +35,4 @@
             <a class="button is-black" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>
         </div>
     </div>
-
-
 </nav>
