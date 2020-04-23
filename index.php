@@ -21,7 +21,7 @@
     </div>
 
 
-    <div class="navbar-menu">
+    <div class="navbar-menu" style="margin-left: 2rem">
         <div class="navbar-start" style="margin-left: 1rem">
             <a class="navbar-item" href="#">Home</a>
             <a class="navbar-item" href="#">Categoriën</a>
