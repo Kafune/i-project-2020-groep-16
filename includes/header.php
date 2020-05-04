@@ -1,4 +1,5 @@
 <?php
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
 <body>
 <nav class="navbar is-primary">
     <div class="navbar-brand">
-        <a class="navbar-item" href="#">
+        <a class="navbar-item" href="index.php">
             <img src="sources/Logo.png" alt="Eenmaal Andermaal">
         </a>
         <div class="navbar-burger burger" data-target="navMenuColorprimary-example">
@@ -25,14 +26,14 @@
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item" href="index.php">Home</a>
             <a class="navbar-item" href="#">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
             <a class="navbar-item" href="#">Contact</a>
         </div>
         <div class="navbar-end">
-            <a class="button is-black" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
-            <a class="button is-black" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>
+            <a class="button is-black" href="#" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
+            <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>
         </div>
     </div>
 </nav>
