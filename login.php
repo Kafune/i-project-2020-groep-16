@@ -7,25 +7,26 @@ include_once("includes/header.php");
 
 <body>
 <section class="hero is-black is-fullheight">
-    <div class="container">
-        <h1>Login</h1>
-        <div class="columns is-centered">
-            <form action="" class="box">
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="has-text-centered">Login</h1>
+            <div class="columns is-centered">
+                <form action="" class="box">
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Text input">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label for="" class="label">Wachtwoord</label>
-                    <input type="password" placeholder="*********" class="input" required>
-                </div>
-                <input type="submit" class="button is-primary">
-            </form>
+                    <div class="field">
+                        <label for="" class="label">Wachtwoord</label>
+                        <input type="password" placeholder="*********" class="input" required>
+                    </div>
+                    <input type="submit" class="button is-primary">
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 </section>
 </body>
