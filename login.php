@@ -8,15 +8,13 @@ include_once("includes/header.php");
 <body>
 <section class="hero is-black is-fullheight">
     <div class="container">
+        <h1>Login</h1>
         <div class="columns is-centered">
             <form action="" class="box">
                 <div class="field">
                     <label class="label">Email</label>
-                    <div class="control has-icons-left">
-                        <input class="input is-success" type="text" placeholder="Text input">
-                        <span class="icon is-primary is-left">
-                          <i class="fas fa-home"></i>
-                        </span>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input">
                     </div>
                 </div>
 
