@@ -3,13 +3,13 @@
 session_start();
 if(!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
 
-    include('../includes/db.php');
+    include_once('../includes/db.php');
 // gebruikersnaam checken of het bestaat
 
     $gebruikersnaam = $_POST["gebruikersnaam"];
     $wachtwoord = $_POST["wachtwoord"];
     $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam =?";
-    $stmt = $db->prepare($statement);
+    $stmt = $conn->prepare($statement);
     $stmt->bind_param("s", $gebruikersnaam);
     $stmt->execute();
 
@@ -26,12 +26,12 @@ if(!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
         echo "Succesvol login";
 
         $_SESSION["gebruikersnaam"] = $_POST["gebruikersnaam"];
-        $db->close();
+        $conn->close();
         header("Location:../index.php");
     } else {
         echo "login gefaald";
         echo "<br>";
-        $db->close();
+        $conn->close();
         header("Location:login.php");
     }
 }
