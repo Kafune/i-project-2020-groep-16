@@ -57,10 +57,10 @@ include_once("includes/header.php");
                     </div>
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-link" type="submit">Verzenden</button>
+                            <button class="button is-success" type="submit">Verzenden</button>
                         </div>
                         <div class="control">
-                            <button class="button is-link" type="reset">Annuleren</button>
+                            <button class="button is-danger" type="reset">Annuleren</button>
                         </div>
                     </div>
                 </form>
