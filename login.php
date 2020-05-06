@@ -13,7 +13,7 @@ include_once("includes/header.php");
                 <h3 class="title has-text-white">Login</h3>
                 <hr class="login-hr">
                 <div class="box">
-                    <form action="scripts/check-login.php">
+                    <form action="scripts/check-login.php" method="post">
                         <div class="field">
                             <div class="control">
                                 <label class="label" for="gebruikersnaam">Gebruikersnaam</label>
