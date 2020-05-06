@@ -16,17 +16,15 @@ include_once("includes/header.php");
                     <form>
                         <div class="field">
                             <div class="control">
-                                <label class="label">
-                                    <input class="input is-large" type="email" name="email" autofocus="" required>
-                                </label>
+                                <label class="label" for="email">Email</label>
+                                    <input class="input is-large" type="email" name="email" id="email" autofocus="" required>
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="control">
-                                <label class="label">
-                                    <input class="input is-large" type="password" name="wachtwoord" required>
-                                </label>
+                                <label class="label" for="wachtwoord">Wachtwoord</label>
+                                    <input class="input is-large" type="password" name="wachtwoord" id="wachtwoord" required>
                             </div>
                         </div>
                         <div class="field">
