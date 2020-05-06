@@ -31,16 +31,16 @@ include_once("includes/header.php");
                             <p>Mobiel</p>
                         </div>
                         <div class="column">
-                            <p>$voornaam + $achternaam</p>
-                            <p>$gebruikersnaam</p>
-                            <p>$GeboorteDag</p>
+                            <p><?=$voornaam?> <?=$achternaam?></p>
+                            <p><?=$gebruikersnaam?></p>
+                            <p><?=$GeboorteDag?></p>
                             <br>
-                            <p>$adresregel 1</p>
-                            <p>$postcode</p>
-                            <p>$plaatsnaam</p>
-                            <p>$Land</p>
+                            <p><?=$adresregel1?></p>
+                            <p><?=$postcode?></p>
+                            <p><?=$plaatsnaam?></p>
+                            <p><?=$Land?></p>
                             <br>
-                            <p>$MailBox</p>
+                            <p><?=$MailBox?></p>
                             <p>telefoon</p>
                             <p>mobiel</p>
                         </div>
@@ -57,10 +57,10 @@ include_once("includes/header.php");
                             <p>Rekeningnummer</p>
                         </div>
                         <div class="column">
-                            <p>$Bank</p>
-                            <p>$Controle-optie</p>
-                            <p>$Creditcard</p>
-                            <p>$Bankrekening</p>
+                            <p><?=$Bank?></p>
+                            <p><?=$Controle-optie?></p>
+                            <p><?=$Creditcard?></p>
+                            <p><?=$Bankrekening?></p>
                         </div>
                     </div>
                 </div>
