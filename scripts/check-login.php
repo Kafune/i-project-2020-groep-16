@@ -3,12 +3,12 @@
 session_start();
 if(!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
 
-    include('../includes/DB/database.php');
+    include('../includes/db.php');
 // gebruikersnaam checken of het bestaat
 
     $gebruikersnaam = $_POST["gebruikersnaam"];
     $wachtwoord = $_POST["wachtwoord"];
-    $statement = "SELECT * FROM gebruiker WHERE gebruikersnaam =?";
+    $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam =?";
     $stmt = $db->prepare($statement);
     $stmt->bind_param("s", $gebruikersnaam);
     $stmt->execute();
