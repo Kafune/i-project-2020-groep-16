@@ -91,7 +91,7 @@ if (isset($_POST['accountCheck'])) {
         $_SESSION['wachtwoordCheck'] = "";
 
         if (checkWachtwoord($wachtwoord)) {
-            $wachtwoordHash = sha1($wachtwoord);
+            $wachtwoordHash = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
             $_SESSION['gebruikersnaam'] = $gebruikersnaam;
             $_SESSION['wachtwoord'] = $wachtwoordHash;
@@ -146,11 +146,8 @@ if (isset($_POST['registreren'])) {
     $stmt->bindParam(':antwoordtekst', $antwoord);
 
     $stmt->execute();
-
-    session_unset();
-
+    
     header('location: ' . $root . '/registreren.php');
-    $_POST = array(); //reset alle post waarden
 }
 
 // check of de wachtwoord aan de eisen voldoet
