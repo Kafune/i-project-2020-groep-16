@@ -79,3 +79,4 @@ thumbs.db
 node_modules
 .idea
 /.idea
+/styles/css
