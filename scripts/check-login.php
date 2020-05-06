@@ -4,16 +4,16 @@ require_once('../includes/root.php');
 include_once('../includes/db.php');
 
 // check of de user alle twee velden heeft ingevuld en dan pas de code hieronder uitvoeren
-if (isset($_POST['gebruikersnaam']) && isset($_POST['wachtwoord'])) {
+if (isset($_POST['login'])) {
 
 
 // gebruikersnaam checken of het bestaat
 
     $gebruikersnaam = $_POST['gebruikersnaam'];
     $wachtwoord = $_POST['wachtwoord'];
-    $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam =?";
+    $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($statement);
-    $stmt->bindParam("s", $gebruikersnaam);
+    $stmt->bindParam('gebruikersnaam', $gebruikersnaam);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
