@@ -147,10 +147,10 @@ if (isset($_POST['registreren'])) {
 
     $stmt->execute();
 
-    session_unset();
+    $_POST = array(); //reset alle post waarden
 
     header('location: ' . $root . '/registreren.php');
-    $_POST = array(); //reset alle post waarden
+
 }
 
 // check of de wachtwoord aan de eisen voldoet
