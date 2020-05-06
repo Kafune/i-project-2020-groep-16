@@ -31,7 +31,7 @@ session_start();
             <a class="navbar-item" href="#">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
             <a class="navbar-item" href="#">Contact</a>
-        </div>s
+        </div>
         <div class="navbar-end">
             <?php
             if(!ISSET($_SESSION['gebruiker'])) {
