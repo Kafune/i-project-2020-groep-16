@@ -1,7 +1,9 @@
 <?php
+session_start();
+
+require_once('../includes/root.php');
 include_once('../includes/db.php');
 // check of de user alle twee velden heeft ingevuld en dan pas de code hieronder uitvoeren
-session_start();
 if (!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
 
 
@@ -28,15 +30,15 @@ if (!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
 
         $_SESSION["gebruikersnaam"] = $_POST["gebruikersnaam"];
         $conn->close();
-        header("Location:../index.php");
+        header("location:../index.php");
     } else {
         echo "login gefaald";
         echo "<br>";
         $conn->close();
-        header("Location:login.php");
+        header('location: ' . $root . '/index.php');
     }
 } // als velden niet ingevuld zijn dan pagina refresh
 else {
-    header("Location:login.php");
+    header('location: ' . $root . '/login.php');
 }
 ?>
