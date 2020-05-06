@@ -91,7 +91,7 @@ if (isset($_POST['accountCheck'])) {
         $_SESSION['wachtwoordCheck'] = "";
 
         if (checkWachtwoord($wachtwoord)) {
-            $wachtwoordHash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+            $wachtwoordHash = sha1($wachtwoord);
 
             $_SESSION['gebruikersnaam'] = $gebruikersnaam;
             $_SESSION['wachtwoord'] = $wachtwoordHash;
