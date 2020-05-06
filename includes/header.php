@@ -9,6 +9,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/css/mystyles.css">
+    <title>Eenmaal Andermaal</title>
 </head>
 <body>
 <nav class="navbar is-primary">
@@ -32,8 +33,15 @@ session_start();
             <a class="navbar-item" href="#">Contact</a>
         </div>
         <div class="navbar-end">
-            <a class="button is-black" href="#" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
-            <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>
+            <?php
+            if(!ISSET($_SESSION['gebruiker'])) {
+                echo '<a class="button is-black" href="#" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
+                  <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
+            } else {
+                echo '<a class="button is-black" href="#" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
+                  <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
+            }
+            ?>
         </div>
     </div>
 </nav>
