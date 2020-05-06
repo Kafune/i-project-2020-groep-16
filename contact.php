@@ -29,27 +29,31 @@ include_once("includes/header.php");
                 <p class="title">Contactformulier</p>
                 <form method="POST">
                     <div class="field">
-                        <label class="naam is-size-5">Naam</label>
+                        <label class="naam is-size-5">Naam
                         <input type="text" placeholder="Jouw naam" class="input">
+                        </label>
                     </div>
                     <div class="field">
-                        <label class="email is-size-5">Email</label>
+                        <label class="email is-size-5">Email
                         <input type="email" placeholder="Jouw e-mailadres" class="input">
+                        </label>
                     </div>
                     <div class="field">
-                        <label class="onderwerp is-size-5">Onderwerp</label>
+                        <label class="onderwerp is-size-5">Onderwerp
                         <div class="control">
                             <div class="select">
-                                <select>
-                                    <option>1</option>
-                                    <option>2</option>
-                                </select>
+                                    <select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
                             </div>
+                        </label>
                         </div>
                     </div>
                     <div class="field">
-                        <label class="bericht is-size-5">Bericht</label>
-                        <textarea class="textarea" placeholder="Jouw bericht"></textarea>
+                        <label class="bericht is-size-5">Bericht
+                            <textarea class="textarea bericht" placeholder="Jouw bericht"></textarea>
+                        </label>
                     </div>
                     <div class="field is-grouped">
                         <div class="control">
