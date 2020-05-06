@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
     $wachtwoord = $_POST['wachtwoord'];
     $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($statement);
-    $stmt->bindParam('gebruikersnaam', $gebruikersnaam);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
