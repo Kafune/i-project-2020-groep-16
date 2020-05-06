@@ -4,8 +4,6 @@ include_once("includes/header.php");
 <link rel="stylesheet" href="styles/css/mystyles.css">
 <link rel="stylesheet" href="styles/custom_styles.css">
 
-<title>Eenmaal Andermaal</title>
-
 <div class="has-background-black has-text-white">
     <div class="container">
         <div class="block">
