@@ -5,10 +5,7 @@ include_once("includes/header.php");
 <title>Home</title>
 
 <body>
-<div class="hero-head">
-    <section class="SectionComponent hero section is-block is-relative is-black is-large">
 
-    </section>
 </div>
 
 </body>

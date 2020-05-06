@@ -75,5 +75,7 @@ fabric.properties
 thumbs.db
 
 #eigen bestanden i-project
-.idea/
-/.idea/
+/node_modules
+node_modules
+.idea
+/.idea
