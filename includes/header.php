@@ -31,7 +31,7 @@ session_start();
             <a class="navbar-item" href="#">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
             <a class="navbar-item" href="#">Contact</a>
-        </div>
+        </div>s
         <div class="navbar-end">
             <?php
             if(!ISSET($_SESSION['gebruiker'])) {
@@ -39,7 +39,7 @@ session_start();
                   <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
                 echo '<a class="button is-black" href="#" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
-                  <a class="button is-black" href="login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
+                  <a class="button is-black" href="scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
             }
             ?>
         </div>
