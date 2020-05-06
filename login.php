@@ -13,11 +13,11 @@ include_once("includes/header.php");
                 <h3 class="title has-text-white">Login</h3>
                 <hr class="login-hr">
                 <div class="box">
-                    <form>
+                    <form action="scripts/check-login.php">
                         <div class="field">
                             <div class="control">
-                                <label class="label" for="email">Email</label>
-                                    <input class="input is-large" type="email" name="email" id="email" autofocus="" required>
+                                <label class="label" for="gebruikersnaam">Gebruikersnaam</label>
+                                    <input class="input is-large" type="text" name="gebruikersnaam" id="gebruikersnaam" autofocus="" required>
                             </div>
                         </div>
 
