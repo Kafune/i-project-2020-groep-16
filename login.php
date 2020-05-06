@@ -27,12 +27,6 @@ include_once("includes/header.php");
                                     <input class="input is-large" type="password" name="wachtwoord" id="wachtwoord" required>
                             </div>
                         </div>
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox">
-                                Onthoud mijn gegevens
-                            </label>
-                        </div>
                         <button class="button is-block is-black is-large is-fullwidth">Login <i class="fa fa-sign-in"
                                                                                                 aria-hidden="true"></i>
                         </button>
