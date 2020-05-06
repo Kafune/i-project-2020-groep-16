@@ -1,9 +1,10 @@
 <?php
+include_once('../includes/db.php');
 // check of de user alle twee velden heeft ingevuld en dan pas de code hieronder uitvoeren
 session_start();
-if(!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
+if (!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
 
-    include_once('../includes/db.php');
+
 // gebruikersnaam checken of het bestaat
 
     $gebruikersnaam = $_POST["gebruikersnaam"];
@@ -34,10 +35,8 @@ if(!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
         $conn->close();
         header("Location:login.php");
     }
-}
-// als velden niet ingevuld zijn dan pagina refresh
-else
-{
-header("Location:login.php");
+} // als velden niet ingevuld zijn dan pagina refresh
+else {
+    header("Location:login.php");
 }
 ?>

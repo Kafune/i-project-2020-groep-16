@@ -1,9 +1,7 @@
 <?php
-
-require_once('../includes/root.php');
-require_once(ROOT . '/includes/db.php');
-
 session_start();
+require_once('../includes/root.php');
+require_once('../includes/db.php');
 
 
 if (isset($_POST['emailCheck'])) {
@@ -11,6 +9,7 @@ if (isset($_POST['emailCheck'])) {
 
     //Check eerst of de e-mail al bestaat in de gebruikersdatabase
 
+    global $conn;
     $sql = "SELECT email FROM Gebruiker WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
