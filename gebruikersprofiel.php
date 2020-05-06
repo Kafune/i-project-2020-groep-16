@@ -69,6 +69,9 @@ include_once("includes/header.php");
             <!-- deze knop moet linken naar 'Mijn veilingen-pagina' -->
             <a href="" class="button is-primary">Naar mijn veilingen</a>
             <br><br>
+            <!-- dit moet linken naar pagina 'Wijzig accountgegevens'-->
+            <a href="">Wijzig accountgegevens</a>
+            <br>
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
             <a href="">Verwijder gebruikersprofiel</a>
             <br><br>
