@@ -2,10 +2,7 @@
 session_start();
 include_once('../../includes/db.php');
 
-echo $_SESSION['registratieStatus'];
-
-if ($_SESSION["registratieStatus"] == 3) {
-    echo "Doet het";
+if ($_SESSION['registratieStatus'] == 3) {
     $email = $_SESSION['email'];
     $gebruikersnaam = $_SESSION['gebruikersnaam'];
     $wachtwoord = $_SESSION['wachtwoord'];
@@ -44,10 +41,7 @@ if ($_SESSION["registratieStatus"] == 3) {
     $stmt->bindParam(':antwoordtekst', $antwoord);
 
     $stmt->execute();
-    echo "tot en met hier dan?";
-    $message = "Account aangemaakt!";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-
+    echo "test";
     header('location: ../../index.php');
 
 } else {
