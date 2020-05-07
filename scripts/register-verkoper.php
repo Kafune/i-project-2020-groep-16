@@ -16,11 +16,13 @@ if(isset($_POST['registreerverkoper'])) {
     $rekeningnummer = $_POST['rekeningnummer'];
     $creditcardnummer = $_POST['creditcardnummer'];
 
-    if(empty($_SESSION['creditcardnummer'])) {
-        $controleoptie = 'Post';
-    } else {
+    if(!empty($creditcardnummer)) {
         $controleoptie = 'Creditcard';
+    } else {
+        $controleoptie = 'Post';
     }
+
+    $_SESSION['controleoptie'] = $controleoptie;
 
     $sql = "INSERT INTO Verkoper
             VALUES (
@@ -50,5 +52,5 @@ if(isset($_POST['registreerverkoper'])) {
 
     $stmt->execute();
 
-    header("Location: ../index.php");
+    header("Location: ../registrerenVerkoperVoltooid.php");
 }
