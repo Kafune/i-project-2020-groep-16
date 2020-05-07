@@ -9,11 +9,11 @@ if (isset($_POST['login'])) {
 
 // gebruikersnaam checken of het bestaat
 
-    $gebruikersnaam = $_POST['gebruikersnaam'];
+    $gebruiker = $_POST['gebruikersnaam'];
     $wachtwoord = $_POST['wachtwoord'];
     $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($statement);
-    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+    $stmt->bindParam(':gebruikersnaam', $gebruiker);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
     if ($server_password == $password) {
         echo "Succesvol login";
 
-        $_SESSION['gebruikersnaam'] = $gebruikersnaam;
+        $_SESSION['gebruiker'] = $gebruikersnaam;
         $_SESSION['ingelogd'] = true;
         header('location: ' . $root . '/index.php');
     } else {

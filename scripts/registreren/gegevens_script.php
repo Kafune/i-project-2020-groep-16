@@ -9,13 +9,21 @@ if ($_SESSION['registratieStatus'] == 3) {
     $voornaam = $_POST['voornaam'];
     $achternaam = $_POST['achternaam'];
     $adresregel1 = $_POST['adresregel1'];
-    $adresregel2 = $_POST['adresregel2'];
+
+    if(!isset($_POST['adresregel2'])){
+        $adresregel2 = "";
+    } else {
+        $adresregel2 = $_POST['adresregel2'];
+    }
+
     $postcode = $_POST['postcode'];
     $plaatsnaam = $_POST['plaatsnaam'];
     $land = $_POST['land'];
     $geboortedag = $_POST['geboortedag'];
     $vraag = $_POST['vraag'];
     $antwoord = $_POST['antwoord'];
+
+
 
     $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
             adresregel1, adresregel2, postcode, plaatsnaam, land, geboortedag, email, wachtwoord, 
@@ -41,7 +49,6 @@ if ($_SESSION['registratieStatus'] == 3) {
     $stmt->bindParam(':antwoordtekst', $antwoord);
 
     $stmt->execute();
-    echo "test";
     header('location: ../../index.php');
 
 } else {
