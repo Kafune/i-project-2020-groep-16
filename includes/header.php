@@ -35,7 +35,7 @@ include_once ("root.php");
         </div>
         <div class="navbar-end">
             <?php
-            if(!ISSET($_SESSION['gebruikersnaam'])) {
+            if($_SESSION['ingelogd']== false) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
                   <a class="button is-black" href="../login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
