@@ -2,8 +2,8 @@
 include_once("includes/header.php");
 include_once("includes/db.php");
 
-if(isset($_SESSION['gebruikersnaam'])){
-    $gebruikersnaam = $_SESSION['gebruikersnaam'];
+if(isset($_SESSION['gebruiker'])){
+    $gebruikersnaam = $_SESSION['gebruiker'];
 
     $sql = "SELECT voornaam, achternaam,
             adresregel1, adresregel2, postcode, plaatsnaam,
@@ -86,7 +86,7 @@ if(isset($_SESSION['gebruikersnaam'])){
                         </div>
                         <div class="column">
                             <p><?=$Bank?></p>
-                            <p><?=$Controle-optie?></p>
+                            <p><?=$Controle?></p>
                             <p><?=$Creditcard?></p>
                             <p><?=$Bankrekening?></p>
                         </div>
