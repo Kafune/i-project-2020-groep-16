@@ -33,6 +33,9 @@ if ($_SESSION["registratieStatus"] == 2) {
                 $message = "Ongeldig wachtwoord";
                 echo "<script type='text/javascript'>alert('$message');</script>";
             }
+        } else {
+            $message = "Gebruikersnaam al bekend";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         }
     }
 
