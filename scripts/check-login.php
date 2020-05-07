@@ -9,11 +9,11 @@ if (isset($_POST['login'])) {
 
 // gebruikersnaam checken of het bestaat
 
-    $gebruiker = $_POST['gebruikersnaam'];
+    $gebruikersnaam = $_POST['gebruikersnaam'];
     $wachtwoord = $_POST['wachtwoord'];
     $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($statement);
-    $stmt->bindParam(':gebruikersnaam', $gebruiker);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);

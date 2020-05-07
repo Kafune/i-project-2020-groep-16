@@ -30,9 +30,16 @@ if ($_SESSION["registratieStatus"] == 2) {
                 header('Location: ../../registratie/gegevens.php');
             } else {
                 //verkeerd wachtwoord, stuur gebruiker terug naar zelfde scherm
-                $message = "Ongeldig wachtwoord";
-                echo "<script type='text/javascript'>alert('$message');</script>";
+                echo "<script>
+                alert('Ongeldig wachtwoord!');
+                window.location.href='../../registratie/inlog.php';
+                </script>";
             }
+        } else {
+            echo "<script>
+            alert('Gebruikersnaam is al bekend!');
+            window.location.href='../../registratie/inlog.php';
+            </script>";
         }
     }
 

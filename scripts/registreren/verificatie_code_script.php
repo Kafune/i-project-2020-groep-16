@@ -13,7 +13,6 @@ if($_SESSION["registratieStatus"] == 1) {
         } else {
             $message = "Ongeldige code";
             echo "<script type='text/javascript'>alert('$message');</script>";
-            header("Refresh:0");
         }
     }
 } else {
