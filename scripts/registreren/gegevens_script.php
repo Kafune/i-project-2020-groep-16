@@ -9,13 +9,7 @@ if ($_SESSION['registratieStatus'] == 3) {
     $voornaam = $_POST['voornaam'];
     $achternaam = $_POST['achternaam'];
     $adresregel1 = $_POST['adresregel1'];
-
-    if(!isset($_POST['adresregel2'])){
-        $adresregel2 = "";
-    } else {
-        $adresregel2 = $_POST['adresregel2'];
-    }
-
+    $adresregel2 = $_POST['adresregel2'];
     $postcode = $_POST['postcode'];
     $plaatsnaam = $_POST['plaatsnaam'];
     $land = $_POST['land'];
@@ -39,7 +33,10 @@ if ($_SESSION['registratieStatus'] == 3) {
     $stmt->bindParam(':voornaam', $voornaam);
     $stmt->bindParam(':achternaam', $achternaam);
     $stmt->bindParam(':adresregel1', $adresregel1);
-    $stmt->bindParam(':adresregel2', $adresregel2);
+    if(isset($adresregel2)) {
+        $stmt->bindParam(':adresregel2', $adresregel2);
+    }
+    $stmt->bindParam(':adresregel2', $adresregel2, PDO::PARAM_NULL);
     $stmt->bindParam(':postcode', $postcode);
     $stmt->bindParam(':plaatsnaam', $plaatsnaam);
     $stmt->bindParam(':land', $land);
