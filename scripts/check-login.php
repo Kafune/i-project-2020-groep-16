@@ -1,41 +1,36 @@
 <?php
 session_start();
-
 require_once('../includes/root.php');
 include_once('../includes/db.php');
+
 // check of de user alle twee velden heeft ingevuld en dan pas de code hieronder uitvoeren
-if (!empty($_POST["gebruikersnaam"]) && !empty($_POST["wachtwoord"])) {
+if (isset($_POST['login'])) {
 
 
 // gebruikersnaam checken of het bestaat
 
-    $gebruikersnaam = $_POST["gebruikersnaam"];
-    $wachtwoord = $_POST["wachtwoord"];
-    $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam =?";
+    $gebruikersnaam = $_POST['gebruikersnaam'];
+    $wachtwoord = $_POST['wachtwoord'];
+    $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($statement);
-    $stmt->bind_param("s", $gebruikersnaam);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
     $stmt->execute();
 
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $server_password = $row["wachtwoord"];
-    $password = sha1($wachtwoord);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //$hash = sha1($wachtwoord);
-    //$_SESSION['wachtwoord'] = $hash;
+    $server_password = $row['wachtwoord'];
+    $password = sha1($wachtwoord);
 
 //wachtwoord checken of het correct is
     if ($server_password == $password) {
         echo "Succesvol login";
 
-        $_SESSION["gebruikersnaam"] = $_POST["gebruikersnaam"];
-        $conn->close();
-        header("location:../index.php");
+        $_SESSION['gebruikersnaam'] = $gebruikersnaam;
+        header('location: ' . $root . '/index.php');
     } else {
         echo "login gefaald";
         echo "<br>";
-        $conn->close();
-        header('location: ' . $root . '/index.php');
+        header('location: ' . $root . '/login.php');
     }
 } // als velden niet ingevuld zijn dan pagina refresh
 else {

@@ -27,10 +27,10 @@ session_start();
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="index.php">Home</a>
+            <a class="navbar-item" href="../index.php">Home</a>
             <a class="navbar-item" href="#">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
-            <a class="navbar-item" href="#">Contact</a>
+            <a class="navbar-item" href="../contact.php">Contact</a>
         </div>
         <div class="navbar-end">
             <?php
