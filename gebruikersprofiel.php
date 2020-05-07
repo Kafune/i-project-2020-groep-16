@@ -1,5 +1,35 @@
 <?php
 include_once("includes/header.php");
+include_once("includes/db.php");
+
+if(isset($_SESSION['gebruikersnaam'])){
+    $gebruikersnaam = $_SESSION['gebruikersnaam'];
+
+    $sql = "SELECT voornaam, achternaam,
+            adresregel1, adresregel2, postcode, plaatsnaam,
+            land, geboortedag, email FROM Gebruiker where gebruikersnaam = :gebruikersnaam";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $voornaam = $row['voornaam'];
+    $achternaam = $row['achternaam'];
+    $adresregel1 = $row['adresregel1'];
+    $adresregel2 = $row['adresregel2'];
+    $postcode = $row['postcode'];
+    $plaatsnaam = $row['plaatsnaam'];
+    $land = $row['land'];
+    $geboortedag = $row['geboortedag'];
+    $email = $row['email'];
+
+} else {
+    header("Location: /index.php");
+}
+
+
 ?>
 <link rel="stylesheet" href="styles/css/mystyles.css">
 <link rel="stylesheet" href="styles/custom_styles.css">
@@ -33,16 +63,14 @@ include_once("includes/header.php");
                         <div class="column">
                             <p><?=$voornaam?> <?=$achternaam?></p>
                             <p><?=$gebruikersnaam?></p>
-                            <p><?=$GeboorteDag?></p>
+                            <p><?=$geboortedag?></p>
                             <br>
                             <p><?=$adresregel1?></p>
                             <p><?=$postcode?></p>
                             <p><?=$plaatsnaam?></p>
-                            <p><?=$Land?></p>
+                            <p><?=$land?></p>
                             <br>
-                            <p><?=$MailBox?></p>
-                            <p>telefoon</p>
-                            <p>mobiel</p>
+                            <p><?=$email?></p>
                         </div>
                     </div>
                 </div>
