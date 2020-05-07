@@ -1,5 +1,5 @@
 <?php
-include_once("includes/header.php");
+include_once("../includes/header.php");
 ?>
     <link rel="stylesheet" href="styles/css/mystyles.css">
     <link rel="stylesheet" href="styles/custom_styles.css">
@@ -29,16 +29,16 @@ include_once("includes/header.php");
                         </p>
                     </div>
                     <div class="column is-one-third">
-                        <form>
+                        <form action="../scripts/registreren/inlog_script.php" method="post">
                             <div class="field">
-                                <label class="label has-text-white">Gebruikersnaam</label>
-                                <input type="text" class="input" placeholder="">
+                                <label for="gebruikersnaam" class="label has-text-white">Gebruikersnaam</label>
+                                <input type="text" class="input" id="gebruikersnaam" name="gebruikersnaam" placeholder="">
                             </div>
                             <div class="field">
-                                <label class="label has-text-white">Wachtwoord</label>
-                                <input type="password" class="input" placeholder="">
+                                <label for="wachtwoord" class="label has-text-white">Wachtwoord</label>
+                                <input type="password" class="input" id="wachtwoord" name="wachtwoord" placeholder="">
                             </div>
-                            <button class="button is-fullwidth is-success">Volgende</button>
+                            <button name="accountCheck" class="button is-fullwidth is-primary">Volgende</button>
                         </form>
                     </div>
                 </div>
@@ -47,5 +47,5 @@ include_once("includes/header.php");
         </div>
     </div>
 <?php
-include_once("includes/footer.php");
+include_once("includes/footer.html");
 ?>

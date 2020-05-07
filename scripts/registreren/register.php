@@ -9,7 +9,6 @@ if (isset($_POST['emailCheck'])) {
 
     //Check eerst of de e-mail al bestaat in de gebruikersdatabase
 
-    global $conn;
     $sql = "SELECT email FROM Gebruiker WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);

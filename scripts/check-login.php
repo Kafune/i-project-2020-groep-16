@@ -18,6 +18,8 @@ if (isset($_POST['login'])) {
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
     $server_password = $row['wachtwoord'];
     $password = sha1($wachtwoord);
 
@@ -25,7 +27,8 @@ if (isset($_POST['login'])) {
     if ($server_password == $password) {
         echo "Succesvol login";
 
-        $_SESSION['gebruikersnaam'] = $gebruikersnaam;
+        $_SESSION['gebruiker'] = $gebruikersnaam;
+        $_SESSION['ingelogd'] = true;
         header('location: ' . $root . '/index.php');
     } else {
         echo "login gefaald";

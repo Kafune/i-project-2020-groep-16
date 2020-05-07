@@ -1,5 +1,5 @@
 <?php
-include_once("includes/header.php");
+include_once("../includes/header.php");
 ?>
 
 <?php
@@ -108,5 +108,5 @@ endif;
 
 
 <?php
-include_once("includes/footer.html");
+include_once("../includes/footer.html");
 ?>

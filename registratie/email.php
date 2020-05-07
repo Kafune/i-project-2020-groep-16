@@ -1,8 +1,8 @@
 <?php
-include_once("includes/header.php");
+include_once("../includes/header.php");
 ?>
-    <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
+    <link rel="stylesheet" href="../styles/css/mystyles.css">
+    <link rel="stylesheet" href="../styles/custom_styles.css">
 
 <title>Registreer</title>
 
@@ -11,7 +11,7 @@ include_once("includes/header.php");
         <br><br>
         <div class="block">
             <div class="columns">
-                <div class="column is-one-third">
+                <div class="column is-half">
                     <h1 class="is-size-2 has-text-centered">Registreren</h1>
                     <br>
                     <p>Iedereen die iets wil kopen of verkopen via EenmaalAndermaal,
@@ -29,21 +29,17 @@ include_once("includes/header.php");
                     </p>
                 </div>
                 <div class="column is-one-third">
-                    <form>
+                    <form action="../scripts/registreren/check_email_script.php" method="post">
                         <label class="label has-text-white">E-mail</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input type="email" class="input" placeholder="Geldig emailadres">
+                                <label for="email"></label>
+                                <input type="email" class="input" name="email" id="email" placeholder="Geldig emailadres">
                             </p>
                             <p class="control">
-                                <a href="" class="button is-primary">Check email</a>
+                                <input type="submit" class="button is-primary">
                             </p>
                         </div>
-                        <div class="field">
-                            <label class="label has-text-white">Verificatiecode</label>
-                            <input type="text" class="input" placeholder="Code">
-                        </div>
-                        <button class="button is-fullwidth is-success">Verificatiecode verzenden</button>
                     </form>
                 </div>
             </div>
@@ -52,5 +48,5 @@ include_once("includes/header.php");
     </div>
 </div>
 <?php
-include_once("includes/footer.php");
+include_once("../includes/footer.html");
 ?>
