@@ -120,6 +120,9 @@ if (isset($_SESSION['gebruiker'])) {
                 <br>
                 <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
                 <a href="">Verwijder gebruikersprofiel</a>
+                <br>
+                <!-- knop dat verwijst naar de verkoperregistratie -->
+                <a href="registrerenVerkoper.php">Registreren als verkoper</a>
                 <br><br>
             </div>
         </div>
