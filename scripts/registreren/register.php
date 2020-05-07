@@ -1,9 +1,7 @@
 <?php
-
-require_once('../includes/root.php');
-require_once(ROOT . '/includes/db.php');
-
 session_start();
+require_once('../includes/root.php');
+require_once('../includes/db.php');
 
 
 if (isset($_POST['emailCheck'])) {
