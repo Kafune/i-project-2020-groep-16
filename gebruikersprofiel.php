@@ -73,7 +73,13 @@ include_once("includes/header.php");
             <a href="">Wijzig accountgegevens</a>
             <br>
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
-            <a href="">Verwijder gebruikersprofiel</a>
+            <a href="scripts/verwijder-gebruiker.php" onclick="return confirm('Weet je zeker dat jij je account wilt verwijderen')">Delete</a>
+
+            <?php
+            //var_dump($_SESSION)
+            ?>
+
+
             <br><br>
         </div>
     </div>
