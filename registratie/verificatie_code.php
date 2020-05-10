@@ -40,6 +40,7 @@ include_once("../includes/header.php");
                                 </p>
                             </div>
                         </form>
+                        <?=$_SESSION['verificatieCode']?>
                     </div>
                 </div>
             </div>
@@ -47,5 +48,5 @@ include_once("../includes/header.php");
         </div>
     </div>
 <?php
-include_once("../includes/footer.html");
+include_once("../includes/footer.php");
 ?>

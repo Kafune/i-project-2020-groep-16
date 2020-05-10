@@ -9,5 +9,5 @@ include_once("includes/header.php");
 </body>
 
 <?php
-include_once("includes/footer.html");
+include_once("includes/footer.php");
 ?>

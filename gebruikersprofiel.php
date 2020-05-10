@@ -20,6 +20,7 @@ if (isset($_SESSION['gebruiker'])) {
     $adresregel1 = $row['adresregel1'];
     $adresregel2 = $row['adresregel2'];
     $postcode = $row['postcode'];
+
     $plaatsnaam = $row['plaatsnaam'];
     $land = $row['land'];
     $geboortedag = $row['geboortedag'];
@@ -75,20 +76,18 @@ if (isset($_SESSION['gebruiker'])) {
                                 <p>Land</p>
                                 <br>
                                 <p>Email</p>
-                                <p>Telefoon</p>
-                                <p>Mobiel</p>
                             </div>
-                            <div class="column">
-                                <p><?= $voornaam ?> <?= $achternaam ?></p>
+                            <div class="column persoonlijke-data">
+                                <p class="bewerkbaar"><?= $voornaam ?> <?= $achternaam ?></p>
                                 <p><?= $gebruikersnaam ?></p>
                                 <p><?= $geboortedag ?></p>
                                 <br>
-                                <p><?= $adresregel1 ?></p>
-                                <p><?= $postcode ?></p>
-                                <p><?= $plaatsnaam ?></p>
+                                <p class="bewerkbaar"><?= $adresregel1 ?></p>
+                                <p class="bewerkbaar"><?= $postcode ?></p>
+                                <p class="bewerkbaar"><?= $plaatsnaam ?></p>
                                 <p><?= $land ?></p>
                                 <br>
-                                <p><?= $email ?></p>
+                                <p class="bewerkbaar"><?= $email ?></p>
                             </div>
                         </div>
                     </div>
@@ -116,8 +115,12 @@ if (isset($_SESSION['gebruiker'])) {
                 <a href="" class="button is-primary">Naar mijn veilingen</a>
                 <br><br>
                 <!-- dit moet linken naar pagina 'Wijzig accountgegevens'-->
-                <a href="">Wijzig accountgegevens</a>
+                <a href="profielbewerken.php" class="accountwijzigen">Wijzig accountgegevens</a>
                 <br>
+
+                <a href="">Verander wachtwoord</a>
+                <br>
+
                 <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
                 <a href="">Verwijder gebruikersprofiel</a>
                 <br><br>
