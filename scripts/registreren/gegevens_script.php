@@ -49,7 +49,6 @@ if ($_SESSION['registratieStatus'] == 3) {
     header('location: ../../index.php');
 
 } else {
-    echo "FOUT";
     header('location:../../registratie/email.php');
 }
 ?>

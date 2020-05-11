@@ -11,7 +11,7 @@ include_once("../includes/header.php");
             <br><br>
             <div class="block">
                 <div class="columns">
-                    <div class="column is-half">
+                    <div class="column is-half" style="margin: 1rem">
                         <h1 class="is-size-2 has-text-centered">Registreren</h1>
                         <br>
                         <p>Iedereen die iets wil kopen of verkopen via EenmaalAndermaal,
