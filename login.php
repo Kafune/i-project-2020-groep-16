@@ -27,9 +27,7 @@ include_once("includes/header.php");
                                     <input class="input is-large" type="password" name="wachtwoord" id="wachtwoord" required>
                             </div>
                         </div>
-                        <button name="login" class="button is-block is-black is-large is-fullwidth">Login<i class="fa fa-sign-in"
-                                                                                                aria-hidden="true"></i>
-                        </button>
+                        <button name="login" class="button is-black is-large">Login</button>
                     </form>
                 </div>
             </div>
