@@ -19,7 +19,7 @@ include_once("../includes/header.php");
                             U zal worden gevraagd om persoonsgegevens in te vullen waarmee een account gemaakt word.
                         </p>
                     </div>
-                    <div class="column is-one-third">
+                    <div class="column is-half">
                         <form action="../scripts/registreren/gegevens_script.php" method="post">
                             <div class="field">
                                 <label for="voornaam" class="label has-text-white">Voornaam</label>
