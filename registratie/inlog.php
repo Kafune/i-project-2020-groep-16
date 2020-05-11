@@ -32,11 +32,11 @@ include_once("../includes/header.php");
                         <form action="../scripts/registreren/inlog_script.php" method="post">
                             <div class="field">
                                 <label for="gebruikersnaam" class="label has-text-white">Gebruikersnaam</label>
-                                <input type="text" class="input" id="gebruikersnaam" name="gebruikersnaam" placeholder="">
+                                <input type="text" class="input" id="gebruikersnaam" name="gebruikersnaam" required>
                             </div>
                             <div class="field">
                                 <label for="wachtwoord" class="label has-text-white">Wachtwoord</label>
-                                <input type="password" class="input" id="wachtwoord" name="wachtwoord" placeholder="">
+                                <input type="password" class="input" id="wachtwoord" name="wachtwoord" required minlength="7" pattern="(?=.*\d)">
                             </div>
                             <button name="accountCheck" class="button is-fullwidth is-primary">Volgende</button>
                         </form>
