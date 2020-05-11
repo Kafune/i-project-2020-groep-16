@@ -10,6 +10,7 @@ include_once ("root.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?=$root?>/styles/css/mystyles.css">
+    <link rel="stylesheet" href="<?=$root?>/styles/css/mystyles.css">
     <title>Eenmaal Andermaal</title>
 </head>
 <body>
