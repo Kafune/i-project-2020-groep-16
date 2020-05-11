@@ -1,6 +1,6 @@
 <?php
-include_once("includes/header.php");
-include_once("includes/db.php");
+include_once("../includes/header.php");
+include_once("../includes/db.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -336,7 +336,7 @@ if (isset($_SESSION['gebruiker'])) {
                             </div>
 
                             <input type="submit" name="bewerken" value="Bewerk profiel" class="button is-primary">
-                            <a href="/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
+                            <a href="/profiel/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
                         </form>
 
                     </div>
@@ -364,5 +364,5 @@ if (isset($_SESSION['gebruiker'])) {
     </div>
     <br><br>
 <?php
-include_once("includes/footer.php");
+include_once("../includes/footer.php");
 ?>

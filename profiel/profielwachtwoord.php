@@ -1,6 +1,6 @@
 <?php
-include_once("includes/header.php");
-include_once("includes/db.php");
+include_once("../includes/header.php");
+include_once("../includes/db.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -81,5 +81,5 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
         </div>
     </div>
 <?php
-include_once("includes/footer.php");
+include_once("../includes/footer.php");
 ?>
