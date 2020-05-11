@@ -10,7 +10,6 @@ if(empty($_SESSION['gebruiker'])) {
 global $conn;
 
 if(isset($_POST['registreerverkoper'])) {
-
     $gebruikersnaam = $_SESSION['gebruiker'];
     $banknaam = $_POST['banknaam'];
     $rekeningnummer = $_POST['rekeningnummer'];
