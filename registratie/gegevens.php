@@ -11,7 +11,7 @@ include_once("../includes/header.php");
             <br><br>
             <div class="block">
                 <div class="columns">
-                    <div class="column is-one-third">
+                    <div class="column is-one-third" style="margin: 1rem">
                         <h1 class="is-size-2 has-text-centered">Registreren</h1>
                         <br>
                         <p>Iedereen die iets wil kopen of verkopen via EenmaalAndermaal,
@@ -19,7 +19,7 @@ include_once("../includes/header.php");
                             U zal worden gevraagd om persoonsgegevens in te vullen waarmee een account gemaakt word.
                         </p>
                     </div>
-                    <div class="column is-one-third">
+                    <div class="column is-half">
                         <form action="../scripts/registreren/gegevens_script.php" method="post">
                             <div class="field">
                                 <label for="voornaam" class="label has-text-white">Voornaam</label>

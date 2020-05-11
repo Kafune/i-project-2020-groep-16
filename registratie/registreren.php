@@ -9,7 +9,7 @@ if (isset($_SESSION['emailBestaat'])) :
 
     ?>
     <section>
-        <h2>Email Bestaat!!</h2>
+        <h2>Email Bestaat!</h2>
     </section>
 <?php
 endif;
