@@ -336,7 +336,7 @@ if (isset($_SESSION['gebruiker'])) {
                             </div>
 
                             <input type="submit" name="bewerken" value="Bewerk profiel" class="button is-primary">
-                            <a href="/profiel/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
+                            <a href="/index" class="button is-primary">Annuleer wijzigingen</a>
                         </form>
 
                     </div>
