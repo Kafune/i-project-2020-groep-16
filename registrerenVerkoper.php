@@ -17,7 +17,7 @@ if(empty($_SESSION['gebruiker'])) {
                 <div class="field">
                     <label class="label" for="gebruikersnaam">Gebruikersnaam</label>
                     <div class="control">
-                        <input name="gebruikersnaam" id="gebruikersnaamp" class="input" type="text" value="<?php echo $_SESSION['gebruiker']?>" disabled required>
+                        <input name="gebruikersnaam" id="gebruikersnaam" class="input" type="text" value="<?php echo $_SESSION['gebruiker']?>" disabled required>
                     </div>
                 </div>
 
