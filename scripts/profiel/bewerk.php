@@ -35,10 +35,9 @@ if (isset($_SESSION['gebruiker'])) {
 
                 $wachtwoord = $_POST['wachtwoord'];
                 $hashedWachtwoord = sha1($wachtwoord);
-                echo($hashedWachtwoord);
 
                 // check daarna of de gebruiker de wachtwoord heeft ingevoerd voordat de wachtwoord verandering ingaat.
-                if($hashedWachtwoord == $resultaat['wachtwoord']) {
+                if ($hashedWachtwoord == $resultaat['wachtwoord']) {
                     $voornaam = $_POST['voornaam'];
                     $achternaam = $_POST['achternaam'];
                     $adresregel1 = $_POST['adresregel1'];
@@ -67,6 +66,7 @@ if (isset($_SESSION['gebruiker'])) {
 
                     header('location: /gebruikersprofiel.php');
                 } else {
+                    $_SESSION['wachtwoordinvoer'] = 'incorrect';
                     header('location: /profielbewerken.php');
                 }
             }

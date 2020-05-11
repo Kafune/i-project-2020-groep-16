@@ -118,7 +118,7 @@ if (isset($_SESSION['gebruiker'])) {
                 <a href="profielbewerken.php" class="accountwijzigen">Wijzig accountgegevens</a>
                 <br>
 
-                <a href="">Verander wachtwoord</a>
+                <a href="profielwachtwoord.php">Verander wachtwoord</a>
                 <br>
 
                 <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
