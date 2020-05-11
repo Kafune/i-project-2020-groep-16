@@ -7,10 +7,10 @@ include_once("../includes/header.php");
 <title>Registreer</title>
 
 <div class="has-background-black has-text-white">
-    <div class="container">
+    <div class="container is-centered">
         <br><br>
         <div class="block">
-            <div class="columns">
+            <div class="columns is-centered">
                 <div class="column is-half">
                     <h1 class="is-size-2 has-text-centered">Registreren</h1>
                     <br>
@@ -28,7 +28,7 @@ include_once("../includes/header.php");
                         <br><br>
                     </p>
                 </div>
-                <div class="column is-one-third">
+                <div class="column is-one-quarter">
                     <form action="../scripts/registreren/check_email_script.php" method="post">
                         <label class="label has-text-white">E-mail</label>
                         <div class="field has-addons">
