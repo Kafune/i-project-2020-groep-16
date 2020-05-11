@@ -14,10 +14,6 @@ if(isset($_SESSION['gebruiker'])){
     $conn->close();
 }
 else{
-
+    header("Location: /index.php");
 }
-
-
-
-
 ?>
