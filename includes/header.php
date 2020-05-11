@@ -41,9 +41,9 @@ include_once("root.php");
 
             if(!isset($_SESSION['ingelogd'])) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
-                  <a class="button is-black" href="../login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
+                  <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
-                echo '<a class="button is-black" href="/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
+                echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
                   <a class="button is-black" href="/scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
             }
             ?>

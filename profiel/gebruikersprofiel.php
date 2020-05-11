@@ -113,17 +113,17 @@ if (isset($_SESSION['gebruiker'])) {
             <a href="" class="button is-primary">Naar mijn veilingen</a>
             <br><br>
             <!-- dit moet linken naar pagina 'Wijzig accountgegevens'-->
-            <a href="profielbewerken.php" class="accountwijzigen">Wijzig accountgegevens</a>
+            <a href="profiel/profielbewerken.php" class="accountwijzigen">Wijzig accountgegevens</a>
             <br>
 
-            <a href="profielwachtwoord.php">Verander wachtwoord</a>
+            <a href="profiel/profielwachtwoord.php">Verander wachtwoord</a>
             <br>
 
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
             <a href="scripts/verwijder-gebruiker.php"
                onclick="return confirm('Weet je zeker deze account te verwijderen ?')">Account verwijderen</a>
             <br>
-            <a href="registrerenVerkoper.php">Registreren als verkoper</a>
+            <a href="profiel/registrerenVerkoper.php">Registreren als verkoper</a>
             <br><br>
 
 
