@@ -39,10 +39,14 @@ include_once("root.php");
         <div class="navbar-end">
             <?php
 
-            if(!isset($_SESSION['ingelogd'])) {
+            if (!isset($_SESSION['ingelogd'])) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
+                if (isset($_SESSION['verkoper'])) {
+                    echo '<a class="button is-black" href="/producten/rubrieken.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                }
+
                 echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
                   <a class="button is-black" href="/scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
             }
