@@ -42,11 +42,11 @@ if (isset($_SESSION['gebruiker'])) {
 
 }
 
-function haalIngelogdeGebruiker($connectie, $gebruikersnaam)
+function haalIngelogdeGebruiker($dbconnectie, $gebruikersnaam)
 {
     $sql = "SELECT gebruikersnaam, wachtwoord FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
 
-    $stmt = $connectie->prepare($sql);
+    $stmt = $dbconnectie->prepare($sql);
     $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
     $stmt->execute();
 
