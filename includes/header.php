@@ -32,17 +32,22 @@ include_once("root.php");
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-start">
             <a class="navbar-item" href="/index.php">Home</a>
-            <a class="navbar-item" href="#">Categoriën</a>
+            <a class="navbar-item" href="/producten/rubrieken.php?volgnr=1">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
             <a class="navbar-item" href="/contact.php">Contact</a>
         </div>
         <div class="navbar-end">
             <?php
-            if ($_SESSION['ingelogd'] == false) {
+
+            if (!isset($_SESSION['ingelogd'])) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
-                  <a class="button is-black" href="../login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
+                  <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
-                echo '<a class="button is-black" href="/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
+                if (isset($_SESSION['verkoper'])) {
+                    echo '<a class="button is-black" href="/producten/rubrieken.php?volgnr=1" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                }
+
+                echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
                   <a class="button is-black" href="/scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
             }
             ?>

@@ -1,55 +1,85 @@
 <?php
 include_once("../includes/header.php");
-?>
-    <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
+include_once("../includes/db.php");
 
-    <title>Registreer</title>
+if (isset($_SESSION['gebruiker'])) {
+    $gebruikersnaam = $_SESSION['gebruiker'];
+
+    $sql = "SELECT * FROM Gebruiker where gebruikersnaam = :gebruikersnaam";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+    $stmt->execute();
+
+    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+} else {
+    header("Location: /index.php");
+}
+?>
 
     <div class="has-background-black has-text-white">
         <div class="container">
-            <br><br>
+            <?php
+            if (isset($_SESSION['wachtwoordinvoer'])) :
+                unset($_SESSION['wachtwoordinvoer']);
+                ?>
+                <div class="errormsg">
+                    <h1 class="title has-text-centered is-fullwidth has-background-warning">Wachtwoord verkeerd
+                        ingevoerd!</h1>
+                </div>
+            <?php
+            endif;
+            ?>
             <div class="block">
+                <br><br>
+                <h1 class="title is-2 has-text-white has-text-centered">Profiel bewerken</h1>
+                <br>
+                <hr>
                 <div class="columns">
-                    <div class="column is-one-third" style="margin: 1rem">
-                        <h1 class="is-size-2 has-text-centered">Registreren</h1>
-                        <br>
-                        <p>Iedereen die iets wil kopen of verkopen via EenmaalAndermaal,
-                            moet zich als gebruiker inschrijven.
-                            U zal worden gevraagd om persoonsgegevens in te vullen waarmee een account gemaakt word.
-                        </p>
-                    </div>
-                    <div class="column is-half">
-                        <form action="../scripts/registreren/gegevens_script.php" method="post">
-                            <div class="field">
-                                <label for="voornaam" class="label has-text-white">Voornaam</label>
-                                <input type="text" name="voornaam" id="voornaam" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="achternaam" class="label has-text-white">Achternaam</label>
-                                <input type="text" name="achternaam" id="achternaam" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="adresregel1" class="label has-text-white">Adresregel 1</label>
-                                <input type="text" name="adresregel1" id="adresregel1" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="adresregel2" class="label has-text-white">Adresregel 2</label>
-                                <input type="text" name="adresregel2" id="adresregel2" class="input">
-                            </div>
-                            <div class="field">
-                                <label for="postcode" class="label has-text-white">Postcode</label>
-                                <input type="text" name="postcode" id="postcode" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="plaatsnaam" class="label has-text-white">Plaatsnaam</label>
-                                <input type="text" name="plaatsnaam" id="plaatsnaam" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="land" class="label has-text-white">Land</label>
-                                <span class="select is-fullwidth">
+                    <!-- dit moet alleen te zien zijn als de gebruiker ingelogd is -->
+                    <div class="column">
+                        <form action="scripts/profiel/bewerk.php" method="post">
+
+                            <h2 class="title is-3 has-text-white">Accountgegevens</h2>
+                            <div class="columns">
+                                <div class="column is-three-quarters has-text-weight-bold">
+                                    <div class="field">
+                                        <label for="voornaam">Voornaam</label>
+                                        <input type="text" name="voornaam" id="voornaam" class="input"
+                                               value="<?= $resultaat['voornaam'] ?>" required><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="achternaam">Achternaam</label>
+                                        <input type="text" name="achternaam" id="achternaam" class="input"
+                                               value="<?= $resultaat['achternaam'] ?>" required><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="adresregel1">Adresregel 1</label>
+                                        <input type="text" name="adresregel1" id="adresregel1" class="input"
+                                               value="<?= $resultaat['adresregel1'] ?>" required><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="adresregel2">Adresregel 2</label>
+                                        <input type="text" name="adresregel2" id="adresregel2" class="input"
+                                               value="<?= $resultaat['adresregel2'] ?>"><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="postcode">Postcode</label>
+                                        <input type="text" name="postcode" id="postcode" class="input"
+                                               value="<?= $resultaat['postcode'] ?>" required><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="plaatsnaam">Plaats</label>
+                                        <input type="text" name="plaatsnaam" id="plaatsnaam" class="input"
+                                               value="<?= $resultaat['plaatsnaam'] ?>" required><br>
+                                    </div>
+                                    <div class="field">
+                                        <label for="land" class="label has-text-white">Land</label>
+                                        <span class="select is-fullwidth">
                                     <select class="select is-fullwidth" name="land" id="land" required>
-                                        <option value="Afghanistan">Afghanistan</option>
+                                            <option value="<?=$resultaat['land']?>"><?=$resultaat['land']?></option>
+                                            <option value="Afghanistan">Afghanistan</option>
                                             <option value="Åland Islands">Åland Islands</option>
                                             <option value="Albania">Albania</option>
                                             <option value="Algeria">Algeria</option>
@@ -295,38 +325,44 @@ include_once("../includes/header.php");
                                             <option value="Zimbabwe">Zimbabwe</option>
                                     </select>
                                 </span>
-                                </label>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="field">
-                                <label for="geboortedag" class="label has-text-white">Geboortedag</label>
-                                <input type="date" name="geboortedag" id="geboortedag" class="input" required>
+                                <label for="Wachtwoord">Voer uw wachtwoord in om uw aanpassingen te voltooien</label>
+                                <input type="password" name="wachtwoord" id="wachtwoord" class="input" required><br>
                             </div>
-                            <div class="field">
-                                <label for="vraag" class="label has-text-white">Geheime vraag</label>
-                                <span class="select is-fullwidth">
-                                <label>
-                                    <select name="vraag">
-                                        <option value="1">In welke straat ben je geboren?</option>
-                                        <option value="2">Wat is de meisjesnaam je moeder?</option>
-                                        <option value="3">Wat is je lievelingsgerecht?</option>
-                                        <option value="4">Hoe heet je oudste zusje?</option>
-                                        <option value="5">Hoe heet je huisdier?</option>
-                                    </select>
-                                </label>
-                            </span>
-                            </div>
-                            <div class="field">
-                                <label for="antwoord" class="label has-text-white">Antwoord geheime vraag</label>
-                                <input type="text" name="antwoord" id="antwoord" class="input" required>
-                            </div>
-                            <input type="submit" name="registreren" class="button is-fullwidth is-primary">
+
+                            <input type="submit" name="bewerken" value="Bewerk profiel" class="button is-primary">
+                            <a href="/index" class="button is-primary">Annuleer wijzigingen</a>
                         </form>
+
+                    </div>
+                    <!-- dit moet alleen te zien zijn als de gebruiker ingelogd is en een verkoopaccount heeft -->
+                    <div class="column">
+                        <h2 class="title is-3 has-text-white">Verkopers account</h2>
+                        <div class="columns">
+                            <div class="column has-text-weight-bold">
+                                <p>Bank</p>
+                                <p>Controle via</p>
+                                <p>Creditcardnummer</p>
+                                <p>Rekeningnummer</p>
+                            </div>
+                            <div class="column">
+                                <!--                            <p>--><? //= $bank ?><!--</p>-->
+                                <!--                            <p>--><? //= $controle ?><!--</p>-->
+                                <!--                            <p>--><? //= $creditcardnummer ?><!--</p>-->
+                                <!--                            <p>--><? //= $rekeningnummer ?><!--</p>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br><br>
         </div>
     </div>
+    <br><br>
 <?php
 include_once("../includes/footer.php");
 ?>

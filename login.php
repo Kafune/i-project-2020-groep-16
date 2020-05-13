@@ -24,7 +24,7 @@ include_once("includes/header.php");
                         <div class="field">
                             <div class="control">
                                 <label class="label" for="wachtwoord">Wachtwoord</label>
-                                    <input class="input is-large" type="password" name="wachtwoord" id="wachtwoord" pattern="(?=.*\d).{7,}" required>
+                                    <input class="input is-large" type="password" name="wachtwoord" id="wachtwoord" required>
                             </div>
                         </div>
                         <button name="login" class="button is-black is-large">Login</button>
@@ -37,5 +37,5 @@ include_once("includes/header.php");
 </body>
 
 <?php
-include_once("includes/footer.html");
+include_once("includes/footer.php");
 ?>

@@ -17,13 +17,11 @@
                 <b>Koper</b>
                 <p><a href="/registratie/email.php" style="color: black">Registreren</a></p>
                 <p><a href="/login.php" style="color: black">Login</a></p>
-
                 <p>Voorwaarden</p>
             </div>
             <div class="column">
                 <b>Verkoper</b>
-                <p>Registreren</p>
-                <p>Start met verkopen</p>
+                <p><a href="/profiel/registrerenVerkoper.php">Registreren</a></p>
                 <p>Voorwaarden</p>
             </div>
             <div class="column">
@@ -36,3 +34,5 @@
     <br>
     <p>Copyright © 2020 Eenmaal Andermaal Alle rechten voorbehouden.</p>
 </footer>
+<!--<script src="../styles/jquery-3.5.1.min.js"></script>-->
+<script src="../styles/js/app.js"></script>

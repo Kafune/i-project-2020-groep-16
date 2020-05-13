@@ -36,7 +36,7 @@ include_once("../includes/header.php");
                             </div>
                             <div class="field">
                                 <label for="wachtwoord" class="label has-text-white">Wachtwoord</label>
-                                <input type="password" class="input" id="wachtwoord" name="wachtwoord" required pattern="(?=.*\d).{7,}">
+                                <input type="password" class="input" id="wachtwoord" name="wachtwoord" required>
                             </div>
                             <button name="accountCheck" class="button is-fullwidth is-primary">Volgende</button>
                         </form>
@@ -47,5 +47,5 @@ include_once("../includes/header.php");
         </div>
     </div>
 <?php
-include_once("includes/footer.html");
+include_once("includes/footer.php");
 ?>

@@ -7,8 +7,6 @@ if(empty($_SESSION['gebruiker'])) {
     header("Location: index.php");
 }
 
-global $conn;
-
 if(isset($_POST['registreerverkoper'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
     $banknaam = $_POST['banknaam'];
@@ -51,5 +49,5 @@ if(isset($_POST['registreerverkoper'])) {
 
     $stmt->execute();
 
-    header("Location: ../registrerenVerkoperVoltooid.php");
+    header("Location: /profiel/registrerenVerkoperVoltooid.php");
 }
