@@ -1,5 +1,5 @@
 <?php
-include_once("includes/header.php");
+include_once("../includes/header.php");
 
 //if(empty($_SESSION['gebruiker'])) {
 //    header("Location: index.php");
@@ -16,6 +16,6 @@ include_once("includes/header.php");
 </div>
 
 <?php
-include_once("includes/footer.html");
+include_once("../includes/footer.php");
 
 ?>

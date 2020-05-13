@@ -1,6 +1,6 @@
 <?php
-include_once("includes/header.php");
-include_once("includes/db.php");
+include_once("../includes/header.php");
+include_once("../includes/db.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -120,7 +120,7 @@ if (isset($_SESSION['gebruiker'])) {
             <br>
 
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
-            <a href="scripts/verwijder-gebruiker.php"
+            <a href="/scripts/verwijder-gebruiker.php"
                onclick="return confirm('Weet je zeker deze account te verwijderen ?')">Account verwijderen</a>
             <br>
             <a href="registrerenVerkoper.php">Registreren als verkoper</a>
@@ -131,5 +131,5 @@ if (isset($_SESSION['gebruiker'])) {
     </div>
 </div>
 <?php
-include_once("includes/footer.php");
+include_once("/includes/footer.php");
 ?>

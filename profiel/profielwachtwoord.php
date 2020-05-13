@@ -1,6 +1,6 @@
 <?php
-include_once("includes/header.php");
-include_once("includes/db.php");
+include_once("../includes/header.php");
+include_once("../includes/db.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -59,7 +59,7 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
 
                         <div class="columns">
                             <section class="column is-three-quarters">
-                                <form action="scripts/profiel/bewerkwachtwoord.php" method="post">
+                                <form action="/scripts/profiel/bewerkwachtwoord.php" method="post">
                                     <div class="field">
                                         <label for="oudwachtwoord">Oud wachtwoord</label>
                                         <input type="password" name="oudwachtwoord" id="oudwachtwoord" class="input" required>
@@ -69,7 +69,7 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
                                         <input type="password" name="nieuwwachtwoord" id="nieuwwachtwoord" class="input" required>
                                     </div>
                                     <input type="submit" name="bewerkwachtwoord" value="Bewerk profiel" class="button is-primary">
-                                    <a href="/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
+                                    <a href="/profiel/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
                                 </form>
                             </section>
                         </div>
@@ -81,5 +81,5 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
         </div>
     </div>
 <?php
-include_once("includes/footer.php");
+include_once("../includes/footer.php");
 ?>
