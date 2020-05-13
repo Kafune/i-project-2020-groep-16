@@ -1,9 +1,9 @@
 <?php
 include_once("../includes/header.php");
 
-//if(empty($_SESSION['gebruiker'])) {
-//    header("Location: index.php");
-//}
+if(empty($_SESSION['gebruiker'])) {
+    header("Location: ../index.php");
+}
 ?>
 
 <div class="columns is-centered">
