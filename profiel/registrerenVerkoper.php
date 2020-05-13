@@ -2,7 +2,7 @@
 include_once("../includes/header.php");
 
 if(empty($_SESSION['gebruiker'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 
 ?>
