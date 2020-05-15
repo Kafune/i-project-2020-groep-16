@@ -36,7 +36,7 @@ include_once("root.php");
             <a class="navbar-item" href="#">Top Veilingen</a>
             <a class="navbar-item" href="/contact.php">Contact</a>
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end is">
             <?php
 
             if (!isset($_SESSION['ingelogd'])) {
@@ -44,7 +44,7 @@ include_once("root.php");
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
                 if (isset($_SESSION['verkoper'])) {
-                    echo '<a class="button is-black" href="/producten/rubrieken.php?volgnr=1" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                    echo '<a class="button is-black" href="/voorwerpen/voorwerptoevoegen.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
                 }
 
                 echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
