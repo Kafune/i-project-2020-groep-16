@@ -1,9 +1,15 @@
 <?php
 include_once("../includes/header.php");
-
 require_once('../includes/db.php');
+include_once ('../includes/functies.php');
 
-$resultaat = haalGebruikerInfo($conn, $_SESSION['email']);
+$sql = "SELECT vraag, antwoordtekst, tekstvraag
+            FROM Gebruiker
+            INNER JOIN Vraag ON Gebruiker.vraag = Vraag.vraagnummer
+            WHERE email = :email";
+
+
+$resultaat = haalGegevens($conn, $sql, ':email', $_SESSION['email']);
 
 ?>
     <title>Wachtwoord vergeten - Geheime vraag</title>
@@ -21,9 +27,10 @@ $resultaat = haalGebruikerInfo($conn, $_SESSION['email']);
                     </div>
                     <div class="box">
                         <p>Vul de antwoord in die u heeft gegeven bij het beantwoorden van deze geheime vraag.</p>
-                        <form action="/scripts/profiel/emailverificatie.php" method="post">
+                        <form action="/scripts/profiel/wachtwoordvraag.php" method="post">
                             <div class="control">
                                 <label class="geheimevraag" for="geheimevraag">Geheime vraag</label>
+                                <input type="hidden" name="geheimevraagnr" value="<?=$resultaat['vraag']?>">
                                 <input type="text" name="geheimevraag" class="input" value="<?=$resultaat['tekstvraag']?>" disabled>
                             </div>
                             <div class="control">
@@ -32,7 +39,6 @@ $resultaat = haalGebruikerInfo($conn, $_SESSION['email']);
                             </div>
                             <input type="submit" name="wachtwoord-vergeten-codeverificatie" class="button is-black is-large">
                         </form>
-                        <?=$_SESSION['verificatieCode']?>
                     </div>
                 </div>
             </div>
@@ -43,19 +49,4 @@ $resultaat = haalGebruikerInfo($conn, $_SESSION['email']);
     </body>
 <?php
 include_once("../includes/footer.php");
-
-function haalGebruikerInfo($dbconnectie, $email)
-{
-    //Check eerst of de e-mail al bestaat in de gebruikersdatabase
-    $sql = "SELECT vraag, antwoordtekst, tekstvraag
-            FROM Gebruiker 
-            INNER JOIN Vraag ON Gebruiker.vraag = Vraag.vraagnummer
-            WHERE email = :email";
-    $stmt = $dbconnectie->prepare($sql);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-
-    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $resultaat;
-}
 ?>

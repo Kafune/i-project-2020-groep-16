@@ -2,33 +2,31 @@
 session_start();
 require_once('../../includes/root.php');
 require_once('../../includes/db.php');
+require_once('../../includes/functies.php');
 
-$_SESSION['email'] = $_POST['email'];
+$_SESSION['geheimevraagnr'] = $_POST['geheimevraagnr'];
+$_SESSION['geheimeantwoord'] = $_POST['geheimeantwoord'];
 
-$resultaat = haalGebruikerInfo($conn, $_SESSION['email']);
+$sql = "SELECT vraag, antwoordtekst
+            FROM Gebruiker
+            WHERE email = :email AND vraag = :vraag AND antwoordtekst = :antwoord";
 
+$queryArray = array(
+    ':email' => $_SESSION['email'],
+    ':vraag' => $_SESSION['geheimevraagnr'],
+    ':antwoord' => $_SESSION['geheimeantwoord']
+);
+
+
+//haal gebruiker van database
+$resultaat = haalGegevensArray($conn, $sql, $queryArray);
+
+//kijk of gebruiker bestaat. zo ja, maak verificatiecode aan
 if (!empty($resultaat)) {
-    genereerVerificatieCode();
-    verstuurMail($resultaat);
-    $_SESSION['wachtwoordVergetenStap'] = 1;
-    header('location: /profiel/wachtwoordemailverificatie.php');
+    $_SESSION['wachtwoordVergetenStap'] = 3;
+    header('location: /profiel/wachtwoordveranderen.php');
 
 } else {
     $_SESSION['error'] = "emailOnbekend";
-    header('location: /profiel/wachtwoordvergeten.php');
-}
-
-
-function haalGebruikerInfo($dbconnectie, $email)
-{
-    //Check eerst of de e-mail al bestaat in de gebruikersdatabase
-    $sql = "SELECT email, gebruikersnaam
-            FROM Gebruiker 
-            WHERE email = :email";
-    $stmt = $dbconnectie->prepare($sql);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-
-    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $resultaat;
+    header('location: /profiel/wachtwoordvraag.php');
 }

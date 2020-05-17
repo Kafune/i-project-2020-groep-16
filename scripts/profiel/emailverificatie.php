@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once('../../includes/functies.php');
+
 if($_SESSION['wachtwoordVergetenStap'] == 1) {
     if (isset($_POST['wachtwoord-vergeten-codeverificatie'])) {
         if (checkGegevens($_POST['code'], $_SESSION['verificatieCode'])) {
@@ -12,12 +14,4 @@ if($_SESSION['wachtwoordVergetenStap'] == 1) {
     }
 } else {
     header('location: /profiel/wachtwoordvergeten.php');
-}
-
-function checkGegevens($clientResultaat, $databaseResultaat)
-{
-    if ($clientResultaat == $databaseResultaat) {
-        return true;
-    }
-    return false;
 }

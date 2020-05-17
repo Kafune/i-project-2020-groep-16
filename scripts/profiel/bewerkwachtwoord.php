@@ -2,6 +2,10 @@
 session_start();
 require_once('../../includes/root.php');
 include_once('../../includes/db.php');
+include_once('../../includes/functies.php');
+
+$sql = "SELECT gebruikersnaam, wachtwoord FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
+
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -42,18 +46,6 @@ if (isset($_SESSION['gebruiker'])) {
 
 }
 
-function haalIngelogdeGebruiker($dbconnectie, $gebruikersnaam)
-{
-    $sql = "SELECT gebruikersnaam, wachtwoord FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
-
-    $stmt = $dbconnectie->prepare($sql);
-    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
-    $stmt->execute();
-
-    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $resultaat;
-}
-
 //deze check is er voor het geval dat een gebruiker via client zijn gebruikersnaam probeert te manipuleren
 function checkGegevens($clientResultaat, $databaseResultaat)
 {
@@ -63,30 +55,5 @@ function checkGegevens($clientResultaat, $databaseResultaat)
     return false;
 }
 
-function geefWachtwoordHash($wachtwoord)
-{
-    return sha1($wachtwoord);
-}
 
-function checkWachtwoord($wachtwoord)
-{
-    //wachtwoord is kleiner dan 7 letters
-    if (strlen($wachtwoord) < 7) {
-        $_SESSION['wachtwoordCheck'] = "lengte";
-        return false;
-    }
 
-    //wachtwoord bevat geen grote of kleine letter
-    if (!preg_match("#[a-zA-Z]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "letters";
-        return false;
-    }
-
-    //wachtwoord bevat geen cijfer
-    if (!preg_match("#[0-9]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "cijfers";
-        return false;
-    }
-
-    return true;
-}
