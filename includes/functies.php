@@ -7,8 +7,7 @@ function haalGegevens($dbconnectie, $sql, $bindparameter, $bindvariabel)
     $stmt->bindParam($bindparameter, $bindvariabel);
     $stmt->execute();
 
-    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $resultaat;
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 // functie waarbij er meerdere parameters gebruikt wordt om op een database record te zoeken.
@@ -18,9 +17,14 @@ function haalGegevensArray($dbconnectie, $sql, $array)
     $stmt = $dbconnectie->prepare($sql);
     $stmt->execute($array);
 
-    $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $resultaat;
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function voerQueryUit($dbconnectie, $sql, $array) {
+    $stmt = $dbconnectie->prepare($sql);
+    $stmt->execute($array);
+}
+
 
 //Controle van sessie met daadwerkelijke database resultaat
 function checkGegevens($clientResultaat, $databaseResultaat)

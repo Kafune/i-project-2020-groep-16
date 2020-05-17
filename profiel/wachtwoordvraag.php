@@ -37,7 +37,7 @@ $resultaat = haalGegevens($conn, $sql, ':email', $_SESSION['email']);
                                 <label class="geheimeantwoord" for="geheimeantwoord">Geheime antwoord</label>
                                 <input type="text" name="geheimeantwoord" class="input">
                             </div>
-                            <input type="submit" name="wachtwoord-vergeten-codeverificatie" class="button is-black is-large">
+                            <input type="submit" name="wachtwoord-vergeten-vraag" class="button is-black is-large">
                         </form>
                     </div>
                 </div>
