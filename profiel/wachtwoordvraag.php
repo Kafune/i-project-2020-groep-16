@@ -2,6 +2,7 @@
 include_once("../includes/header.php");
 require_once('../includes/db.php');
 include_once ('../includes/functies.php');
+include_once ('../includes/errors.php');
 
 $sql = "SELECT vraag, antwoordtekst, tekstvraag
             FROM Gebruiker

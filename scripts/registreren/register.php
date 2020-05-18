@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once('../includes/root.php');
-require_once('../includes/db.php');
+require_once('../../includes/root.php');
+require_once('../../includes/db.php');
+include_once ('../../includes/functies.php');
 
 
 if (isset($_POST['emailCheck'])) {
@@ -86,7 +87,7 @@ if (isset($_POST['accountCheck'])) {
 
     if (empty($resultaat)) {
         $wachtwoord = $_POST['wachtwoord'];
-        $_SESSION['wachtwoordCheck'] = "";
+        $_SESSION['error'] = "";
 
         if (checkWachtwoord($wachtwoord)) {
             $wachtwoordHash = sha1($wachtwoord);
@@ -146,28 +147,4 @@ if (isset($_POST['registreren'])) {
     $stmt->execute();
     
     header('location: ' . $root . '/registreren.php');
-}
-
-// check of de wachtwoord aan de eisen voldoet
-// zet session op basis van message zodat gebruiker weet waar het fout gaat.
-function checkWachtwoord($wachtwoord)
-{
-    if (strlen($wachtwoord) < 7) {
-        $_SESSION['wachtwoordCheck'] = "lengte";
-        return false;
-    }
-
-    //wachtwoord bevat geen grote of kleine letter
-    if (!preg_match("#[a-zA-Z]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "letters";
-        return false;
-    }
-
-    //wachtwoord bevat geen cijfer
-    if (!preg_match("#[0-9]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "cijfers";
-        return false;
-    }
-
-    return true;
 }

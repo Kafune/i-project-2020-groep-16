@@ -27,6 +27,6 @@ if (!empty($resultaat)) {
     header('location: /profiel/wachtwoordveranderen.php');
 
 } else {
-    $_SESSION['error'] = "emailOnbekend";
+    $_SESSION['error'] = "errorEmailOnbekend";
     header('location: /profiel/wachtwoordvraag.php');
 }
