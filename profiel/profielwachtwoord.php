@@ -61,6 +61,7 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
                         <div class="columns">
                             <section class="column is-three-quarters">
                                 <form action="/scripts/profiel/bewerkwachtwoord.php" method="post">
+
                                     <div class="field">
                                         <label for="oudwachtwoord">Oud wachtwoord</label>
                                         <input type="password" name="oudwachtwoord" id="oudwachtwoord" class="input" required>
@@ -70,7 +71,7 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
                                         <input type="password" name="nieuwwachtwoord" id="nieuwwachtwoord" class="input" required>
                                     </div>
                                     <input type="submit" name="bewerkwachtwoord" value="Bewerk profiel" class="button is-primary">
-                                    <a href="/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
+                                    <a href="/profiel/gebruikersprofiel.php" class="button is-primary">Annuleer wijzigingen</a>
                                 </form>
                             </section>
                         </div>

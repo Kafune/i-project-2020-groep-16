@@ -46,7 +46,10 @@ if ($_SESSION['registratieStatus'] == 3) {
     $stmt->bindParam(':antwoordtekst', $antwoord);
 
     $stmt->execute();
-    header('location: ../../index.php');
+    echo "<script>
+          alert('Geregistreerd! U kunt nu inloggen met uw inlog gegevens');
+          window.location.href='../../index.php';
+          </script>";
 
 } else {
     header('location:../../registratie/email.php');

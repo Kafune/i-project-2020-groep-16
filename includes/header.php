@@ -29,20 +29,31 @@ include_once("root.php");
     </div>
 
 
+
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-start">
             <a class="navbar-item" href="/index.php">Home</a>
-            <a class="navbar-item" href="#">Categoriën</a>
+            <a class="navbar-item" href="/producten/rubrieken.php?volgnr=1">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
-            <a class="navbar-item" href="/contact.php">Contact</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">Contact</a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/contact.php">Contact EenmaalAndermaal</a>
+                    <a class="navbar-item" href="/contact/ContactVerkoper.php">Contact Verkoper</a>
+                </div>
+            </div>
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end is">
             <?php
 
-            if(!isset($_SESSION['ingelogd'])) {
+            if (!isset($_SESSION['ingelogd'])) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
+                if (isset($_SESSION['verkoper'])) {
+                    echo '<a class="button is-black" href="/voorwerpen/voorwerptoevoegen.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                }
+
                 echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
                   <a class="button is-black" href="/scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';
             }
