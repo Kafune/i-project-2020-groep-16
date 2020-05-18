@@ -59,7 +59,7 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
 
                         <div class="columns">
                             <section class="column is-three-quarters">
-                                <form action="/scripts/profiel/bewerkwachtwoord.php" method="post">
+                                <form action="../scripts/profiel/bewerkwachtwoord.php" method="post">
                                     <div class="field">
                                         <label for="oudwachtwoord">Oud wachtwoord</label>
                                         <input type="password" name="oudwachtwoord" id="oudwachtwoord" class="input" required>

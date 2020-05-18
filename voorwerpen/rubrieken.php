@@ -24,9 +24,9 @@ include_once("../includes/db.php");
                         $parentnr = $row['rubriek'];
                         $rubrieknr = $row['rubrieknummer'];
                         $volgnr = $row['volgnr'];
-                        $breadcrumb_volgnr = $row['volgnr']+1;
+                        $breadcrumb_volgnr = $row['volgnr'] + 1;
 
-                        echo "<li><a href='rubrieken.php?parent=" . $rubrieknr . "&volgnr=" . $breadcrumb_volgnr . "'>" . $naam . "</a></li>";
+                        echo "<li><a href='rubrieken.php?parent=" . $rubrieknr . "&volgnr=" . $breadcrumb_volgnr . "'>" . $rubrieknr . $naam . "</a></li>";
                     }
                     echo "<li><a href='rubrieken.php?volgnr=1'>Rubrieken</a></li>";
 
@@ -46,11 +46,12 @@ include_once("../includes/db.php");
                     $volgnr = $row['volgnr'] + 1;
                     $id = $row['rubrieknummer'];
                     $rubriek = $row['rubrieknaam'];
-                    echo '<a href="rubrieken.php?parent=' . $id . '&volgnr=' . $volgnr . '">' . $rubriek . '</a><br>';
+                    $rubrieknr = $row['rubrieknummer'];
+                    echo '<a href="rubrieken.php?parent=' . $id . '&volgnr=' . $volgnr . '">' . $rubrieknr . " " . $rubriek . '</a><br>';
                 }
             } else {
                 $parent = $_GET['parent'];
-                $sql1 = "SELECT * FROM Rubriek WHERE Rubriek = :parent";
+                $sql1 = "SELECT * FROM Rubriek WHERE Rubriek = :parent ORDER by rubrieknaam ASC";
 
                 $result = $conn->prepare($sql1);
                 $result->bindParam(':parent', $parent);
@@ -61,7 +62,9 @@ include_once("../includes/db.php");
                     $id = $row['rubrieknummer'];
                     $parent = $row ['rubriek'];
                     $rubriek = $row['rubrieknaam'];
-                    echo '<a href="rubrieken.php?parent=' . $id . '&volgnr=' . $volgnr . '">' . $rubriek . '</a><br>';
+                    if ($_GET['parent'] != $id) {
+                        echo '<a href="rubrieken.php?parent=' . $id . '&volgnr=' . $volgnr . '">' . $id . " " . $rubriek . '</a><br>';
+                    }
                 }
             }
             ?>
