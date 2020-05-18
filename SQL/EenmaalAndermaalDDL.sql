@@ -13,7 +13,7 @@ go
 
 go
 CREATE TABLE Bod (
-    ID int IDENTITY (1,1) NOT NULL,
+    	ID int IDENTITY (1,1) NOT NULL,
 	voorwerp int NOT NULL,
 	bodbedrag numeric(10,2) NOT NULL,
 	gebruiker varchar(20) NOT NULL,
