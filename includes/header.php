@@ -39,7 +39,12 @@ include_once("root.php");
                 <a class="navbar-link">Contact</a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/contact.php">Contact EenmaalAndermaal</a>
-                    <a class="navbar-item" href="/contact/ContactVerkoper.php">Contact Verkoper</a>
+                    <?php
+                    if (isset($_SESSION['gebruiker'])){
+                        echo "<a class=\"navbar-item\" href=\"/contact/ContactVerkoper.php\">Contact Verkoper</a>";
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
