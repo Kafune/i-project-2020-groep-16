@@ -11,7 +11,7 @@ include_once("../includes/header.php");
             <br><br>
             <h1 class="title has-text-centered">Voorwerp verkopen</h1>
 
-            <form method="post" action="/scripts/voorwerpen/voorwerptoevoegen.php">
+            <form method="post" action="/scripts/voorwerpen/voorwerptoevoegen.php" enctype="multipart/form-data">
 
                 <div class="columns">
                     <div class="column">
@@ -30,9 +30,9 @@ include_once("../includes/header.php");
                         </div>
 
                         <div class="field">
-                            <label class="label" for="afbeelding">Beschrijving</label>
+                            <label class="label" for="afbeelding">Afbeelding</label>
                             <div class="control">
-                                <input type="file" id="afbeeldingen" name="afbeeldingen" accept="image/*">
+                                <input type="file" id="file" name="file" accept="image/*">
                             </div>
                         </div>
                     </div>
