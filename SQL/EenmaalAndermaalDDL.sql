@@ -83,21 +83,23 @@ go
 
 go
 CREATE TABLE Voorwerp (
-	voorwerpnummer int NOT NULL,
+	voorwerpnummer int IDENTITY(1,1) NOT NULL,
 	titel varchar(30) NOT NULL,
 	beschrijving varchar(5000) NOT NULL,
 	startprijs numeric(10,2) NOT NULL,
 	betalingswijze varchar(25) NOT NULL,
 	betalingsinstructie varchar(50) NULL,
-	plaatsnaam varchar(25) NOT NULL,
+	plaatsnaam varchar(50) NOT NULL,
 	land varchar(20) NOT NULL,
 	looptijd smallint NOT NULL,
 	veilingbegin datetime NOT NULL,
 	verzendkosten numeric(8,2) NULL,
 	verzendinstructies varchar(50) NULL,
-	gebruikersnaam varchar(10) NOT NULL,
+	verkoper varchar(20) NOT NULL,
+	koper varchar(20) NULL,
+    veilingeinde datetime NOT NULL,
 	veilingGesloten bit NOT NULL,
-	veilingeinde datetime NOT NULL
+    verkoopprijs numeric(15, 2) null
 )
 go
 
