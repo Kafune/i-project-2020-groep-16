@@ -29,12 +29,19 @@ include_once("root.php");
     </div>
 
 
+
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-start">
             <a class="navbar-item" href="/index.php">Home</a>
             <a class="navbar-item" href="/producten/rubrieken.php?volgnr=1">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
-            <a class="navbar-item" href="/contact.php">Contact</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">Contact</a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/contact.php">Contact EenmaalAndermaal</a>
+                    <a class="navbar-item" href="/contact/ContactVerkoper.php">Contact Verkoper</a>
+                </div>
+            </div>
         </div>
         <div class="navbar-end">
             <?php

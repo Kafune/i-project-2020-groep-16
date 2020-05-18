@@ -2,8 +2,9 @@
 include_once("../includes/header.php");
 
 if(empty($_SESSION['gebruiker'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
+
 ?>
 
 <div class="columns is-centered">
@@ -20,28 +21,24 @@ if(empty($_SESSION['gebruiker'])) {
                         <input name="gebruikersnaam" id="gebruikersnaam" class="input" type="text" value="<?php echo $_SESSION['gebruiker']?>" disabled required>
                     </div>
                 </div>
-
                 <div class="field">
                     <label for="banknaam" class="label">Banknaam</label>
                     <div class="control">
                         <input name="banknaam" id="banknaam" class="input" type="text" required>
                     </div>
                 </div>
-
                 <div class="field">
                     <label for="rekeningnummer" class="label">Rekeningnummer (IBAN)</label>
                     <div class="control">
                         <input name="rekeningnummer" id="rekeningnummer" class="input" type="text" required>
                     </div>
                 </div>
-
                 <div class="field">
                     <label for="creditcardnummer" class="label">Creditcardnummer</label>
                     <div class="control">
                         <input name="creditcardnummer" id="creditcardnummer" class="input" type="number" placeholder="Dit veld is optioneel.">
                     </div>
                 </div>
-
                 <div class="field">
                     <div class="control">
                         <label class="checkbox">
@@ -50,7 +47,6 @@ if(empty($_SESSION['gebruiker'])) {
                         </label>
                     </div>
                 </div>
-
                 <div class="field is-grouped">
                     <div class="control">
                         <button class="button is-success" type="submit" name="registreerverkoper">Verzenden</button>

@@ -8,7 +8,6 @@ if(empty($_SESSION['gebruiker'])) {
 }
 
 if(isset($_POST['registreerverkoper'])) {
-
     $gebruikersnaam = $_SESSION['gebruiker'];
     $banknaam = $_POST['banknaam'];
     $rekeningnummer = $_POST['rekeningnummer'];
