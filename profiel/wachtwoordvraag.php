@@ -16,7 +16,7 @@ $resultaat = haalGegevens($conn, $sql, ':email', $_SESSION['email']);
 
     <body>
     <?php
-    //zorg ervoor dat de gebruiker niet direct
+    //zorg ervoor dat de gebruiker niet direct deze form kan invullen
     if($_SESSION['wachtwoordVergetenStap'] == 2) :
         ?>
         <section class="hero is-primary is-fullheight">

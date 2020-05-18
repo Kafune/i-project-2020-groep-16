@@ -1,6 +1,7 @@
 <?php
 include_once("../includes/header.php");
 include_once("../includes/db.php");
+include_once("../includes/functies.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];

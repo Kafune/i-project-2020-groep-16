@@ -1,7 +1,8 @@
 <?php
+//TODO: De eerste 3 functies kan beter aangepakt worden.
+
 // functie waarbij er één parameter gebruikt wordt om op een database record te zoeken.
-function haalGegevens($dbconnectie, $sql, $bindparameter, $bindvariabel)
-{
+function haalGegevens($dbconnectie, $sql, $bindparameter, $bindvariabel) {
     //Check eerst of de e-mail al bestaat in de gebruikersdatabase
     $stmt = $dbconnectie->prepare($sql);
     $stmt->bindParam($bindparameter, $bindvariabel);
@@ -11,8 +12,7 @@ function haalGegevens($dbconnectie, $sql, $bindparameter, $bindvariabel)
 }
 
 // functie waarbij er meerdere parameters gebruikt wordt om op een database record te zoeken.
-function haalGegevensArray($dbconnectie, $sql, $array)
-{
+function haalGegevensArray($dbconnectie, $sql, $array) {
     //Check eerst of de e-mail al bestaat in de gebruikersdatabase
     $stmt = $dbconnectie->prepare($sql);
     $stmt->execute($array);
@@ -23,6 +23,7 @@ function haalGegevensArray($dbconnectie, $sql, $array)
 function voerQueryUit($dbconnectie, $sql, $array) {
     $stmt = $dbconnectie->prepare($sql);
     $stmt->execute($array);
+    return $stmt;
 }
 
 

@@ -4,12 +4,13 @@ require_once('../../includes/root.php');
 include_once('../../includes/db.php');
 include_once('../../includes/functies.php');
 
-$sql = "SELECT gebruikersnaam, wachtwoord FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
-
-
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
-    $resultaat = haalIngelogdeGebruiker($conn, $gebruikersnaam);
+    $sql = "SELECT gebruikersnaam, wachtwoord FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
+    $queryArray = array(
+        ':gebruikersnaam' => $gebruikersnaam
+    );
+    $resultaat = haalGegevensArray($conn, $sql, $queryArray);
     if (!empty($resultaat)) {
 
         if (checkGegevens($gebruikersnaam, $resultaat['gebruikersnaam'])) {
@@ -31,28 +32,18 @@ if (isset($_SESSION['gebruiker'])) {
                         $stmt->bindParam(':nieuwwachtwoord', $nieuwwachtwoord);
                         $stmt->execute();
 
-                        header('location: /gebruikersprofiel.php');
+                        header('location: /profiel/gebruikersprofiel.php');
                     } else {
-                        header('location: /profielwachtwoord.php');
+                        header('location: /profiel/profielwachtwoord.php');
                     }
                 } else {
                     $_SESSION['wachtwoordCheck'] = "oudwachtwoordOngeldig";
-                    header('location: /profielwachtwoord.php');
+                    header('location: /profiel/profielwachtwoord.php');
                 }
-
             }
         }
     }
 
-}
-
-//deze check is er voor het geval dat een gebruiker via client zijn gebruikersnaam probeert te manipuleren
-function checkGegevens($clientResultaat, $databaseResultaat)
-{
-    if ($clientResultaat == $databaseResultaat) {
-        return true;
-    }
-    return false;
 }
 
 

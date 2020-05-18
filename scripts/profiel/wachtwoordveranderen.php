@@ -17,23 +17,31 @@ $_SESSION['wachtwoordbevestigen'] = $_POST['wachtwoordbevestigen'];
 if (isset($_POST['wachtwoord-vergeten-veranderen'])) {
     if (checkGegevens($_SESSION['wachtwoord'], $_SESSION['wachtwoordbevestigen'])) {
         if (checkWachtwoord($_SESSION['wachtwoord'])) {
+            $hashedWachtwoord = geefWachtwoordHash($_SESSION['wachtwoord']);
+
             $queryArray = array(
-                ':wachtwoord' => $_SESSION['wachtwoord'],
+                ':wachtwoord' => $hashedWachtwoord,
                 ':email' => $_SESSION['email']
             );
-
-            $hashedWachtwoord = geefWachtwoordHash($_SESSION['wachtwoord']);
             $sql = "UPDATE Gebruiker SET wachtwoord = :wachtwoord WHERE email = :email";
-            voerQueryUit($conn, $sql, $queryArray);
-            session_destroy();
-            header('location: /login.php');
+            if(voerQueryUit($conn, $sql, $queryArray)) {
+                session_destroy();
+                header('location: /login.php');
+            } else {
+                // TODO: error msg
+                header('location: /profiel/wachtwoordveranderen.php');
+            }
+
 
         } else {
+            // TODO: error msg
+
             header('location: /profiel/wachtwoordveranderen.php');
 
         }
 
     } else {
+        // TODO: error msg
 
         header('location: /profiel/wachtwoordveranderen.php');
     }

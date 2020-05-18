@@ -4,6 +4,10 @@ include_once("../includes/header.php");
     <title>Wachtwoord veranderen</title>
 
     <body>
+<?php
+//zorg ervoor dat de gebruiker niet direct deze form kan invullen
+if($_SESSION['wachtwoordVergetenStap'] == 3) :
+    ?>
     <section class="hero is-primary is-fullheight">
         <div class="hero-body">
             <div class="container has-text-centered">
@@ -27,6 +31,9 @@ include_once("../includes/header.php");
             </div>
         </div>
     </section>
+    <?php
+endif;
+    ?>
     </body>
 <?php
 include_once("../includes/footer.php");
