@@ -1,10 +1,7 @@
 go
-CREATE DATABASE EenmaalAndermaal
-go
-
-go
 use iproject16
 go
+
 
 /* Tabellen aanmaken */
 go
@@ -16,11 +13,20 @@ go
 
 go
 CREATE TABLE Bod (
+    ID int IDENTITY (1,1) NOT NULL,
 	voorwerp int NOT NULL,
 	bodbedrag numeric(10,2) NOT NULL,
-	gebruiker varchar(10) NOT NULL,
+	gebruiker varchar(20) NOT NULL,
 	boddag date NOT NULL,
 	bodtijdstip datetime NOT NULL
+)
+go
+
+go
+CREATE TABLE Categorieen (
+    ID int IDENTITY(1,1) NOT NULL,
+    Name varchar(100) NULL,
+    Parent int NULL
 )
 go
 
@@ -37,7 +43,7 @@ go
 
 go
 CREATE TABLE Gebruiker (
-	gebruikersnaam varchar(10) NOT NULL,
+	gebruikersnaam varchar(20) NOT NULL,
 	voornaam varchar(15) NOT NULL,
 	achternaam varchar(30) NOT NULL,
 	adresregel1 varchar(50) NOT NULL,
@@ -47,7 +53,7 @@ CREATE TABLE Gebruiker (
 	land varchar(20) NOT NULL,
 	geboortedag date NOT NULL,
 	email varchar(50) NOT NULL,
-	wachtwoord varchar(255) NOT NULL,
+	wachtwoord varchar(64) NOT NULL,
 	vraag int NOT NULL,
 	antwoordtekst varchar(30) NOT NULL,
 	isVerkoper bit NOT NULL
@@ -57,7 +63,7 @@ go
 go
 CREATE TABLE Gebruikerstelefoon (
 	volgnr int NOT NULL,
-	gebruikersnaam varchar(10) NOT NULL,
+	gebruikersnaam varchar(20) NOT NULL,
 	telefoonnummer int NOT NULL
 )
 go
@@ -73,7 +79,7 @@ go
 
 go
 CREATE TABLE Verkoper (
-	gebruikersnaam varchar(10) NOT NULL,
+	gebruikersnaam varchar(20) NOT NULL,
 	banknaam varchar(20),
 	rekeningnummer varchar(34),
 	controleoptienaam char(10) NOT NULL,
@@ -84,7 +90,7 @@ go
 go
 CREATE TABLE Voorwerp (
 	voorwerpnummer int IDENTITY(1,1) NOT NULL,
-	titel varchar(30) NOT NULL,
+	titel varchar(50) NOT NULL,
 	beschrijving varchar(5000) NOT NULL,
 	startprijs numeric(10,2) NOT NULL,
 	betalingswijze varchar(25) NOT NULL,
@@ -189,11 +195,11 @@ ADD CONSTRAINT FK_Verkoper_Voorwerp_Ref_Verkoper FOREIGN KEY (gebruikersnaam)
 	REFERENCES Gebruiker (gebruikersnaam); 
 
 ALTER TABLE Voorwerp
-ADD CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam FOREIGN KEY (gebruikersnaam)
+ADD CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam FOREIGN KEY (verkoper)
 	REFERENCES Verkoper (gebruikersnaam);
 
 ALTER TABLE Voorwerp
-ADD CONSTRAINT FK_Voorwerp_Gebruiker_REF_Gebruikersnaam FOREIGN KEY (gebruikersnaam)
+ADD CONSTRAINT FK_Voorwerp_Gebruiker_REF_Gebruikersnaam FOREIGN KEY (verkoper)
 	REFERENCES Gebruiker (gebruikersnaam); 
 
 ALTER TABLE VoorwerpInRubriek
