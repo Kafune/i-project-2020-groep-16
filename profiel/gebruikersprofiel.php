@@ -78,7 +78,7 @@ if (isset($_SESSION['gebruiker'])) {
                         <div class="column persoonlijke-data">
                             <p class="bewerkbaar"><?= $voornaam ?> <?= $achternaam ?></p>
                             <p><?= $gebruikersnaam ?></p>
-                            <p><?= $geboortedag ?></p>
+                            <p><?= date("d-m-Y", strtotime($geboortedag)) ?></p>
                             <br>
                             <p class="bewerkbaar"><?= $adresregel1 ?></p>
                             <p class="bewerkbaar"><?= $postcode ?></p>
