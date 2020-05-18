@@ -8,7 +8,7 @@ $page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
-$page_photo= $conn->prepare("SELECT * FROM bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
+$page_photo= $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
@@ -59,7 +59,7 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
             </nav>
             <div class="columns">
                 <div class="column is-half">
-                    <img src="<?php echo $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
+                    <img src="<?php echo 'upload/'.$row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
                     <p><?php echo $row_details['gebruikersnaam'] ?></p>
                     <p><?php echo $row_details['plaatsnaam'] ?></p>
                     <br>
@@ -69,7 +69,9 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     <p><?php echo $row_details['betalingsinstructie'] ?></p>
                     <br>
                     <p class="has-text-weight-bold">Startverkoop</p>
-                    <p><?php echo $row_details['looptijdeindetijdstip'] ?></p>
+                    <p><?php $phpdate = strtotime($row_details['veilingbegin']);
+                        $sqldate = date('d-m-Y H:i:s',$phpdate);
+                        echo $sqldate?></p>
                     <br>
                     <p class="has-text-weight-bold">Product ID</p>
                     <p><?php echo $row_details['voorwerpnummer'] ?></p>
