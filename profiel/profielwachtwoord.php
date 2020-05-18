@@ -60,7 +60,6 @@ if(isset( $_SESSION['wachtwoordCheck'])) {
 
                         <div class="columns">
                             <section class="column is-three-quarters">
-
                                 <form action="/scripts/profiel/bewerkwachtwoord.php" method="post">
 
                                     <div class="field">
