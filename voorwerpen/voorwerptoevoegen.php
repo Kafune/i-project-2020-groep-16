@@ -11,7 +11,7 @@ include_once("../includes/header.php");
             <br><br>
             <h1 class="title has-text-centered">Voorwerp verkopen</h1>
 
-            <form method="post" action="scripts/voorwerpen/voorwerptoevoegen.php">
+            <form method="post" action="/scripts/voorwerpen/voorwerptoevoegen.php">
 
                 <div class="columns">
                     <div class="column">
@@ -48,9 +48,9 @@ include_once("../includes/header.php");
                             <label class="label" for="betalingswijze">Betalingswijze</label>
                             <div class="control">
                                 <select name="betalingswijze" id="betalingswijze" class="select is-fullwidth" required>
-                                    <option value="Contant">Bankoverschrijving / Giro</option>
+                                    <option value="Bankoverschrijving / Giro">Bankoverschrijving / Giro</option>
                                     <option value="Contant">Contant</option>
-                                    <option value="Contant">iDeal</option>
+                                    <option value="iDeal">iDeal</option>
                                 </select>
                             </div>
                         </div>
