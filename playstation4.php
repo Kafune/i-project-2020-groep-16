@@ -1,7 +1,9 @@
 <?php
+
 include_once("includes/header.php");
 include_once("includes/db.php");
 $prod_id = $_GET['voorwerpnummer'];
+//print_r($_SESSION);
 $page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
@@ -10,15 +12,37 @@ $page_photo= $conn->prepare("SELECT * FROM bestand WHERE voorwerpnummer ='".$row
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
-
-$page_geb= $conn->prepare("SELECT * FROM bod WHERE Voorwerp ='".$row_details['voorwerpnummer']."'");
-$page_geb->execute();
-$row_geb = $page_geb->fetchAll(PDO::FETCH_ASSOC);
-//print_r($row_geb);
 ?>
 
     <link rel="stylesheet" href="styles/css/mystyles.css">
     <link rel="stylesheet" href="styles/custom_styles.css">
+<style>
+    #table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #ddd;}
+#table #high{
+    background-color: #4CAF50;
+    color: white;
+}
+#table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
 
     <body style="background-image: url('sources/background 1.gif');">
     <div class="container has-background-white containerExtraPadding">
@@ -60,30 +84,18 @@ $row_geb = $page_geb->fetchAll(PDO::FETCH_ASSOC);
                     <p>€<?php echo $row_details['startprijs'] ?></p>
                     <br>
                     <div class="box">
-                        <h1 class="title has-text-weight-bold has-text-centered">Tijd over</h1>
-
-                        <?php foreach($row_geb as $value){ ?>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <p><?php echo $value['gebruiker']?></p>
-                                </div>
-                                <div class="column has-text-centered">
-                                    <p>€<?php echo $value['bodbedrag']?></p>
-                                </div>
-                                <div class="column has-text-right">
-                                    <p><?php echo $value['bodtijdstip']?></p>
-                                </div>
-                            </div>
-
-                        <?php } ?>
-
-                        <div class="field has-addons has-addons-centered">
+                        <h1 class="title has-text-weight-bold has-text-centered bid_title">Tijd over</h1>
+                        <div id="auction_end"></div>
+                        <div id="name"></div>
+                        <div id="tableData" style="padding:20px;">
+                        </div>
+                        <div class="field has-addons has-addons-centered bid_data">
                             <p class="control">
-                                <input type="number" class="input" name="" id="" placeholder="€" required>
+                                <input type="number" class="input" name="" id="bid_amount" placeholder="€" required>
+                                <input type="hidden" id="bid_product_id" value="<?=$prod_id;?>">
                             </p>
                             <p class="control">
-                                <button type="submit" name="" class="button is-primary">Verzenden</button>
+                                <button type="submit" name="" id="bid_submit" class="button is-primary">Verzenden</button>
                             </p>
                         </div>
                     </div>
@@ -94,4 +106,78 @@ $row_geb = $page_geb->fetchAll(PDO::FETCH_ASSOC);
     </body>
 <?php
 include_once("includes/footer.php");
+$username = '';
+if(isset($_SESSION['gebruiker'])){
+    $username = $_SESSION['gebruiker'];
+}
 ?>
+
+<script>
+    var username = "<?=$username;?>"; 
+    var bid = 5;
+    getdata();
+    function getdata(){
+
+        prod_id = $('#bid_product_id').val();
+            $.post("insertByAjax.php",
+                {
+                    action: 'get',
+                    prod_id: prod_id
+                },
+            function(data, status){
+            var array = JSON.parse(data);
+            //alert("Data: " + data + "\nStatus: " + status);
+            $('#tableData').html(array.output);
+            if(array.highestvalue != 'none'){
+            bid = array.highestvalue;
+            }
+            if(array.auction_end != 'none'){
+            $('#auction_end').html("<center><h2>Einde veiling : "+array.auction_end+"</h2></center>")
+            }
+            if(array.bid == 'stop'){
+                $('.bid_data').html('');
+                $('.bid_title').text('tijd voorbij');
+                $('#name').html('<center><h1>Winnaar is '+array.person+'</h1><h1>Hoogste geboden bedrag : € '+array.highestvalue+'</h1></center>');
+            }
+            });
+            $('#bid_amount').val('');
+
+    }
+    $(document).ready(function(){
+        $("#bid_submit").click(function(){
+            if(username == ''){
+                alert('U moet eerst inloggen om te kunnen bieden!');
+                return false;
+            }
+            amount = $('#bid_amount').val();
+            prod_id = $('#bid_product_id').val();
+            if(amount != ''){
+                if(amount > bid){
+                $('#bid_amount').css('border','1px solid gray');
+            
+            $.post("insertByAjax.php",
+                {
+                    amount: amount,
+                    prod_id: prod_id
+                },
+            function(data, status){
+                var array = JSON.parse(data);
+                if(array.status == 0){
+                    alert("U kunt pas weer bieden als iemand u heeft overboden!");
+                }
+            getdata();
+            });
+
+            }else{
+                alert('Vul bedrag meer dan '+bid);
+            }
+
+            }else{
+                $('#bid_amount').css('border','2px solid red');
+            }
+            
+        });
+
+        //alert('fine');
+    });
+</script>
