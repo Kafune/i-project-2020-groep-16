@@ -1,17 +1,24 @@
 <?php
 include_once("../includes/header.php");
+include_once("../includes/db.php");
 
-//if(empty($_SESSION['gebruiker'])) {
-//    header("Location: index.php");
-//}
-//?>
+if(empty($_SESSION['gebruiker'])) {
+    header("Location: /index.php");
+}
+
+$sql_rubrieknaam = "SELECT rubrieknaam FROM Rubriek WHERE rubrieknummer = ".$_GET['rubriek']."";
+$stmt = $conn->prepare($sql_rubrieknaam);
+$stmt->execute();
+$resultaat = $stmt->fetch();
+$rubrieknaam = $resultaat['rubrieknaam'];
+?>
 
 <div class="columns is-centered" style="margin-left: 1rem; margin-right: 1rem">
         <div class="column is-half">
             <br><br>
             <h1 class="title has-text-centered">Voorwerp verkopen</h1>
 
-            <form method="post" action="/scripts/voorwerpen/voorwerptoevoegen.php">
+            <form method="post" action="/scripts/voorwerpen/voorwerptoevoegen.php" enctype="multipart/form-data">
 
                 <div class="columns">
                     <div class="column">
@@ -30,9 +37,21 @@ include_once("../includes/header.php");
                         </div>
 
                         <div class="field">
-                            <label class="label" for="afbeelding">Beschrijving</label>
                             <div class="control">
-                                <input type="file" id="afbeeldingen" name="afbeeldingen" accept="image/*">
+                                <input name="rubrieknummer" id="rubrieknummer" class="input" type="hidden" value="<?php echo $_GET['rubriek']?>" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="rubrieknaam">Rubrieknaam</label>
+                            <div class="control">
+                                <input name="rubrieknaam" id="rubrieknaam" class="input" type="text" value="<?php echo $rubrieknaam ?>" disabled required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="afbeelding">Afbeelding</label>
+                            <div class="control">
+                                <input type="file" id="file" name="file" accept="image/*">
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,7 @@ if($_POST){
                     <div class="card" style="min-height:460px">
                         <div class="card-image">
                             <figure class="image is-3by2">
-                                <img src="<?php echo $row_image['filenaam']; ?>" alt="Placeholder">
+                                <img src="<?php echo 'upload/'.$row_image['filenaam']; ?>" alt="Placeholder">
                             </figure>
                         </div>
                         <div class="card-content">
