@@ -83,7 +83,8 @@ CREATE TABLE Verkoper (
 	banknaam varchar(20),
 	rekeningnummer varchar(34),
 	controleoptienaam char(10) NOT NULL,
-	creditcardnummer varchar(19)
+	creditcardnummer varchar(19),
+    controlenummer char(23) NULL
 )
 go
 
@@ -129,7 +130,7 @@ ALTER TABLE Bestand
 ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam);
 
 ALTER TABLE Bod 
-ADD CONSTRAINT PK_Bod PRIMARY KEY (voorwerp, bodbedrag);
+ADD CONSTRAINT PK_Bod PRIMARY KEY (id, bodbedrag);
 
 ALTER TABLE Feedback
 ADD CONSTRAINT PK_Feedback PRIMARY KEY (voorwerpnummer, soortgebruiker);
