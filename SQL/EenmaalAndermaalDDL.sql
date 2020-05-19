@@ -83,7 +83,8 @@ CREATE TABLE Verkoper (
 	banknaam varchar(20),
 	rekeningnummer varchar(34),
 	controleoptienaam char(10) NOT NULL,
-	creditcardnummer varchar(19)
+	creditcardnummer varchar(19),
+    controlenummer char(23) NULL
 )
 go
 
