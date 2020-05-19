@@ -96,13 +96,17 @@ if (isset($_SESSION['gebruiker'])) {
                         <div class="column has-text-weight-bold">
                             <p>Bank</p>
                             <p>Controle via</p>
+                            <?php if($controle === 'Creditcard') { ?>
                             <p>Creditcardnummer</p>
+                            <?php } ?>
                             <p>Rekeningnummer</p>
                         </div>
                         <div class="column">
                             <p><?= $bank ?></p>
                             <p><?= $controle ?></p>
+                            <?php if($controle === 'Creditcard') { ?>
                             <p><?= $creditcardnummer ?></p>
+                            <?php } ?>
                             <p><?= $rekeningnummer ?></p>
                         </div>
                     </div>
@@ -136,5 +140,5 @@ if (isset($_SESSION['gebruiker'])) {
     </div>
 </div>
 <?php
-include_once("/includes/footer.php");
+include_once("../includes/footer.php");
 ?>
