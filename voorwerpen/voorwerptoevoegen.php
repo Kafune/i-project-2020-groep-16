@@ -1,10 +1,17 @@
 <?php
 include_once("../includes/header.php");
+include_once("../includes/db.php");
 
-//if(empty($_SESSION['gebruiker'])) {
-//    header("Location: index.php");
-//}
-//?>
+if(empty($_SESSION['gebruiker'])) {
+    header("Location: index.php");
+}
+
+$sql_rubrieknaam = "SELECT rubrieknaam FROM Rubriek WHERE rubrieknummer = ".$_GET['rubriek']."";
+$stmt = $conn->prepare($sql_rubrieknaam);
+$stmt->execute();
+$resultaat = $stmt->fetch();
+$rubrieknaam = $resultaat['rubrieknaam'];
+?>
 
 <div class="columns is-centered" style="margin-left: 1rem; margin-right: 1rem">
         <div class="column is-half">
@@ -26,6 +33,13 @@ include_once("../includes/header.php");
                             <label class="label" for="beschrijving">Beschrijving</label>
                             <div class="control">
                                 <textarea name="beschrijving" id="beschrijving" class="textarea" maxlength="5000" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="gebruikersnaam">Rubriek</label>
+                            <div class="control">
+                                <input name="gebruikersnaam" id="gebruikersnaam" class="input" type="text" value="<?php echo $rubrieknaam?>" disabled required>
                             </div>
                         </div>
 
