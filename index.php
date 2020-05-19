@@ -2,12 +2,12 @@
 include_once("includes/header.php");
 include_once("includes/db.php");
 
-if(empty($_GET['scearching'])){
+if(empty($_GET['searching'])){
     $page = $conn->prepare("SELECT * FROM voorwerp");
 
 }
 else{
-    $search = $_GET['scearching'];
+    $search = $_GET['searching'];
     $page = $conn->prepare("SELECT * FROM voorwerp WHERE titel LIKE '%".$search."%'");
 }
 $page->execute();
@@ -41,7 +41,7 @@ if($_POST){
             <form method="GET" action="">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
-                        <input type="text" class="input" name="scearching" id="" placeholder="Veiling zoeken" required>
+                        <input type="text" class="input" name="searching" id="" placeholder="Veiling zoeken" required>
                     </p>
                     <p class="control">
                         <button type="submit" class="button is-black">Zoek</button>
