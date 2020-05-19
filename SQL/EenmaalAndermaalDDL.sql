@@ -130,7 +130,7 @@ ALTER TABLE Bestand
 ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam);
 
 ALTER TABLE Bod 
-ADD CONSTRAINT PK_Bod PRIMARY KEY (voorwerp, bodbedrag);
+ADD CONSTRAINT PK_Bod PRIMARY KEY (id, bodbedrag);
 
 ALTER TABLE Feedback
 ADD CONSTRAINT PK_Feedback PRIMARY KEY (voorwerpnummer, soortgebruiker);
