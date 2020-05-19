@@ -69,7 +69,7 @@ if (isset($_SESSION['gebruiker'])) {
 
                     header('location: /gebruikersprofiel.php');
                 } else {
-                    $_SESSION['wachtwoordinvoer'] = 'incorrect';
+                    $_SESSION['error'] = 'incorrectWachtwoord';
                     header('location: /profielbewerken.php');
                 }
             }

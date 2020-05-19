@@ -8,7 +8,7 @@ if($_SESSION['wachtwoordVergetenStap'] == 1) {
             $_SESSION['wachtwoordVergetenStap'] = 2;
             header('location: /profiel/wachtwoordvraag.php');
         } else {
-            $_SESSION['error'] = "verificatieOnjuist";
+            $_SESSION['error'] = "errorVerificatieOnjuist";
             header('location: /profiel/wachtwoordemailverificatie.php');
         }
     }

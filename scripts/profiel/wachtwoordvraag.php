@@ -17,7 +17,6 @@ $queryArray = array(
     ':antwoord' => $_SESSION['geheimeantwoord']
 );
 
-
 //haal gebruiker van database
 $resultaat = haalGegevensArray($conn, $sql, $queryArray);
 
@@ -25,8 +24,7 @@ $resultaat = haalGegevensArray($conn, $sql, $queryArray);
 if (!empty($resultaat)) {
     $_SESSION['wachtwoordVergetenStap'] = 3;
     header('location: /profiel/wachtwoordveranderen.php');
-
 } else {
-    $_SESSION['error'] = "errorEmailOnbekend";
+    $_SESSION['error'] = "errorVraagOnjuist";
     header('location: /profiel/wachtwoordvraag.php');
 }

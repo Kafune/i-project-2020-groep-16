@@ -3,23 +3,23 @@ session_start();
 include_once('../../includes/db.php');
 
 if ($_SESSION['registratieStatus'] == 3) {
-    $email = $_SESSION['email'];
-    $gebruikersnaam = $_SESSION['gebruikersnaam'];
-    $wachtwoord = $_SESSION['wachtwoord'];
-    $voornaam = $_POST['voornaam'];
-    $achternaam = $_POST['achternaam'];
-    $adresregel1 = $_POST['adresregel1'];
-    $adresregel2 = $_POST['adresregel2'];
-    $postcode = $_POST['postcode'];
-    $plaatsnaam = $_POST['plaatsnaam'];
-    $land = $_POST['land'];
-    $geboortedag = $_POST['geboortedag'];
-    $vraag = $_POST['vraag'];
-    $antwoord = $_POST['antwoord'];
+    if ($_POST['registreren']) {
+        $email = $_SESSION['email'];
+        $gebruikersnaam = $_SESSION['gebruikersnaam'];
+        $wachtwoord = $_SESSION['wachtwoord'];
+        $voornaam = $_POST['voornaam'];
+        $achternaam = $_POST['achternaam'];
+        $adresregel1 = $_POST['adresregel1'];
+        $adresregel2 = $_POST['adresregel2'];
+        $postcode = $_POST['postcode'];
+        $plaatsnaam = $_POST['plaatsnaam'];
+        $land = $_POST['land'];
+        $geboortedag = $_POST['geboortedag'];
+        $vraag = $_POST['vraag'];
+        $antwoord = $_POST['antwoord'];
 
 
-
-    $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
+        $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
             adresregel1, adresregel2, postcode, plaatsnaam, land, geboortedag, email, wachtwoord, 
             vraag, antwoordtekst, isVerkoper)
         VALUES (:gebruikersnaam, :voornaam, :achternaam, 
@@ -27,31 +27,31 @@ if ($_SESSION['registratieStatus'] == 3) {
             :vraag, :antwoordtekst, 0)";
 
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
-    $stmt->bindParam(':wachtwoord', $wachtwoord);
-    $stmt->bindParam(':voornaam', $voornaam);
-    $stmt->bindParam(':achternaam', $achternaam);
-    $stmt->bindParam(':adresregel1', $adresregel1);
-    if(isset($adresregel2)) {
-        $stmt->bindParam(':adresregel2', $adresregel2);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+        $stmt->bindParam(':wachtwoord', $wachtwoord);
+        $stmt->bindParam(':voornaam', $voornaam);
+        $stmt->bindParam(':achternaam', $achternaam);
+        $stmt->bindParam(':adresregel1', $adresregel1);
+        if (isset($adresregel2)) {
+            $stmt->bindParam(':adresregel2', $adresregel2);
+        }
+        $stmt->bindParam(':adresregel2', $adresregel2, PDO::PARAM_NULL);
+        $stmt->bindParam(':postcode', $postcode);
+        $stmt->bindParam(':plaatsnaam', $plaatsnaam);
+        $stmt->bindParam(':land', $land);
+        $stmt->bindParam(':geboortedag', $geboortedag);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':vraag', $vraag);
+        $stmt->bindParam(':antwoordtekst', $antwoord);
+
+        $stmt->execute();
+
+        //TODO: account aanmaken message
+        $_SESSION['success'] = "succesAccountAanmaken";
+        header('location: /../index.php');
+    } else {
+        header('location:../../registratie/email.php');
     }
-    $stmt->bindParam(':adresregel2', $adresregel2, PDO::PARAM_NULL);
-    $stmt->bindParam(':postcode', $postcode);
-    $stmt->bindParam(':plaatsnaam', $plaatsnaam);
-    $stmt->bindParam(':land', $land);
-    $stmt->bindParam(':geboortedag', $geboortedag);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':vraag', $vraag);
-    $stmt->bindParam(':antwoordtekst', $antwoord);
-
-    $stmt->execute();
-    echo "<script>
-          alert('Geregistreerd! U kunt nu inloggen met uw inlog gegevens');
-          window.location.href='../../index.php';
-          </script>";
-
-} else {
-    header('location:../../registratie/email.php');
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 include_once("includes/header.php");
 include_once("includes/db.php");
+include_once("includes/meldingen.php");
 
 if(empty($_GET['scearching'])){
     $page = $conn->prepare("SELECT * FROM voorwerp");
@@ -30,7 +31,11 @@ if($_POST){
 <link rel="stylesheet" href="styles/custom_styles.css">
 
 <body>
+
 <div class="block">
+    <?php
+    laatMeldingZien();
+    ?>
     <section class="hero is-primary"> <!-- repeat staat aan & het is niet mooi responsive -->
         <div class="hero-body" style="background-image: url('sources/background 2.png'); background-size: contain;">
             <div class="container has-text-centered">

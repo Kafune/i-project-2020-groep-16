@@ -9,10 +9,9 @@ if ($_SESSION["ingelogd"]== true) {
     $_SESSION['ingelogd'] = false;
 //destroy session
     session_destroy();
-    echo "<script>
-    alert('U bent nu uitgelogd!');
-    window.location.href='../../index.php';
-    </script>";
+
+    $_SESSION['success'] = "succesUitloggen";
+    header('location: /../index.php');
 } else {
     header("Location:login.php");
 }

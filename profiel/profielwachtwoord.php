@@ -2,7 +2,7 @@
 include_once("../includes/header.php");
 include_once("../includes/db.php");
 include_once("../includes/functies.php");
-include_once("../includes/errors.php");
+include_once("../includes/meldingen.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];

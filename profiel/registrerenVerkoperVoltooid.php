@@ -1,6 +1,6 @@
 <?php
 include_once("../includes/header.php");
-include_once ('../includes/errors.php');
+include_once('../includes/meldingen.php');
 
 if(empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");

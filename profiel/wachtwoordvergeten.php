@@ -1,19 +1,12 @@
 <?php
 include_once("../includes/header.php");
-include_once ('../includes/errors.php');
+include_once('../includes/meldingen.php');
 ?>
 <title>Wachtwoord vergeten</title>
 
 <body>
 <?php
-if(isset($_SESSION['error'])) :
-    unset($_SESSION['error']);
-    ?>
-    <div class="errormsg">
-        <h1 class="title has-text-centered is-fullwidth has-background-warning"><?=$errormsg?></h1>
-    </div>
-<?php
-endif;
+laatMeldingZien();
 ?>
 <section class="hero is-primary is-fullheight">
     <div class="hero-body">
