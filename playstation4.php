@@ -47,14 +47,43 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
     <body style="background-image: url('sources/background 1.gif');">
     <div class="container has-background-white containerExtraPadding">
         <div class="block">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
+            <nav class="breadcrumb" aria-label="breadcrumb">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Producten</a></li>
-                    <li><a href="#">Computers en Software</a></li>
-                    <li><a href="#">Consoles</a></li>
-                    <li><a href="#">Playstation 4</a></li>
-                    <li class="is-active"><a href="#" aria-current="page"><?php echo $row_details['titel'] ?></a></li>
+                    <?php
+                    $voorwerpnummer = $_GET['voorwerpnummer'];
+
+                    $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = ".$voorwerpnummer."";
+
+                    $rubriek_result = $conn->prepare($sql_rubriek);
+                    $rubriek_result->execute();
+
+                    $id = $rubriek_result->fetch();
+
+
+                    while ($id > 0) {
+                        $sql_breadcrumb = "SELECT * FROM Rubriek WHERE rubrieknummer = :id";
+
+                        $breadcrumb_result = $conn->prepare($sql_breadcrumb);
+                        $breadcrumb_result->bindParam(':id', $id);
+
+                        $breadcrumb_result->execute();
+
+                        $resultaten = $breadcrumb_result->fetch(PDO::FETCH_ASSOC);
+
+                        $namen[] = $resultaten['rubrieknaam'];
+                        $nummer[] = $resultaten['rubrieknummer'];
+
+                        $id = $resultaten['rubriek'];
+
+                    }
+                    echo "<li><a href='rubrieken.php?volgnr=1'>Rubrieken</a></li>";
+                    $reversed_namen = array_reverse($namen);
+                    $reversed_nummer = array_reverse($nummer);
+
+                    for ($i=0; $i< count($reversed_namen);$i++){
+                        echo "<li><a href='rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                    }
+                    ?>
                 </ul>
             </nav>
             <div class="columns">
