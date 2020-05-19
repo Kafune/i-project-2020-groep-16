@@ -2,8 +2,8 @@
 
 include_once("includes/header.php");
 include_once("includes/db.php");
+
 $prod_id = $_GET['voorwerpnummer'];
-//print_r($_SESSION);
 $page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
@@ -57,7 +57,8 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     $rubriek_result = $conn->prepare($sql_rubriek);
                     $rubriek_result->execute();
 
-                    $id = $rubriek_result->fetch();
+                    $result = $rubriek_result->fetch();
+                    $id = $result['rubrieknummer'];
 
 
                     while ($id > 0) {
@@ -76,12 +77,12 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                         $id = $resultaten['rubriek'];
 
                     }
-                    echo "<li><a href='rubrieken.php?volgnr=1'>Rubrieken</a></li>";
+                    echo "<li><a href='/voorwerpen/rubrieken.php?'>Rubrieken</a></li>";
                     $reversed_namen = array_reverse($namen);
                     $reversed_nummer = array_reverse($nummer);
 
                     for ($i=0; $i< count($reversed_namen);$i++){
-                        echo "<li><a href='rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                        echo "<li><a href='/voorwerpen/rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
                     }
                     ?>
                 </ul>
