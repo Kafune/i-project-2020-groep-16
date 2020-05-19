@@ -20,6 +20,8 @@ if (isset($_POST['registreerverkoper'])) {
         $controleoptie = 'Post';
     }
 
+    $_SESSION['controleoptie'] = $controleoptie;
+
 
     $sql = "INSERT INTO Verkoper (gebruikersnaam, banknaam, rekeningnummer, controleoptienaam, creditcardnummer)
             VALUES (
@@ -80,7 +82,7 @@ if (isset($_POST['registreerverkoper'])) {
         ";
 
 
-        mail("rubenflorissen@kpnmail.nl", "EenmaalAndermaal Verificatiecode per Post", $bericht);
-        header("Location: ../index.php");
+        mail("r.florissen@student.han.nl", "EenmaalAndermaal Verificatiecode per Post", $bericht);
+        header("Location: /profiel/registrerenVerkoperVoltooid.php");
     }
 }

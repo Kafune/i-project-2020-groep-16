@@ -122,8 +122,13 @@ if (isset($_SESSION['gebruiker'])) {
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
             <a href="/scripts/verwijder-gebruiker.php"
                onclick="return confirm('Weet je zeker deze account te verwijderen ?')">Account verwijderen</a>
+
+            <?php if(!$isVerkoper) { ?>
             <br>
             <a href="registrerenVerkoper.php">Registreren als verkoper</a>
+            <br>
+            <a href="verifierenVerkoper.php">Verifiëren voor verkoper</a>
+            <?php } ?>
             <br><br>
 
 
