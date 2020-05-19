@@ -1,8 +1,6 @@
 <?php
 include_once("includes/header.php");
 ?>
-<link rel="stylesheet" href="styles/bulma.min.css">
-<link rel="stylesheet" href="styles/css/mystyles.css">
 <title>Login</title>
 
 <body>
@@ -29,6 +27,7 @@ include_once("includes/header.php");
                         </div>
                         <button name="login" class="button is-black is-large">Login</button>
                     </form>
+                    <a href="/profiel/wachtwoordvergeten.php">Wachtwoord vergeten?</a>
                 </div>
             </div>
         </div>
