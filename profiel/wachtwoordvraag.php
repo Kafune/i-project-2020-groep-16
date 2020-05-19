@@ -19,6 +19,14 @@ $resultaat = haalGegevens($conn, $sql, ':email', $_SESSION['email']);
     <?php
     //zorg ervoor dat de gebruiker niet direct deze form kan invullen
     if($_SESSION['wachtwoordVergetenStap'] == 2) :
+        if(isset($_SESSION['error'])) :
+            unset($_SESSION['error']);
+            ?>
+            <div class="errormsg">
+                <h1 class="title has-text-centered is-fullwidth has-background-warning"><?=$errormsg?></h1>
+            </div>
+        <?php
+        endif;
         ?>
         <section class="hero is-primary is-fullheight">
             <div class="hero-body">

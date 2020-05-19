@@ -1,5 +1,6 @@
 <?php
 include_once("../includes/header.php");
+include_once ('../includes/errors.php');
 ?>
     <title>Wachtwoord vergeten - Email verificatie</title>
 
@@ -8,6 +9,7 @@ include_once("../includes/header.php");
         //zorg ervoor dat de gebruiker niet direct
         if($_SESSION['wachtwoordVergetenStap'] == 1) :
     ?>
+
     <section class="hero is-primary is-fullheight">
         <div class="hero-body">
             <div class="container has-text-centered">

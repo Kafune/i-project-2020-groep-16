@@ -64,11 +64,11 @@ function searchForId($id, $array) {
 
 if($_POST['action'] == 'get'){
 $prod_id = $_POST['prod_id'];
-$page_details= $conn->prepare("SELECT `looptijdeindetijdstip` FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
+$page_details= $conn->prepare("SELECT veilingeinde FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
-$auction_stop_time = $row_details['looptijdeindetijdstip'];
+$auction_stop_time = $row_details['veilingeinde'];
 $dateTime = date('Y-m-d h:i:sa');
 $dateTime = date('Y-m-d h:i:sa');
 $bod_details= $conn->prepare("SELECT * FROM bod WHERE Voorwerp ='".$prod_id."' ORDER BY bodtijdstip DESC");

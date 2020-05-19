@@ -1,5 +1,6 @@
 <?php
 include_once("../includes/header.php");
+include_once ('../includes/errors.php');
 ?>
     <title>Wachtwoord veranderen</title>
 
