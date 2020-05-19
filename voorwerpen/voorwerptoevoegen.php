@@ -3,7 +3,7 @@ include_once("../includes/header.php");
 include_once("../includes/db.php");
 
 if(empty($_SESSION['gebruiker'])) {
-    header("Location: index.php");
+    header("Location: /index.php");
 }
 
 $sql_rubrieknaam = "SELECT rubrieknaam FROM Rubriek WHERE rubrieknummer = ".$_GET['rubriek']."";
@@ -37,9 +37,14 @@ $rubrieknaam = $resultaat['rubrieknaam'];
                         </div>
 
                         <div class="field">
-                            <label class="label" for="gebruikersnaam">Rubriek</label>
                             <div class="control">
-                                <input name="gebruikersnaam" id="gebruikersnaam" class="input" type="text" value="<?php echo $rubrieknaam?>" disabled required>
+                                <input name="rubrieknummer" id="rubrieknummer" class="input" type="hidden" value="<?php echo $_GET['rubriek']?>" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="rubrieknaam">Rubrieknaam</label>
+                            <div class="control">
+                                <input name="rubrieknaam" id="rubrieknaam" class="input" type="text" value="<?php echo $rubrieknaam ?>" disabled required>
                             </div>
                         </div>
 

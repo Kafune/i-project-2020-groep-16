@@ -30,6 +30,7 @@ $verzendinstructies = $_POST['verzendinstructies'];
 $verzendinstructies = $_POST['verzendinstructies'];
 $veilingbegin = date("Y-m-d H:i:s");
 $veilingeinde = date("Y-m-d H:i:s", strtotime($veilingbegin . '+' . $looptijd . 'days'));
+$rubrieknummer = $_POST['rubrieknummer'];
 
 
 $sql_insertvoorwerp = "INSERT INTO Voorwerp (titel, beschrijving, startprijs, betalingswijze,
@@ -59,6 +60,10 @@ $stmt2->execute();
 //Toevoegen van afbeeldingen aan de database
 $voorwerpnummer = $conn->lastInsertId();
 
+$sql_insertrubriek = "INSERT INTO VoorwerpInRubriek (voorwerpnummer, rubrieknummer) VALUES (".$voorwerpnummer.",".$rubrieknummer.")";
+$stmt = $conn->prepare($sql_insertrubriek);
+$stmt->execute();
+
 $file = $_FILES['file'];
 $fileName = $file['name'];
 $fileTmpName = $file['tmp_name'];
@@ -87,11 +92,12 @@ if ($fileError === 0) {
         header("Location:/voorwerpen/voorwerptoevoegenVoltooid.php");
 
     } else {
-        echo 'Bestand te groot!!';
+        echo 'Bestand te groot!';
     }
 } else {
     echo 'Er is iets fout gegaan tijdens het uploaden, probeer het opnieuw!';
 }
+
 
 
 
