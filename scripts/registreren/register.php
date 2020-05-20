@@ -146,5 +146,5 @@ if (isset($_POST['registreren'])) {
 
     $stmt->execute();
     
-    header('location: ' . $root . '/registreren.php');
+    header('location: ' . $root . '/registratie/registreren.php');
 }

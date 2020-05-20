@@ -18,6 +18,19 @@ if ($_SESSION['registratieStatus'] == 3) {
         $vraag = $_POST['vraag'];
         $antwoord = $_POST['antwoord'];
 
+        var_dump($geboortedag);
+        die();
+
+
+        //TODO: valideer leeftijd gebruiker
+//            if($geboortedag <= ) {
+//
+//            } else {
+//                $_SESSION['error'] = "errorMinderJarig";
+//                header('location: '.$root.'/registratie/registreren.php');
+//            }
+
+
 
         $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
             adresregel1, adresregel2, postcode, plaatsnaam, land, geboortedag, email, wachtwoord, 
@@ -47,7 +60,6 @@ if ($_SESSION['registratieStatus'] == 3) {
 
         $stmt->execute();
 
-        //TODO: account aanmaken message
         $_SESSION['success'] = "succesAccountAanmaken";
         header('location: /../index.php');
     } else {

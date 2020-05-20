@@ -1,13 +1,9 @@
 <?php
 include_once("../includes/header.php");
-include_once('../includes/meldingen.php');
 ?>
 <title>Wachtwoord vergeten</title>
 
 <body>
-<?php
-laatMeldingZien();
-?>
 <section class="hero is-primary is-fullheight">
     <div class="hero-body">
         <div class="container has-text-centered">

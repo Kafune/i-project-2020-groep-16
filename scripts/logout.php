@@ -9,9 +9,8 @@ if ($_SESSION["ingelogd"]== true) {
     $_SESSION['ingelogd'] = false;
 //destroy session
     session_destroy();
-
     $_SESSION['success'] = "succesUitloggen";
-    header('location: /../index.php');
+    header('location: /index.php');
 } else {
     header("Location:login.php");
 }

@@ -33,10 +33,10 @@ $veilingeinde = date("Y-m-d H:i:s", strtotime($looptijdbegin .'+'. $looptijd . '
 
 
 $sql_insertvoorwerp = "INSERT INTO Voorwerp (titel, beschrijving, startprijs, betalingswijze,
-        betalingsinstructie, plaatsnaam, land, looptijd, looptijdbegin, verzendkosten,
+        betalingsinstructie, plaatsnaam, land, looptijd, veilingbegin, verzendkosten,
         verzendinstructies, verkoper, veilingeinde)
         VALUES (:titel, :beschrijving, :startprijs, :betalingswijze,
-        :betalingsinstructie, :plaatsnaam, :land, :looptijd, :looptijdbegin, :verzendkosten,
+        :betalingsinstructie, :plaatsnaam, :land, :looptijd, :veilingbegin, :verzendkosten,
         :verzendinstructies, :verkoper, :veilingeinde)";
 
 
@@ -49,7 +49,7 @@ $stmt2->bindParam(':betalingsinstructie', $betalingsinstructie);
 $stmt2->bindParam(':plaatsnaam', $plaatsnaam);
 $stmt2->bindParam(':land', $land);
 $stmt2->bindParam(':looptijd', $looptijd);
-$stmt2->bindParam(':looptijdbegin', $looptijdbegin);
+$stmt2->bindParam(':veilingbegin', $looptijdbegin);
 $stmt2->bindParam(':verzendkosten', $verzendkosten);
 $stmt2->bindParam(':verzendinstructies', $verzendinstructies);
 $stmt2->bindParam(':verkoper', $verkoper);

@@ -1,6 +1,5 @@
 <?php
 include_once("../includes/header.php");
-include_once('../includes/meldingen.php');
 ?>
     <title>Wachtwoord vergeten - Email verificatie</title>
 
@@ -8,9 +7,7 @@ include_once('../includes/meldingen.php');
     <?php
     //zorg ervoor dat de gebruiker niet direct naar deze pagina kan, maar alleen door de vorige formulier in te vullen
     if ($_SESSION['wachtwoordVergetenStap'] == 1) :
-
-    laatMeldingZien();
-            ?>
+        ?>
 
 
         <section class="hero is-primary is-fullheight">

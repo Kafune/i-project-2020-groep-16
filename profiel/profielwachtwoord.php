@@ -2,7 +2,6 @@
 include_once("../includes/header.php");
 include_once("../includes/db.php");
 include_once("../includes/functies.php");
-include_once("../includes/meldingen.php");
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -23,16 +22,6 @@ if (isset($_SESSION['gebruiker'])) {
 ?>
     <div class="has-background-black has-text-white">
         <div class="container">
-            <?php
-            if(isset($_SESSION['error'])) :
-                unset($_SESSION['error']);
-                ?>
-                <div class="errormsg">
-                    <h1 class="title has-text-centered is-fullwidth has-background-warning"><?=$errormsg?></h1>
-                </div>
-            <?php
-            endif;
-            ?>
             <div class="block">
                 <br><br>
                 <h1 class="title is-2 has-text-white has-text-centered">Wachtwoord bewerken</h1>

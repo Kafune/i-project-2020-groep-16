@@ -1,7 +1,7 @@
 <?php
 include_once("../includes/header.php");
 include_once("../includes/db.php");
-include_once("../includes/meldingen.php");
+
 
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
@@ -21,16 +21,7 @@ if (isset($_SESSION['gebruiker'])) {
 
     <div class="has-background-black has-text-white">
         <div class="container">
-            <?php
-            if (isset($_SESSION['error'])) :
-                unset($_SESSION['error']);
-                ?>
-                <div class="errormsg">
-                    <h1 class="title has-text-centered is-fullwidth has-background-warning"><?=$errormsg?></h1>
-                </div>
-            <?php
-            endif;
-            ?>
+            <?php laatMeldingZien();?>
             <div class="block">
                 <br><br>
                 <h1 class="title is-2 has-text-white has-text-centered">Profiel bewerken</h1>
@@ -39,7 +30,7 @@ if (isset($_SESSION['gebruiker'])) {
                 <div class="columns">
                     <!-- dit moet alleen te zien zijn als de gebruiker ingelogd is -->
                     <div class="column">
-                        <form action="scripts/profiel/bewerk.php" method="post">
+                        <form action="/scripts/profiel/bewerk.php" method="post">
 
                             <h2 class="title is-3 has-text-white">Accountgegevens</h2>
                             <div class="columns">

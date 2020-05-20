@@ -1,20 +1,9 @@
 <?php
 include_once("includes/header.php");
-include_once("includes/meldingen.php");
 ?>
 <title>Login</title>
 
 <body>
-<?php
-if(isset($_SESSION['error'])) :
-    unset($_SESSION['error']);
-    ?>
-    <div class="errormsg">
-        <h1 class="title has-text-centered is-fullwidth has-background-warning"><?=$errormsg?></h1>
-    </div>
-<?php
-endif;
-?>
 <section class="hero is-primary is-fullheight">
     <div class="hero-body">
         <div class="container has-text-centered">

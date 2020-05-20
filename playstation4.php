@@ -181,6 +181,7 @@ if (isset($_SESSION['gebruiker'])) {
 
                 } else {
                     alert('Vul bedrag meer dan ' + bid);
+
                 }
 
             } else {

@@ -33,6 +33,7 @@ if (isset($_POST['login'])) {
         if($verkoper == true){
             $_SESSION['verkoper'] = true;
         }
+        $_SESSION['success'] = 'succesInloggen';
         header('location: ' . $root . '/index.php');
     } else {
         $_SESSION['error'] = "errorOnjuistLogin";

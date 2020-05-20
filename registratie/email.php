@@ -1,6 +1,5 @@
 <?php
 include_once("../includes/header.php");
-include_once("../includes/meldingen.php");
 ?>
     <link rel="stylesheet" href="../styles/css/mystyles.css">
     <link rel="stylesheet" href="../styles/custom_styles.css">
@@ -8,9 +7,6 @@ include_once("../includes/meldingen.php");
 <title>Registreer</title>
 
 <div class="has-background-black has-text-white">
-    <?php
-    laatMeldingZien();
-    ?>
     <div class="container is-centered">
         <br><br>
         <div class="block">

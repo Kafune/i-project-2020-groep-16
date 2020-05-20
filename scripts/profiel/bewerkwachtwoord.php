@@ -37,7 +37,7 @@ if (isset($_SESSION['gebruiker'])) {
                         header('location: /profiel/profielwachtwoord.php');
                     }
                 } else {
-                    $_SESSION['error'] = "errorOudwachtwoordOngeldig";
+                    $_SESSION['error'] = "errorWachtwoordOngeldig";
                     header('location: /profiel/profielwachtwoord.php');
                 }
             }
