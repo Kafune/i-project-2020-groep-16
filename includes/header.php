@@ -58,6 +58,9 @@ include_once("root.php");
                 if (isset($_SESSION['verkoper'])) {
                     echo '<a class="button is-black" href="/voorwerpen/rubrieken.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
                 }
+                if (isset($_SESSION['admin'])) {
+                    echo '<a class="button is-black" href="/admin/index.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Dashboard</a>';
+                }
 
                 echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
                   <a class="button is-black" href="/scripts/logout.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Uitloggen</a>';

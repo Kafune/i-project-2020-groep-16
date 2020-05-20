@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+    $admin = $row['isAdmin'];
     $verkoper = $row['isVerkoper'];
     $server_password = $row['wachtwoord'];
     $password = sha1($wachtwoord);
@@ -30,8 +30,11 @@ if (isset($_POST['login'])) {
         $_SESSION['gebruiker'] = $gebruikersnaam;
         $_SESSION['ingelogd'] = true;
 
-        if($verkoper == true){
+        if($verkoper == 1){
             $_SESSION['verkoper'] = true;
+        }
+        if($admin == true){
+            $_SESSION['admin'] = true;
         }
         header('location: ' . $root . '/index.php');
     } else {
