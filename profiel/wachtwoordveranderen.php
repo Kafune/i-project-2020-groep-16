@@ -8,6 +8,7 @@ include_once("../includes/header.php");
 //zorg ervoor dat de gebruiker niet direct deze form kan invullen
 if($_SESSION['wachtwoordVergetenStap'] == 3) :
     ?>
+
     <section class="hero is-primary is-fullheight">
         <div class="hero-body">
             <div class="container has-text-centered">

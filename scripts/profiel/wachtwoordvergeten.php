@@ -17,7 +17,7 @@ if (!empty($resultaat)) {
     $_SESSION['wachtwoordVergetenStap'] = 1;
     header('location: /profiel/wachtwoordemailverificatie.php');
 } else {
-    $_SESSION['error'] = "emailOnbekend";
+    $_SESSION['error'] = "errorEmailOnbekend";
     header('location: /profiel/wachtwoordvergeten.php');
 }
 

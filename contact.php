@@ -62,7 +62,7 @@ include_once("includes/header.php");
                             <button class="button is-success" type="submit" name="contactsubmit">Verzenden</button>
                         </div>
                         <div class="control">
-                            <button class="button is-danger" type="reset">Annuleren</button>
+                            <a href="index.php" class="button is-danger" type="reset">Annuleren</a>
                         </div>
                     </div>
                 </form>

@@ -52,8 +52,6 @@ if (isset($_SESSION['gebruiker'])) {
                 adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land";
 
                     //voer query uit wanneer wachtwoord correct is
-
-
                     $stmt = $conn->prepare($sql);
 
                     $stmt->bindParam(':voornaam', $voornaam);
@@ -67,10 +65,11 @@ if (isset($_SESSION['gebruiker'])) {
 
                     $stmt->execute();
 
-                    header('location: /gebruikersprofiel.php');
+                    $_SESSION['success'] = "succesGegevensBewerkt";
+                    header('location: ../../profiel/gebruikersprofiel.php');
                 } else {
-                    $_SESSION['wachtwoordinvoer'] = 'incorrect';
-                    header('location: /profielbewerken.php');
+                    $_SESSION['error'] = 'errorWachtwoordOngeldig';
+                    header('location: ../../profiel/profielbewerken.php');
                 }
             }
         }

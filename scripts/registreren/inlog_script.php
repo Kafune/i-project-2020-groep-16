@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once('../../includes/db.php');
+include_once('../../includes/functies.php');
 
 if ($_SESSION["registratieStatus"] == 2) {
     if (isset($_POST['accountCheck'])) {
@@ -18,7 +19,7 @@ if ($_SESSION["registratieStatus"] == 2) {
 
         if (empty($resultaat)) {
             $wachtwoord = $_POST['wachtwoord'];
-            $_SESSION['wachtwoordCheck'] = "";
+            $_SESSION['error'] = "";
 
             if (checkWachtwoord($wachtwoord)) {
                 $wachtwoordHash = sha1($wachtwoord);
@@ -30,42 +31,15 @@ if ($_SESSION["registratieStatus"] == 2) {
                 header('Location: ../../registratie/gegevens.php');
             } else {
                 //verkeerd wachtwoord, stuur gebruiker terug naar zelfde scherm
-                echo "<script>
-                alert('Ongeldig wachtwoord!');
-                window.location.href='../../registratie/inlog.php';
-                </script>";
+                header('location: ../../registratie/inlog.php');
             }
         } else {
-            echo "<script>
-            alert('Gebruikersnaam is al bekend!');
-            window.location.href='../../registratie/inlog.php';
-            </script>";
+            $_SESSION['error'] = "errorGebruikersnaamBekend";
+            header('location:/registratie/inlog.php');
         }
     }
 
 } else {
     header('location:../../registratie/email.php');
-}
-
-function checkWachtwoord($wachtwoord)
-{
-    if (strlen($wachtwoord) < 7) {
-        $_SESSION['wachtwoordCheck'] = "lengte";
-        return false;
-    }
-
-    //wachtwoord bevat geen grote of kleine letter
-    if (!preg_match("#[a-zA-Z]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "letters";
-        return false;
-    }
-
-    //wachtwoord bevat geen cijfer
-    if (!preg_match("#[0-9]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "cijfers";
-        return false;
-    }
-
-    return true;
 }
 ?>

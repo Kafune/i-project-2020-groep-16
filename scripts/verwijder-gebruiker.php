@@ -7,10 +7,10 @@ if(isset($_SESSION['gebruiker'])){
     $sql = "DELETE FROM gebruiker WHERE gebruikersnaam = ?";
     $q = $conn->prepare($sql);
     $res = $q->execute(array($gebruiker));
-    echo "<script>
-    alert('Account Has been deleted..');
-    window.location.href='logout.php';
-    </script>";
+
+    $_SESSION['succes'] = "succesAccountVerwijderd";
+    header('location: ../../index.php');
+
     $conn->close();
 }
 else{

@@ -40,5 +40,7 @@ if(isset($_POST['contactverkoper'])) {
     // Mails voor respectievelijk de verkoper en gebruiker. Gebruiker krijgt een kopie van de email die gestuurd is
     mail("$result_verkoper_parsed", "$onderwerp", "$berichtVerkoper");
     mail("$result_gebruiker_parsed", "eenmaalandermaal - kopie e-mail", "$bericht");
+
+    //TODO: stuur bericht terug
     header("Location: ../contact/contactVerkoperVoltooid.php");
 }
