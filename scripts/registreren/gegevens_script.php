@@ -18,21 +18,17 @@ if ($_SESSION['registratieStatus'] == 3) {
         $vraag = $_POST['vraag'];
         $antwoord = $_POST['antwoord'];
 
-        var_dump($geboortedag);
-        die();
+        //maak een datetime object aan die de formaat van de ingevulde formulier veld van de gebruiker overneemt overneemt
+        $leeftijdsverificatie = DateTime::createFromFormat('Y-m-d', $geboortedag);
+        //kijk naar het verschil tussen de geboortedatum en nu. De tijd van nu wordt gekeken door new DateTime
+        $verschil = $leeftijdsverificatie->diff(new DateTime());
 
-
-        //TODO: valideer leeftijd gebruiker
-//            if($geboortedag <= ) {
-//
-//            } else {
-//                $_SESSION['error'] = "errorMinderJarig";
-//                header('location: '.$root.'/registratie/registreren.php');
-//            }
-
-
-
-        $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
+        //Zodra gebruiker minder dan 18 jaar is, stuur m terug naar inschrijfformulier. Ga anders door.
+        if ($verschil->y < 18) {
+            $_SESSION['error'] = "errorMinderJarig";
+            header('location: ' . $root . '/registratie/gegevens.php');
+        } else {
+            $sql = "INSERT INTO Gebruiker (gebruikersnaam, voornaam, achternaam, 
             adresregel1, adresregel2, postcode, plaatsnaam, land, geboortedag, email, wachtwoord, 
             vraag, antwoordtekst, isVerkoper)
         VALUES (:gebruikersnaam, :voornaam, :achternaam, 
@@ -40,28 +36,29 @@ if ($_SESSION['registratieStatus'] == 3) {
             :vraag, :antwoordtekst, 0)";
 
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
-        $stmt->bindParam(':wachtwoord', $wachtwoord);
-        $stmt->bindParam(':voornaam', $voornaam);
-        $stmt->bindParam(':achternaam', $achternaam);
-        $stmt->bindParam(':adresregel1', $adresregel1);
-        if (isset($adresregel2)) {
-            $stmt->bindParam(':adresregel2', $adresregel2);
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+            $stmt->bindParam(':wachtwoord', $wachtwoord);
+            $stmt->bindParam(':voornaam', $voornaam);
+            $stmt->bindParam(':achternaam', $achternaam);
+            $stmt->bindParam(':adresregel1', $adresregel1);
+            if (isset($adresregel2)) {
+                $stmt->bindParam(':adresregel2', $adresregel2);
+            }
+            $stmt->bindParam(':adresregel2', $adresregel2, PDO::PARAM_NULL);
+            $stmt->bindParam(':postcode', $postcode);
+            $stmt->bindParam(':plaatsnaam', $plaatsnaam);
+            $stmt->bindParam(':land', $land);
+            $stmt->bindParam(':geboortedag', $geboortedag);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':vraag', $vraag);
+            $stmt->bindParam(':antwoordtekst', $antwoord);
+
+            $stmt->execute();
+
+            $_SESSION['success'] = "succesAccountAanmaken";
+            header('location: /../index.php');
         }
-        $stmt->bindParam(':adresregel2', $adresregel2, PDO::PARAM_NULL);
-        $stmt->bindParam(':postcode', $postcode);
-        $stmt->bindParam(':plaatsnaam', $plaatsnaam);
-        $stmt->bindParam(':land', $land);
-        $stmt->bindParam(':geboortedag', $geboortedag);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':vraag', $vraag);
-        $stmt->bindParam(':antwoordtekst', $antwoord);
-
-        $stmt->execute();
-
-        $_SESSION['success'] = "succesAccountAanmaken";
-        header('location: /../index.php');
     } else {
         header('location:../../registratie/email.php');
     }
