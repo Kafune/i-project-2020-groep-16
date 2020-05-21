@@ -32,12 +32,13 @@ if (isset($_SESSION['gebruiker'])) {
                         $stmt->bindParam(':nieuwwachtwoord', $nieuwwachtwoord);
                         $stmt->execute();
 
+                        $_SESSION['success'] = "succesWachtwoordBijwerken";
                         header('location: /profiel/gebruikersprofiel.php');
                     } else {
                         header('location: /profiel/profielwachtwoord.php');
                     }
                 } else {
-                    $_SESSION['wachtwoordCheck'] = "oudwachtwoordOngeldig";
+                    $_SESSION['error'] = "errorWachtwoordOngeldig";
                     header('location: /profiel/profielwachtwoord.php');
                 }
             }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("root.php");
+include_once("meldingen.php");
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +67,7 @@ include_once("root.php");
         </div>
     </div>
 </nav>
+<?php laatMeldingZien();?>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

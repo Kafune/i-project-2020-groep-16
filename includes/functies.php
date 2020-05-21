@@ -41,19 +41,19 @@ function checkWachtwoord($wachtwoord)
 {
     //wachtwoord is kleiner dan 7 letters
     if (strlen($wachtwoord) < 7) {
-        $_SESSION['wachtwoordCheck'] = "lengte";
+        $_SESSION['error'] = "errorWachtwoordLengte";
         return false;
     }
 
     //wachtwoord bevat geen grote of kleine letter
     if (!preg_match("#[a-zA-Z]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "letters";
+        $_SESSION['error'] = "errorWachtwoordLetters";
         return false;
     }
 
     //wachtwoord bevat geen cijfer
     if (!preg_match("#[0-9]+#", $wachtwoord)) {
-        $_SESSION['wachtwoordCheck'] = "cijfers";
+        $_SESSION['error'] = "errorWachtwoordCijfers";
         return false;
     }
 

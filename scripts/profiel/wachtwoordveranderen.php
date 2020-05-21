@@ -28,21 +28,16 @@ if (isset($_POST['wachtwoord-vergeten-veranderen'])) {
                 session_destroy();
                 header('location: /login.php');
             } else {
-                // TODO: error msg
+                $_SESSION['error'] = "errorQueryMislukt";
                 header('location: /profiel/wachtwoordveranderen.php');
             }
-
-
         } else {
-            // TODO: error msg
 
             header('location: /profiel/wachtwoordveranderen.php');
-
         }
 
     } else {
-        // TODO: error msg
-
+        $_SESSION['error'] = "errorWachtwoordGeenMatch";
         header('location: /profiel/wachtwoordveranderen.php');
     }
 }

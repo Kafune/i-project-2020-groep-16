@@ -33,10 +33,10 @@ if (isset($_POST['login'])) {
         if($verkoper == true){
             $_SESSION['verkoper'] = true;
         }
+        $_SESSION['success'] = 'succesInloggen';
         header('location: ' . $root . '/index.php');
     } else {
-        echo "login gefaald";
-        echo "<br>";
+        $_SESSION['error'] = "errorOnjuistLogin";
         header('location: ' . $root . '/login.php');
     }
 } // als velden niet ingevuld zijn dan pagina refresh
