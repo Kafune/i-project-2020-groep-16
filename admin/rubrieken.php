@@ -93,7 +93,7 @@ $stmt->execute();
                                 <td>" . $parentnaam . "</td>
                                 <td>" . $rubrieknaam . "</td>
                                 <td><a class=\"button is-small is-primary\" href=\"/admin/rubrieken.php?id=".$id."\">Sub-rubrieken</a></td>
-                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"#\">Wijzigen</a></td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken%20wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
                                 </tr>";
                             }
 
