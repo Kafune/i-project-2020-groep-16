@@ -49,7 +49,8 @@ if (isset($_SESSION['gebruiker'])) {
 
                     $sql = "UPDATE Gebruiker 
                 SET voornaam = :voornaam, achternaam = :achternaam, adresregel1 = :adresregel1,
-                adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land";
+                adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land
+                WHERE gebruikersnaam = :gebruikersnaam";
 
                     //voer query uit wanneer wachtwoord correct is
 
@@ -63,6 +64,7 @@ if (isset($_SESSION['gebruiker'])) {
                     $stmt->bindParam(':postcode', $postcode);
                     $stmt->bindParam(':plaatsnaam', $plaatsnaam);
                     $stmt->bindParam(':land', $land);
+                    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
 
 
                     $stmt->execute();

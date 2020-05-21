@@ -3,12 +3,12 @@ include_once("includes/header.php");
 include_once("includes/db.php");
 
 if(empty($_GET['searching'])){
-    $page = $conn->prepare("SELECT * FROM voorwerp");
+    $page = $conn->prepare("SELECT TOP 30 * FROM voorwerp ORDER BY veilingbegin DESC");
 
 }
 else{
     $search = $_GET['searching'];
-    $page = $conn->prepare("SELECT * FROM voorwerp WHERE titel LIKE '%".$search."%'");
+    $page = $conn->prepare("SELECT TOP 30 * FROM voorwerp WHERE titel LIKE '%".$search."%' ORDER BY veilingbegin DESC");
 }
 $page->execute();
 $row = $page->fetchAll(PDO::FETCH_ASSOC);
