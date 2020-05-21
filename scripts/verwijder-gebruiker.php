@@ -8,7 +8,7 @@ if(isset($_SESSION['gebruiker'])){
     $q = $conn->prepare($sql);
     $res = $q->execute(array($gebruiker));
 
-    $_SESSION['succes'] = "succesAccountVerwijderd";
+    $_SESSION['success'] = "succesAccountVerwijderd";
     header('location: ../../index.php');
 
     $conn->close();

@@ -72,6 +72,9 @@ if (isset($_SESSION['success'])) {
         case "succesGegevensBewerkt":
             $message = "Uw gegevens zijn succesvol bijgewerkt!";
             break;
+        case "succesWachtwoordBijwerken":
+            $message = "Uw wachtwoord is succesvol bijgewerkt!";
+            break;
         default:
             $message = "";
     }
