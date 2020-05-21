@@ -14,6 +14,7 @@ if ($_SESSION['registratieStatus'] == 3) {
         $postcode = $_POST['postcode'];
         $plaatsnaam = $_POST['plaatsnaam'];
         $land = $_POST['land'];
+        $telefoonnummer = $_POST['telefoonnummer'];
         $geboortedag = $_POST['geboortedag'];
         $vraag = $_POST['vraag'];
         $antwoord = $_POST['antwoord'];
@@ -33,7 +34,7 @@ if ($_SESSION['registratieStatus'] == 3) {
             vraag, antwoordtekst, isVerkoper)
         VALUES (:gebruikersnaam, :voornaam, :achternaam, 
             :adresregel1, :adresregel2, :postcode, :plaatsnaam, :land, :geboortedag, :email, :wachtwoord, 
-            :vraag, :antwoordtekst, 0)";
+            :vraag, :antwoordtekst, 0);";
 
 
             $stmt = $conn->prepare($sql);
@@ -55,6 +56,15 @@ if ($_SESSION['registratieStatus'] == 3) {
             $stmt->bindParam(':antwoordtekst', $antwoord);
 
             $stmt->execute();
+
+            $sql = "INSERT INTO GebruikersTelefoon (gebruikersnaam, telefoonnummer)
+            VALUES (:gebruikersnaam, :telefoonnummer)";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+            $stmt->bindParam(':telefoonnummer', $telefoonnummer);
+            $stmt->execute();
+
 
             $_SESSION['success'] = "succesAccountAanmaken";
             header('location: /../index.php');

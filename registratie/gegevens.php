@@ -7,7 +7,7 @@ include_once("../includes/header.php");
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
 
     <script type="text/javascript">
-        window.onload = function() {
+        window.onload = function () {
             placeSearch({
                 key: 'IUD1GtpZAWGgjmUGTiLK8J2xUU2IRGRE',
                 container: document.querySelector('#search-input'),
@@ -20,7 +20,7 @@ include_once("../includes/header.php");
                     header: function () {
                         return '<span class="mq-header" />'
                     },
-                    value: function(result) {
+                    value: function (result) {
                         return result.name;
                     },
                     empty: function () {
@@ -323,6 +323,10 @@ include_once("../includes/header.php");
                                     </select>
                                 </span>
                                 </label>
+                            </div>
+                            <div class="field">
+                                <label for="telefoonnummer">Telefoonnummer</label>
+                                <input type="tel" name="telefoonnummer" id="telefoonnummer" class="input" required>
                             </div>
                             <div class="field">
                                 <label for="geboortedag" class="label has-text-white">Geboortedag</label>

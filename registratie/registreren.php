@@ -74,6 +74,8 @@ if (isset($_SESSION['registratieStatus'])) :
                 <input type="text" name="plaatsnaam" required>
                 <label for="land">Land</label>
                 <input type="text" name="land" required>
+                <label for="telefoonnummer">Telefoonnummer</label>
+                <input type="tel" name="telefoonnummer" required>
                 <label for="geboortedag">Geboortedag</label>
                 <input type="date" name="geboortedag" required>
                 <label for="geheimevraag">Geheime vraag</label>
