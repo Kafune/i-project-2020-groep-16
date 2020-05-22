@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once("../includes/header.php");
 require_once('../includes/root.php');
 include_once('../includes/db.php');
@@ -9,6 +8,8 @@ if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
+$verkoper = $_GET['verkoper'];
+
 ?>
 
 <div class="columns is-centered">
@@ -17,7 +18,7 @@ if (empty($_SESSION['gebruiker'])) {
             <h1 class="title">Contact opnemen met verkoper</h1>
             <h2 class="subtitle"> Voor als u problemen of vragen heeft over een product </h2>
             <h5 class="has-text-danger subtitle is-6">Zoeken op gebruiker is hoofdlettergevoelig</h5>
-
+            <?php if(empty($verkoper)) { ?>
             <div class="field">
                 <label class="label" for="zoekbalk">Verkoper zoeken</label>
                 <div class="control">
@@ -38,11 +39,12 @@ if (empty($_SESSION['gebruiker'])) {
                     <input name="zoekbalk" id="zoekbalk" class="input" type="text" onkeyup="searchUser()">
                 </div>
             </div>
-
+            <?php } ?>
             <form method="post" action="../scripts/stuurBerichtVerkoper.php" id="contactform">
                 <div class="field">
                     <label class="label" for="gebruikersnaamverkoper">Gebruikersnaam Verkoper</label>
                     <div class="select">
+                    <?php if(empty($verkoper)) { ?>
                         <select id="gebruikersnaamverkoper" name="gebruikersnaamverkoper">
                             <?php
                             $sql = "SELECT gebruikersnaam FROM Verkoper";
@@ -53,6 +55,11 @@ if (empty($_SESSION['gebruiker'])) {
                             }
                             ?>
                         </select>
+                    <?php } else if(!empty($verkoper)) {?>
+                        <select id="gebruikersnaamverkoper" name="gebruikersnaamverkoper">
+                            <option <?php echo $verkoper;?> selected><?php echo $verkoper;?></option>
+                        </select>
+                    <?php } ?>
                     </div>
                 </div>
                 <div class="field">

@@ -9,13 +9,14 @@ if($_SESSION["registratieStatus"] == 1) {
 
         if ($verificatiecode == $_SESSION['verificatieCode']) {
             $_SESSION["registratieStatus"] = 2;
-            header('location: ../../registratie/inlog.php');
+            header('location: /registratie/inlog.php');
         } else {
-            $message = "Ongeldige code";
-            echo "<script type='text/javascript'>alert('$message');</script>";
+            $_SESSION['error'] = "errorVerificatieOnjuist";
+            header('location: /registratie/verificatie_code.php');
         }
     }
 } else {
+    //stuur gebruiker terug naar registratiepagina op moment dat de gebruiker direct de verificatie pagina bezoekt
     header('location:../../registratie/email.php');
 }
 ?>

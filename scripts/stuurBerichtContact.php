@@ -16,11 +16,12 @@ if(isset($_POST['contactsubmit'])) {
     
     $bericht
     
-    Een reactie terugsturen kan met het volgende e-mailadres: $email
-    ";
+    Een reactie terugsturen kan met het volgende e-mailadres: $email";
 
     $onderwerp = "eenmaalandermaal - contactformulier - onderwerp: $onderwerp";
 
     mail("r.florissen@student.han.nl" , "$onderwerp", "$berichtFormatted");
+
+    $_SESSION['success'] = "succesContactFormVerstuurd";
     header("location: ../contact.php");
 }

@@ -2,13 +2,13 @@
 include_once("includes/header.php");
 include_once("includes/db.php");
 
-if(empty($_GET['scearching'])){
-    $page = $conn->prepare("SELECT * FROM voorwerp");
+if(empty($_GET['searching'])){
+    $page = $conn->prepare("SELECT TOP 30 * FROM voorwerp ORDER BY veilingbegin DESC");
 
 }
 else{
-    $search = $_GET['scearching'];
-    $page = $conn->prepare("SELECT * FROM voorwerp WHERE titel LIKE '%".$search."%'");
+    $search = $_GET['searching'];
+    $page = $conn->prepare("SELECT TOP 30 * FROM voorwerp WHERE titel LIKE '%".$search."%' ORDER BY veilingbegin DESC");
 }
 $page->execute();
 $row = $page->fetchAll(PDO::FETCH_ASSOC);
@@ -77,7 +77,7 @@ if(isset($_GET['filter'])){
             <form method="GET" action="">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
-                        <input type="text" class="input" name="scearching" id="" placeholder="Veiling zoeken" required>
+                        <input type="text" class="input" name="searching" id="" placeholder="Veiling zoeken" required>
                     </p>
                     <p class="control">
                         <button type="submit" class="button is-black">Zoek</button>
@@ -128,7 +128,7 @@ if(isset($_GET['filter'])){
                     <div class="card" style="min-height:460px">
                         <div class="card-image">
                             <figure class="image is-3by2">
-                                <img src="<?php echo $row_image['filenaam']; ?>" alt="Placeholder">
+                                <img src="<?php echo 'upload/'.$row_image['filenaam']; ?>" alt="Placeholder">
                             </figure>
                         </div>
                         <div class="card-content">

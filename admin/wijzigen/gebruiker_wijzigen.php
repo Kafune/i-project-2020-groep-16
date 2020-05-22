@@ -1,82 +1,94 @@
 <?php
-include_once("../includes/header.php");
+include_once('../../includes/header.php');
+include_once('../../includes/db.php');
+include_once('../menu.php');
+
+if (empty($_GET['gebruikersnaam'])) {
+    header('Location: ../gebruikers.php');
+}
+$gebruikersnaam = $_GET['gebruikersnaam'];
+
+$sql = "SELECT * FROM Gebruiker where gebruikersnaam = :gebruikersnaam";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+$stmt->execute();
+$resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$isVerkoper = $resultaat['isVerkoper'];
+
+if($isVerkoper == 1) {
+    $sql = "SELECT * FROM Verkoper where gebruikersnaam = :gebruikersnaam";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
+    $stmt->execute();
+    $resultaatVerkoper = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
-    <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
-    <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
-
-    <script type="text/javascript">
-        window.onload = function () {
-            placeSearch({
-                key: 'IUD1GtpZAWGgjmUGTiLK8J2xUU2IRGRE',
-                container: document.querySelector('#search-input'),
-                useDeviceLocation: true,
-                collection: [
-                    'address',
-                    'adminArea',
-                ],
-                templates: {
-                    header: function () {
-                        return '<span class="mq-header" />'
-                    },
-                    value: function (result) {
-                        return result.name;
-                    },
-                    empty: function () {
-                        return '<div class="mq-result empty-result">Geen steden gevonden</div>'
-                    },
-                }
-            });
-        }
-    </script>
-
-    <title>Registreer</title>
-
-    <div class="has-background-black has-text-white">
-        <div class="container">
-            <br><br>
-            <div class="block">
-                <div class="columns">
-                    <div class="column is-one-third" style="margin: 1rem">
-                        <h1 class="is-size-2 has-text-centered">Registreren</h1>
-                        <br>
-                        <p>Iedereen die iets wil kopen of verkopen via EenmaalAndermaal,
-                            moet zich als gebruiker inschrijven.
-                            U zal worden gevraagd om persoonsgegevens in te vullen waarmee een account gemaakt word.
-                        </p>
+<!-- END NAV -->
+<div class="column is-9" style="padding-top: 3rem">
+    <section class="hero is-primary welcome is-small">
+        <div class="hero-body">
+            <div class="container">
+                <?php echo '<h1 class="title">Gebruiker wijzigen</h1>'?>
+            </div>
+        </div>
+    </section>
+    <div class="column">
+        <form action="scripts/gebruiker_wijzigen_script.php" method="post">
+            <div class="columns">
+                <div class="column is-half has-text-weight-bold">
+                    <div class="field">
+                        <label for="gebruikersnaamoud">Gebruikersnaam oud</label>
+                        <input type="text" name="gebruikersnaamoud" id="gebruikersnaamoud" class="input"
+                               readonly value="<?= $resultaat['gebruikersnaam'] ?>"><br>
                     </div>
-                    <div class="column is-half">
-                        <form action="../scripts/registreren/gegevens_script.php" method="post">
-                            <div class="field">
-                                <label for="voornaam" class="label has-text-white">Voornaam</label>
-                                <input type="text" name="voornaam" id="voornaam" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="achternaam" class="label has-text-white">Achternaam</label>
-                                <input type="text" name="achternaam" id="achternaam" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="adresregel1" class="label has-text-white">Adresregel 1</label>
-                                <input type="text" name="adresregel1" id="adresregel1" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="adresregel2" class="label has-text-white">Adresregel 2</label>
-                                <input type="text" name="adresregel2" id="adresregel2" class="input">
-                            </div>
-                            <div class="field">
-                                <label for="postcode" class="label has-text-white">Postcode</label>
-                                <input type="text" name="postcode" id="postcode" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="place-search-input" class="label has-text-white">Plaatsnaam</label>
-                                <input type="search" name="plaatsnaam" id="search-input" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="land" class="label has-text-white">Land</label>
-                                <span class="select is-fullwidth">
+                    <div class="field">
+                        <label for="gebruikersnaamnieuw">Gebruikersnaam nieuw</label>
+                        <input type="text" name="gebruikersnaamnieuw" id="gebruikersnaamnieuw" class="input"
+                               value="<?= $resultaat['gebruikersnaam'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="voornaam">Voornaam</label>
+                        <input type="text" name="voornaam" id="voornaam" class="input"
+                               value="<?= $resultaat['voornaam'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="achternaam">Achternaam</label>
+                        <input type="text" name="achternaam" id="achternaam" class="input"
+                               value="<?= $resultaat['achternaam'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="geboortedag">Geboortedag</label>
+                        <input type="date" name="geboortedag" id="geboortedag" class="input"
+                               value="<?= $resultaat['geboortedag'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="adresregel1">Adresregel 1</label>
+                        <input type="text" name="adresregel1" id="adresregel1" class="input"
+                               value="<?= $resultaat['adresregel1'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="adresregel2">Adresregel 2</label>
+                        <input type="text" name="adresregel2" id="adresregel2" class="input"
+                               value="<?= $resultaat['adresregel2'] ?>"><br>
+                    </div>
+                    <div class="field">
+                        <label for="postcode">Postcode</label>
+                        <input type="text" name="postcode" id="postcode" class="input"
+                               value="<?= $resultaat['postcode'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="plaatsnaam">Plaats</label>
+                        <input type="text" name="plaatsnaam" id="plaatsnaam" class="input"
+                               value="<?= $resultaat['plaatsnaam'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="land" class="label">Land</label>
+                        <span class="select is-fullwidth">
                                     <select class="select is-fullwidth" name="land" id="land" required>
-                                        <option value="Afghanistan">Afghanistan</option>
+                                            <option value="<?= $resultaat['land'] ?>"><?= $resultaat['land'] ?></option>
+                                            <option value="Afghanistan">Afghanistan</option>
                                             <option value="Åland Islands">Åland Islands</option>
                                             <option value="Albania">Albania</option>
                                             <option value="Algeria">Algeria</option>
@@ -322,42 +334,45 @@ include_once("../includes/header.php");
                                             <option value="Zimbabwe">Zimbabwe</option>
                                     </select>
                                 </span>
-                                </label>
-                            </div>
-                            <div class="field">
-                                <label for="telefoonnummer">Telefoonnummer</label>
-                                <input type="tel" name="telefoonnummer" id="telefoonnummer" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="geboortedag" class="label has-text-white">Geboortedag</label>
-                                <input type="date" name="geboortedag" id="geboortedag" class="input" required>
-                            </div>
-                            <div class="field">
-                                <label for="vraag" class="label has-text-white">Geheime vraag</label>
-                                <span class="select is-fullwidth">
-                                <label>
-                                    <select name="vraag">
-                                        <option value="1">In welke straat ben je geboren?</option>
-                                        <option value="2">Wat is de meisjesnaam je moeder?</option>
-                                        <option value="3">Wat is je lievelingsgerecht?</option>
-                                        <option value="4">Hoe heet je oudste zusje?</option>
-                                        <option value="5">Hoe heet je huisdier?</option>
-                                    </select>
-                                </label>
-                            </span>
-                            </div>
-                            <div class="field">
-                                <label for="antwoord" class="label has-text-white">Antwoord geheime vraag</label>
-                                <input type="text" name="antwoord" id="antwoord" class="input" required>
-                            </div>
-                            <input type="submit" name="registreren" class="button is-fullwidth is-primary">
-                        </form>
+                        </label>
                     </div>
                 </div>
+                <div class="column is-half has-text-weight-bold">
+                    <div class="field">
+                        <label for="banknaam">Banknaam</label>
+                        <input type="text" name="banknaam" id="banknaam" class="input"
+                               value="<?= $resultaatVerkoper['banknaam'] ?>" ><br>
+                    </div>
+                    <div class="field">
+                        <label for="rekeningnummer">Rekeningnummer</label>
+                        <input type="text" name="rekeningnummer" id="rekeningnummer" class="input"
+                               value="<?= $resultaatVerkoper['rekeningnummer'] ?>" ><br>
+                    </div>
+                    <div class="field">
+                        <label for="creditcardnummer">Creditcardnummer</label>
+                        <input type="text" name="creditcardnummer" id="creditcardnummer" class="input"
+                               value="<?= $resultaatVerkoper['creditcardnummer'] ?>" ><br>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="input"
+                               value="<?= $resultaat['email'] ?>" required><br>
+                    </div>
+                    <div class="field">
+                        <label for="isVerkoper">Is Verkoper<br></label>
+                        <input type="checkbox" name="isVerkoper" value="1" <?php if ($resultaat['isVerkoper'] == 1) { echo "checked='checked'"; } ?>>
+                    </div>
+                    <div class="field">
+                        <label for="isVerkoper">Is Admin<br></label>
+                        <input type="checkbox" name="isAdmin" value="1" <?php if ($resultaat['isAdmin'] == 1) { echo "checked='checked'"; } ?>>
+                    </div>
+                    <div class="field">
+                        <input type="submit" name="bewerken" value="Bijwerken" class="button is-primary">
+                        <input type="submit" name="verwijderen" value="Verwijderen" class="button is-primary">
+                    </div>
+                </div>
+
             </div>
-            <br><br>
-        </div>
+        </form>
     </div>
-<?php
-include_once("../includes/footer.php");
-?>
+</div>

@@ -35,14 +35,9 @@ if (empty($resultaat)) {
     //Zorg dat de klant naar de volgende stap kan
     $_SESSION['registratieStatus'] = 1;
 
-    echo "<script>
-          alert('U ontvangt nu via uw email een verificatie code! Vergeet niet uw spambox te checken.');
-          window.location.href='../../registratie/verificatie_code.php';
-          </script>";
+    header('location: /registratie/verificatie_code.php');
 
 } else {
-    echo "<script>
-          alert('Email is al bekend!');
-          window.location.href='../../registratie/email.php';
-          </script>";
+    $_SESSION['error'] = "errorEmailBekend";
+    header('location: /registratie/email.php');
 }

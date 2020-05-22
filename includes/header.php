@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("root.php");
+include_once("meldingen.php");
 ?>
 
 <!DOCTYPE html>
@@ -39,11 +40,16 @@ include_once("root.php");
                 <a class="navbar-link">Contact</a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/contact.php">Contact EenmaalAndermaal</a>
-                    <a class="navbar-item" href="/contact/ContactVerkoper.php">Contact Verkoper</a>
+                    <?php
+                    if (isset($_SESSION['gebruiker'])){
+                        echo "<a class=\"navbar-item\" href=\"/contact/ContactVerkoper.php\">Contact Verkoper</a>";
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end is">
             <?php
 
             if (!isset($_SESSION['ingelogd'])) {
@@ -51,7 +57,10 @@ include_once("root.php");
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
                 if (isset($_SESSION['verkoper'])) {
-                    echo '<a class="button is-black" href="/producten/rubrieken.php?volgnr=1" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                    echo '<a class="button is-black" href="/voorwerpen/rubrieken.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                }
+                if (isset($_SESSION['admin'])) {
+                    echo '<a class="button is-black" href="/admin/index.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Dashboard</a>';
                 }
 
                 echo '<a class="button is-black" href="/profiel/gebruikersprofiel.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Mijn Profiel</a>
@@ -61,6 +70,7 @@ include_once("root.php");
         </div>
     </div>
 </nav>
+<?php laatMeldingZien();?>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

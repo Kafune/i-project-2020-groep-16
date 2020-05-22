@@ -2,13 +2,13 @@
 
 include_once("includes/header.php");
 include_once("includes/db.php");
+
 $prod_id = $_GET['voorwerpnummer'];
-//print_r($_SESSION);
 $page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
-$page_photo= $conn->prepare("SELECT * FROM bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
+$page_photo= $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
@@ -47,19 +47,49 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
     <body style="background-image: url('sources/background 1.gif');">
     <div class="container has-background-white containerExtraPadding">
         <div class="block">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
+            <nav class="breadcrumb" aria-label="breadcrumb">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Producten</a></li>
-                    <li><a href="#">Computers en Software</a></li>
-                    <li><a href="#">Consoles</a></li>
-                    <li><a href="#">Playstation 4</a></li>
-                    <li class="is-active"><a href="#" aria-current="page"><?php echo $row_details['titel'] ?></a></li>
+                    <?php
+                    $voorwerpnummer = $_GET['voorwerpnummer'];
+
+                    $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = ".$voorwerpnummer."";
+
+                    $rubriek_result = $conn->prepare($sql_rubriek);
+                    $rubriek_result->execute();
+
+                    $result = $rubriek_result->fetch();
+                    $id = $result['rubrieknummer'];
+
+
+                    while ($id > 0) {
+                        $sql_breadcrumb = "SELECT * FROM Rubriek WHERE rubrieknummer = :id";
+
+                        $breadcrumb_result = $conn->prepare($sql_breadcrumb);
+                        $breadcrumb_result->bindParam(':id', $id);
+
+                        $breadcrumb_result->execute();
+
+                        $resultaten = $breadcrumb_result->fetch(PDO::FETCH_ASSOC);
+
+                        $namen[] = $resultaten['rubrieknaam'];
+                        $nummer[] = $resultaten['rubrieknummer'];
+
+                        $id = $resultaten['rubriek'];
+
+                    }
+                    echo "<li><a href='/voorwerpen/rubrieken.php?'>Rubrieken</a></li>";
+                    $reversed_namen = array_reverse($namen);
+                    $reversed_nummer = array_reverse($nummer);
+
+                    for ($i=0; $i< count($reversed_namen);$i++){
+                        echo "<li><a href='/voorwerpen/rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                    }
+                    ?>
                 </ul>
             </nav>
             <div class="columns">
                 <div class="column is-half">
-                    <img src="<?php echo $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
+                    <img src="<?php echo 'upload/'.$row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
                     <p><?php echo $row_details['gebruikersnaam'] ?></p>
                     <p><?php echo $row_details['plaatsnaam'] ?></p>
                     <br>
@@ -69,7 +99,9 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     <p><?php echo $row_details['betalingsinstructie'] ?></p>
                     <br>
                     <p class="has-text-weight-bold">Startverkoop</p>
-                    <p><?php echo $row_details['looptijdeindetijdstip'] ?></p>
+                    <p><?php $phpdate = strtotime($row_details['veilingbegin']);
+                        $sqldate = date('d-m-Y H:i:s',$phpdate);
+                        echo $sqldate?></p>
                     <br>
                     <p class="has-text-weight-bold">Product ID</p>
                     <p><?php echo $row_details['voorwerpnummer'] ?></p>

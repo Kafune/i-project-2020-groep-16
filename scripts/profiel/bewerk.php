@@ -49,11 +49,10 @@ if (isset($_SESSION['gebruiker'])) {
 
                     $sql = "UPDATE Gebruiker 
                 SET voornaam = :voornaam, achternaam = :achternaam, adresregel1 = :adresregel1,
-                adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land";
+                adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land
+                WHERE gebruikersnaam = :gebruikersnaam";
 
                     //voer query uit wanneer wachtwoord correct is
-
-
                     $stmt = $conn->prepare($sql);
 
                     $stmt->bindParam(':voornaam', $voornaam);
@@ -63,14 +62,16 @@ if (isset($_SESSION['gebruiker'])) {
                     $stmt->bindParam(':postcode', $postcode);
                     $stmt->bindParam(':plaatsnaam', $plaatsnaam);
                     $stmt->bindParam(':land', $land);
+                    $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
 
 
                     $stmt->execute();
 
-                    header('location: /gebruikersprofiel.php');
+                    $_SESSION['success'] = "succesGegevensBewerkt";
+                    header('location: ../../profiel/gebruikersprofiel.php');
                 } else {
-                    $_SESSION['wachtwoordinvoer'] = 'incorrect';
-                    header('location: /profielbewerken.php');
+                    $_SESSION['error'] = 'errorWachtwoordOngeldig';
+                    header('location: ../../profiel/profielbewerken.php');
                 }
             }
         }
