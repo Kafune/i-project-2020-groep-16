@@ -3,7 +3,7 @@ include_once("includes/header.php");
 include_once("includes/db.php");
 ?>
     <div class="columns">
-        <div class="column" style="padding-left: 3rem">
+        <div class="column is-half" style="padding-left: 3rem">
             <nav class="breadcrumb" aria-label="breadcrumb">
                 <ul>
                     <?php
@@ -25,29 +25,42 @@ include_once("includes/db.php");
                         $id = $resultaten['rubriek'];
 
                     }
-                    echo "<li><a href='rubriekenboom.php?volgnr=1'>Rubrieken</a></li>";
+                    echo "<li><a href='rubriekenboom.php?'>Rubrieken</a></li>";
                     $reversed_namen = array_reverse($namen);
                     $reversed_nummer = array_reverse($nummer);
 
-                    for ($i=0; $i< count($reversed_namen);$i++){
-                        echo "<li><a href='rubriekenboom.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                    for ($i = 0; $i < count($reversed_namen); $i++) {
+                        echo "<li><a href='rubriekenboom.php?rubriek=" . $reversed_nummer[$i] . "'>" . $reversed_namen[$i] . "</a></li>";
                     }
                     ?>
                 </ul>
             </nav>
             <?php
-
             if (!isset($_GET['rubriek'])) {
                 $sql = "SELECT * FROM Rubriek WHERE rubriek = -1 ORDER BY rubrieknaam ASC";
 
                 $result = $conn->prepare($sql);
                 $result->execute();
 
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $id = $row['rubrieknummer'];
-                    $rubriek = $row['rubrieknaam'];
-                    $rubrieknr = $row['rubrieknummer'];
-                    echo '<a href="rubriekenboom.php?rubriek=' . $id . '"> '.$rubriek.'</a><br>';
+                echo '
+                <div class="card-table">
+                    <div class="content">
+                        <table class="table is-fullwidth is-striped">
+                            <tbody>';
+
+                while ($row = $result->fetch()) {
+                    $rubrieknummer = $row['rubrieknummer'];
+                    $rubrieknaam = $row['rubrieknaam'];
+
+                    echo "
+                    <tr>
+                    <td width=\"5%\"><i class=\"fa fa-cube\"></i></td>
+                    <td>" . $rubrieknaam . "</td>
+                    <td><a class=\"button is-small is-primary\" 
+                    href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'>Sub-rubrieken</a></td>
+                    <td class=\"level-right\"><a class=\"button is-small is-primary\" 
+                    href='index.php?parent=" . $rubrieknummer . "'>Voorwerpen</a></td>
+                    </tr>";
                 }
             } else {
                 $sql = "SELECT * FROM Rubriek WHERE rubriek = :rubrieknummer ORDER BY rubrieknaam ASC";
@@ -56,18 +69,33 @@ include_once("includes/db.php");
                 $result->bindParam(':rubrieknummer', $_GET['rubriek']);
                 $result->execute();
 
-                if(empty($result->fetch(PDO::FETCH_ASSOC))){
-                    header("Location: index.php?rubriek=".$_GET['rubriek']."");
-                }
+                echo '
+                <div class="card-table">
+                    <div class="content">
+                        <table class="table is-fullwidth is-striped">
+                            <tbody>';
 
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                while ($row = $result->fetch()) {
                     $rubrieknummer = $row['rubrieknummer'];
-                    $rubriek = $row['rubrieknaam'];
-                    echo '<a href="rubriekenboom.php?rubriek=' .$rubrieknummer. '"> '.$rubriek.'</a><br>';
+                    $rubrieknaam = $row['rubrieknaam'];
+
+                    echo "
+                    <tr>
+                    <td width=\"5%\"><i class=\"fa fa-cube\"></i></td>
+                    <td>" . $rubrieknaam . "</td>
+                    <td><a class=\"button is-small is-primary\" 
+                    href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'>Sub-rubrieken</a></td>
+                    <td class=\"level-right\"><a class=\"button is-small is-primary\" 
+                    href='index.php?parent=" . $rubrieknummer . "'>Voorwerpen</a></td>
+                    </tr>";
                 }
             }
             ?>
+            </tbody>
+            </table>
         </div>
+    </div>
+    </div>
     </div>
 
 <?php
