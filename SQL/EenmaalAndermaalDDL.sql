@@ -34,10 +34,10 @@ go
 CREATE TABLE Feedback (
 	voorwerpnummer int NOT NULL,
 	soortgebruiker varchar(8) NOT NULL,
+	gebruikersnaam varchar(20) NOT NULL,
 	feedbacksoort char(8) NOT NULL,
-	dag date NOT NULL,
-	tijdstip datetime NOT NULL,
-	commentaar varchar(50)
+	datum date NOT NULL,
+	commentaar varchar(100)
 )
 go
 
