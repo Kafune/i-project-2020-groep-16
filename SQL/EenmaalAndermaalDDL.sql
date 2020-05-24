@@ -62,10 +62,11 @@ go
 
 go
 CREATE TABLE Gebruikerstelefoon (
-	volgnr int NOT NULL,
+	volgnr int IDENTITY (1,1) NOT NULL,
 	gebruikersnaam varchar(20) NOT NULL,
 	telefoonnummer int NOT NULL
 )
+
 go
 
 go
