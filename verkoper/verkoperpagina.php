@@ -67,15 +67,15 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                         <select id="voorwerp" name="voorwerp">
                             <?php
                             while($row_voorwerp = $voorwerpdetails->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<option value="' . $row_voorwerp["voorwerpnummer"] . '">' . $row_voorwerp["titel"] . '</option>';
+                                echo '<option value="' . $row_voorwerp["voorwerpnummer"] . '" >' . $row_voorwerp["titel"] . '</option>';
                             } ?>
                         </select>
                     </div>
                 </div>
                 <div class="field">
-                    <label for="bericht" class="label">Bericht</label>
+                    <label for="bericht" class="label">Bericht (max. 100 tekens)</label>
                     <div class="control">
-                        <textarea class="textarea is-small" id="bericht" name="bericht" required></textarea>
+                        <textarea class="textarea is-small" id="bericht" name="bericht" maxlength="100" required></textarea>
                     </div>
                 </div>
                 <div class="field is-grouped">
