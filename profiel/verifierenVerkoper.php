@@ -49,12 +49,12 @@ if (isset($_POST['verifieerverkoper'])) {
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
         $stmt->execute();
-        echo "<script> 
-              alert('Verificatiecode is correct. U bent nu een verkoper!');
-              window.location.href='gebruikersprofiel.php';
-              </script>";
+        $_SESSION['success'] = "succesVerkoperRegistratie";
+        header('location: gebruikersprofiel.php');
+
     } else {
-        echo "<script>alert('Verificatiecode fout. Probeer het nog een keer.');</script>";
+        $_SESSION['error'] = "errorVerkoperRegistratie";
+        header('location: verifierenVerkoper.php');
     }
 }
 

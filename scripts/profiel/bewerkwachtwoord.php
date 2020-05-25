@@ -12,7 +12,6 @@ if (isset($_SESSION['gebruiker'])) {
     );
     $resultaat = haalGegevensArray($conn, $sql, $queryArray);
     if (!empty($resultaat)) {
-
         if (checkGegevens($gebruikersnaam, $resultaat['gebruikersnaam'])) {
 
             //check of gebruiker op de knop bewerkwachtwoord heeft geklikt
@@ -27,9 +26,11 @@ if (isset($_SESSION['gebruiker'])) {
 
                         //verander oud wchtwoord naar nieuw wachtwoord
                         $sql = "UPDATE Gebruiker 
-                        SET wachtwoord = :nieuwwachtwoord";
+                        SET wachtwoord = :nieuwwachtwoord
+                        WHERE gebruikersnaam = :gebruikersnaam";
                         $stmt = $conn->prepare($sql);
                         $stmt->bindParam(':nieuwwachtwoord', $nieuwwachtwoord);
+                        $stmt->bindParam(':gebruikersnaam', $gebruikersnaam);
                         $stmt->execute();
 
                         $_SESSION['success'] = "succesWachtwoordBijwerken";
