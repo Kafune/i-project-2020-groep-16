@@ -129,7 +129,7 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                                 <input type="hidden" id="bid_product_id" value="<?=$prod_id;?>">
                             </p>
                             <p class="control">
-                                <button type="submit" name="" id="bid_submit" class="button is-primary">Verzenden</button>
+                                <input type="submit" name="" id="bid_submit" class="button is-primary" onclick="getdata()">
                             </p>
                         </div>
                     </div>
