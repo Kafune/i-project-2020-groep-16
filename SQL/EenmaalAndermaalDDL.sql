@@ -64,7 +64,7 @@ go
 CREATE TABLE Gebruikerstelefoon (
 	volgnr int IDENTITY (1,1) NOT NULL,
 	gebruikersnaam varchar(20) NOT NULL,
-	telefoonnummer int NOT NULL
+	telefoonnummer varchar(20) NOT NULL
 )
 
 go

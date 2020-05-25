@@ -8,6 +8,8 @@ if(isset($_SESSION['gebruiker'])){
     $q = $conn->prepare($sql);
     $res = $q->execute(array($gebruiker));
 
+//    session_destroy();
+
     $_SESSION['success'] = "succesAccountVerwijderd";
     header('location: ../../index.php');
 
