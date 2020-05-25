@@ -50,6 +50,9 @@ if (isset($_SESSION['error'])) {
         case "errorGeblokkeerd":
             $message = "U account is geblokkeerd, neem contact op met Eenmaal Andermaal!";
             break;
+        case "parentNietBestaand":
+            $message = "U gekozen parent rubriek bestaat niet!";
+            break;
         default:
             $message = "";
     }
@@ -77,6 +80,9 @@ if (isset($_SESSION['success'])) {
             break;
         case "succesWachtwoordBijwerken":
             $message = "Uw wachtwoord is succesvol bijgewerkt!";
+            break;
+        case "rubriekGewijzigd":
+            $message = "De rubriek is succesvol bijgewerkt!";
             break;
         default:
             $message = "";
