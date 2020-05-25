@@ -7,7 +7,7 @@ if(empty($_SESSION['admin'])){
 <div class="container">
     <div class="columns">
         <div class="column is-3" style="padding-top: 3rem">
-            <aside class="menu is-hidden-mobile">
+            <aside class="menu is-centered">
                 <p class="menu-label">
                     General
                 </p>

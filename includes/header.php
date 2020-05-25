@@ -34,7 +34,7 @@ include_once("meldingen.php");
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-start">
             <a class="navbar-item" href="/index.php">Home</a>
-            <a class="navbar-item" href="/producten/rubrieken.php?volgnr=1">Categoriën</a>
+            <a class="navbar-item" href="/rubriekenboom.php">Categoriën</a>
             <a class="navbar-item" href="#">Top Veilingen</a>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Contact</a>
@@ -57,7 +57,7 @@ include_once("meldingen.php");
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
             } else {
                 if (isset($_SESSION['verkoper'])) {
-                    echo '<a class="button is-black" href="/voorwerpen/rubrieken.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
+                    echo '<a class="button is-black" href="/voorwerpen/rubrieken_voorwerp_toevoegen.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Verkoop</a>';
                 }
                 if (isset($_SESSION['admin'])) {
                     echo '<a class="button is-black" href="/admin/index.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Dashboard</a>';
