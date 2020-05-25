@@ -7,17 +7,19 @@ if (isset($_SESSION['gebruiker'])) {
 
     $gebruiker = $_SESSION['gebruiker'];
     $queryArray = array(
-        ':gebruiker' => $gebruiker
+        ':gebruikersnaam' => $gebruiker
     );
-    $sql = "DELETE FROM gebruiker WHERE gebruikersnaam = ?";
-    if (voerQueryUit($conn, $sql, $queryArray)) {
+    $sql = "DELETE FROM gebruikerstelefoon WHERE gebruikersnaam = :gebruikersnaam";
+    if(voerQueryUit($conn, $sql, $queryArray)) {
+        $sql = "DELETE FROM gebruiker WHERE gebruikersnaam = :gebruikersnaam";
+        if (voerQueryUit($conn, $sql, $queryArray)) {
 
-        session_destroy();
+            session_destroy();
 
-        $_SESSION['success'] = "succesAccountVerwijderd";
-        header('location: ../../index.php');
+            $_SESSION['success'] = "succesAccountVerwijderd";
+            header('location: ../../index.php');
+        }
     }
-
 
     $conn->close();
 } else {
