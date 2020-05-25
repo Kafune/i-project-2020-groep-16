@@ -20,6 +20,7 @@ if (isset($_POST['login'])) {
 
 
     $verkoper = $row['isVerkoper'];
+    $isAdmin = $row['isAdmin'];
     $server_password = $row['wachtwoord'];
     $password = sha1($wachtwoord);
 
@@ -32,6 +33,10 @@ if (isset($_POST['login'])) {
 
         if($verkoper == true){
             $_SESSION['verkoper'] = true;
+        }
+
+        if($isAdmin == true){
+            $_SESSION['admin'] = true;
         }
         $_SESSION['success'] = 'succesInloggen';
         header('location: ' . $root . '/index.php');
