@@ -62,10 +62,11 @@ go
 
 go
 CREATE TABLE Gebruikerstelefoon (
-	volgnr int NOT NULL,
+	volgnr int IDENTITY (1,1) NOT NULL,
 	gebruikersnaam varchar(20) NOT NULL,
 	telefoonnummer int NOT NULL
 )
+
 go
 
 go
@@ -237,3 +238,23 @@ go
 ALTER TABLE Bod
 ADD CONSTRAINT UN_Bod_Twee_Keer UNIQUE (gebruiker, bodtijdstip);
 go
+
+--/********
+--Conversie
+--*/*******
+
+--Laat maximale aantal tekens toe bij beschrijving wegens conversie
+ALTER TABLE Voorwerp
+ALTER COLUMN beschrijving VARCHAR(MAX)
+
+ALTER TABLE Bestand
+DROP CONSTRAINT PK_bestand
+ALTER TABLE Bestand
+ALTER COLUMN filenaam VARCHAR(100)
+
+ALTER TABLE Bestand
+DROP CONSTRAINT FK_Bestand_Voorwerp_REF_Voorwerpnummer
+ALTER TABLE Bestand
+ALTER COLUMN voorwerpnummer bigint
+
+
