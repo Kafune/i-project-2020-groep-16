@@ -76,6 +76,7 @@ if (isset($_POST['bewerken'])) {
 
     $stmt->execute();
 
+    $_SESSION['success'] = "successAdminGebruikerWijzigen";
     header('Location: ../gebruiker_wijzigen.php?gebruikersnaam=' . $gebruikersnaamnieuw . '');
 
 } else if ($_POST['verwijderen']){

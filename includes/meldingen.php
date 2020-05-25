@@ -81,6 +81,9 @@ if (isset($_SESSION['success'])) {
         case "succesVerkoperRegistratie":
             $message = "U bent nu als verkoper registreerd!";
             break;
+        case "successAdminGebruikerWijzigen":
+            $message = "Wijzigen van gebruiker succesvol uitgevoerd.";
+            break;
         default:
             $message = "";
     }
