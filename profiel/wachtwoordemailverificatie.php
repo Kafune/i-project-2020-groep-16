@@ -26,7 +26,7 @@ include_once("../includes/header.php");
                             <input type="submit" name="wachtwoord-vergeten-codeverificatie"
                                    class="button is-black is-large">
                         </form>
-                        <?= $_SESSION['verificatieCode'] ?>
+<!--                        --><?//= $_SESSION['verificatieCode'] ?>
                     </div>
                 </div>
             </div>

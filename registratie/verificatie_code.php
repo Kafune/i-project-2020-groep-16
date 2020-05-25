@@ -42,7 +42,7 @@ include_once("../includes/header.php");
                         </form>
                     </div>
                 </div>
-                <?=$_SESSION['verificatieCode']?>
+<!--                --><?//=$_SESSION['verificatieCode']?>
             </div>
             <br><br>
         </div>
