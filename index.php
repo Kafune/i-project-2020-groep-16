@@ -88,17 +88,17 @@ if(isset($_GET['filter'])){
             <form method="GET" action="">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
-                        <input type="text" class="input" name="country" id="" placeholder="Land">
+                        <input type="text" class="input" name="country" id="" placeholder="Enter country">
                     </p>
                     <input type="hidden" name="filter" value="filter">
                     <p class="control">
-                        <input type="text" class="input" name="city" id="" placeholder="Plaatsnaam">
+                        <input type="text" class="input" name="city" id="" placeholder="Enter city">
                     </p>
                     <p class="control" style="width:110px">
-                        <input type="number" class="input" name="min" id="" placeholder="Min Prijs">
+                        <input type="number" class="input" name="min" id="" placeholder="Min Price">
                     </p>
                     <p class="control" style="width:110px">
-                        <input type="number" class="input" name="max" id="" placeholder="Max Prijs">
+                        <input type="number" class="input" name="max" id="" placeholder="Max Price">
                     </p>
 
                     <p class="control">
