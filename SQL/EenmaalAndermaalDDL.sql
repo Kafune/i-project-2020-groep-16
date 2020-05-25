@@ -16,7 +16,7 @@ CREATE TABLE Bod (
     	ID int IDENTITY (1,1) NOT NULL,
 	voorwerp int NOT NULL,
 	bodbedrag numeric(10,2) NOT NULL,
-	gebruiker varchar(20) NOT NULL,
+	gebruiker varchar(200) NOT NULL,
 	boddag date NOT NULL,
 	bodtijdstip datetime NOT NULL
 )
@@ -34,7 +34,7 @@ go
 CREATE TABLE Feedback (
 	voorwerpnummer int NOT NULL,
 	soortgebruiker varchar(8) NOT NULL,
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	feedbacksoort char(8) NOT NULL,
 	datum date NOT NULL,
 	commentaar varchar(100)
@@ -43,14 +43,14 @@ go
 
 go
 CREATE TABLE Gebruiker (
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	voornaam varchar(15) NOT NULL,
 	achternaam varchar(30) NOT NULL,
 	adresregel1 varchar(50) NOT NULL,
 	adresregel2 varchar(50) NULL,
 	postcode varchar(10) NOT NULL,
 	plaatsnaam varchar(25) NOT NULL,
-	land varchar(20) NOT NULL,
+	land varchar(60) NOT NULL,
 	geboortedag date NOT NULL,
 	email varchar(50) NOT NULL,
 	wachtwoord varchar(64) NOT NULL,
@@ -63,8 +63,8 @@ go
 go
 CREATE TABLE Gebruikerstelefoon (
 	volgnr int NOT NULL,
-	gebruikersnaam varchar(20) NOT NULL,
-	telefoonnummer int NOT NULL
+	gebruikersnaam varchar(200) NOT NULL,
+	telefoonnummer varchar(20) NOT NULL
 )
 go
 
@@ -79,7 +79,7 @@ go
 
 go
 CREATE TABLE Verkoper (
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	banknaam varchar(20),
 	rekeningnummer varchar(34),
 	controleoptienaam char(10) NOT NULL,
@@ -91,19 +91,19 @@ go
 go
 CREATE TABLE Voorwerp (
 	voorwerpnummer int IDENTITY(1,1) NOT NULL,
-	titel varchar(50) NOT NULL,
-	beschrijving varchar(5000) NOT NULL,
+	titel varchar(255) NOT NULL,
+	beschrijving varchar(MAX) NOT NULL,
 	startprijs numeric(10,2) NOT NULL,
 	betalingswijze varchar(25) NOT NULL,
 	betalingsinstructie varchar(50) NULL,
 	plaatsnaam varchar(50) NOT NULL,
-	land varchar(20) NOT NULL,
+	land varchar(60) NOT NULL,
 	looptijd smallint NOT NULL,
 	veilingbegin datetime NOT NULL,
 	verzendkosten numeric(8,2) NULL,
 	verzendinstructies varchar(50) NULL,
-	verkoper varchar(20) NOT NULL,
-	koper varchar(20) NULL,
+	verkoper varchar(200) NOT NULL,
+	koper varchar(200) NULL,
     veilingeinde datetime NOT NULL,
 	veilingGesloten bit NOT NULL,
     verkoopprijs numeric(15, 2) null
@@ -127,7 +127,7 @@ go
 /* Primary Keys */
 go
 ALTER TABLE Bestand
-ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam);
+ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam, voorwerpnummer);
 
 ALTER TABLE Bod 
 ADD CONSTRAINT PK_Bod PRIMARY KEY (id, bodbedrag);

@@ -17,6 +17,24 @@ WHERE Voorwerp.verkoper = '".$verkoper_GET."'
 ORDER BY datum desc");
 $reviewdetails->execute();
 
+$reviewdetails_positief = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'positief'");
+$reviewdetails_positief->execute();
+$row_positief = $reviewdetails_positief->fetch(PDO::FETCH_ASSOC);
+
+$reviewdetails_neutraal = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'neutraal'");
+$reviewdetails_neutraal->execute();
+$row_neutraal = $reviewdetails_neutraal->fetch(PDO::FETCH_ASSOC);
+
+$reviewdetails_negatief = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'negatief'");
+$reviewdetails_negatief->execute();
+$row_negatief = $reviewdetails_negatief->fetch(PDO::FETCH_ASSOC);
+
 $voorwerpdetails = $conn->prepare("SELECT voorwerpnummer, titel FROM Voorwerp WHERE verkoper = '".$verkoper_GET."'");
 $voorwerpdetails->execute();
 
@@ -35,7 +53,8 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
             <p><?php echo $row_verkoper['plaatsnaam'] ?></p>
             <p class="is-size-5">Land</p>
             <p><?php echo $row_verkoper['land'] ?></p>
-            <br>
+            <p class="is-size-5">Reviews</p
+            <p>Positief: <?php echo $row_positief['feedbacksoort']?> Neutraal: <?php echo $row_neutraal['feedbacksoort']?> Negatief: <?php echo $row_negatief['feedbacksoort']?></p>
             <?php if (!empty($_SESSION['gebruiker'])) { ?>
             <a class="button is-info" href="../contact/contactVerkoper.php?verkoper=<?=$verkoper_GET?>">Bericht Sturen</a>
             <?php } ?>
