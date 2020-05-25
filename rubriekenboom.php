@@ -55,7 +55,7 @@ include_once("includes/db.php");
                     echo "
                     <tr>
                     <td width=\"5%\"><i class=\"fa fa-cube\"></i></td>
-                    <td>" . $rubrieknaam . "</td>
+                    <td><a class='has-text-black' href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'> " . $rubrieknaam . "</a></td>
                     <td><a class=\"button is-small is-primary\" 
                     href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'>Sub-rubrieken</a></td>
                     <td class=\"level-right\"><a class=\"button is-small is-primary\" 
@@ -82,7 +82,7 @@ include_once("includes/db.php");
                     echo "
                     <tr>
                     <td width=\"5%\"><i class=\"fa fa-cube\"></i></td>
-                    <td>" . $rubrieknaam . "</td>
+                    <td><a class='has-text-black' href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'> " . $rubrieknaam . "</a></td>
                     <td><a class=\"button is-small is-primary\" 
                     href='rubriekenboom.php?rubriek=" . $rubrieknummer . "'>Sub-rubrieken</a></td>
                     <td class=\"level-right\"><a class=\"button is-small is-primary\" 
