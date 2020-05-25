@@ -15,7 +15,7 @@ SELECT CAST(ID AS int) AS voorwerpnummer,
 LEFT(titel, 255) AS titel,
 Beschrijving AS Beschrijving, --maximale aantal
 CAST(prijs AS NUMERIC(10, 2)) AS startprijs,
-'NIET BEKEND' AS betalingswijze,
+'' AS betalingswijze,
 NULL AS betalingsinstructie,
 'Geen' AS plaatsnaam,
 LEFT(locatie, 60) AS land,
@@ -36,18 +36,18 @@ SELECT * FROM Gebruiker
 
 INSERT INTO Gebruiker
 SELECT DISTINCT Username AS gebruikersnaam,
-'Onbekend' AS voornaam,
-'Onbekend' AS achternaam,
-'Onbekend' AS adresregel1,
+'' AS voornaam,
+'' AS achternaam,
+'' AS adresregel1,
 NULL AS adresregel2,
 LEFT(Postalcode, 10) AS postcode,
-'Onbekend' AS plaatsnaam,
+'' AS plaatsnaam,
 LEFT(Location, 60) AS land,
 '1970-01-01 00:00:00.000' AS geboortedag,
-'Onbekend@onbekend.net' AS email,
-'Onbekend' AS wachtwoord,
+'' AS email,
+'' AS wachtwoord,
 1 AS vraag,
-'Onbekend' AS antwoordtekst,
+'' AS antwoordtekst,
 1 AS isVerkoper
 FROM Users
 
