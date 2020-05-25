@@ -10,12 +10,23 @@
 //    echo "Er is iets fout<br>{$e->getMessage()}";
 //}
 
-$gebruiker = "root";
+//$gebruiker = "root";
+//$wachtwoord = "";
+//
+//
+//try {
+//    $conn = new PDO('mysql:host=localhost;dbname=EenmaalAndermaal', $gebruiker, $wachtwoord);
+//    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//} catch (PDOException $e) {
+//    echo "Er is iets fout<br>{$e->getMessage()}";
+//}
+
+$gebruiker = "";
 $wachtwoord = "";
 
-
+//phpinfo();
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=EenmaalAndermaal', $gebruiker, $wachtwoord);
+    $conn = new PDO("sqlsrv:server=(local);database=EenmaalAndermaal", $gebruiker, $wachtwoord);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Er is iets fout<br>{$e->getMessage()}";

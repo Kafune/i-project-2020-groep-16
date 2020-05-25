@@ -93,6 +93,8 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     <p><?php echo $row_details['gebruikersnaam'] ?></p>
                     <p><?php echo $row_details['plaatsnaam'] ?></p>
                     <br>
+                    <p class="has-text-weight-bold">Verkoper</p>
+                    <a href="../verkoper/verkoperpagina.php?verkoper=<?=$row_details['verkoper']?>"><?php echo $row_details['verkoper'] ?></a>
                     <p class="has-text-weight-bold">Betalingswijze</p>
                     <p><?php echo $row_details['betalingswijze'] ?></p>
                     <p class="has-text-weight-bold">Betalingsinstructies</p>
