@@ -24,6 +24,42 @@ if($_POST){
     if($row_data)
 }*/
 
+if(isset($_GET['filter'])){
+    //print_r($_GET);
+    $q = '';
+    if($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] == '' && $_GET['city'] == ''){
+        $q = "SELECT * FROM voorwerp WHERE startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
+    }elseif ($_GET['country'] != '' && $_GET['city'] != '' && $_GET['max'] == '' && $_GET['min'] == '') {
+        $q = "SELECT * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND land LIKE '%".$_GET['country']."%'";
+    }elseif ($_GET['city'] != '') {
+        $q = "SELECT * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%'";
+    }elseif ($_GET['country'] != '') {
+        $q = "SELECT * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%'";
+    }elseif ($_GET['max'] != '') {
+        $q = "SELECT * FROM voorwerp WHERE startprijs BETWEEN 0 AND ".$_GET['max'];
+    }elseif ($_GET['min'] != '') {
+        $q = "SELECT * FROM voorwerp WHERE startprijs > ".$_GET['min'];
+    }elseif ($_GET['country'] != '' && $_GET['min'] != '') {
+        $q = "SELECT * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%' AND startprijs > ".$_GET['min'];
+    }elseif($_GET['city'] != '' && $_GET['min'] != ''){
+        $q = "SELECT * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND startprijs > ".$_GET['min'];
+    }elseif($_GET['country'] != '' && $_GET['max'] != ''){
+        $q = "SELECT * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%' AND  startprijs BETWEEN 0 AND ".$_GET['max'];
+    }elseif($_GET['city'] != '' && $_GET['max'] != ''){
+        $q = "SELECT * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND  startprijs BETWEEN 0 AND ".$_GET['max'];
+    }elseif($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] != '' && $_GET['city'] != ''){
+        $q = "SELECT * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND land LIKE '%".$_GET['country']."%' AND  startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
+    }elseif($_GET['max'] != '' && $_GET['min'] != ''){
+        $q = "SELECT * FROM voorwerp WHERE startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
+    }
+
+    $page = $conn->prepare($q);
+    $page->execute();
+    $row = $page->fetchAll(PDO::FETCH_ASSOC);
+    //print_r($row);
+
+}
+
 
 ?>
 <link rel="stylesheet" href="styles/css/mystyles.css">
@@ -45,6 +81,28 @@ if($_POST){
                     </p>
                     <p class="control">
                         <button type="submit" class="button is-black">Zoek</button>
+                    </p>
+                </div>
+            </form>
+            <br>
+            <form method="GET" action="">
+                <div class="field has-addons has-addons-centered">
+                    <p class="control">
+                        <input type="text" class="input" name="country" id="" placeholder="Land">
+                    </p>
+                    <input type="hidden" name="filter" value="filter">
+                    <p class="control">
+                        <input type="text" class="input" name="city" id="" placeholder="Plaatsnaam">
+                    </p>
+                    <p class="control" style="width:110px">
+                        <input type="number" class="input" name="min" id="" placeholder="Min Prijs">
+                    </p>
+                    <p class="control" style="width:110px">
+                        <input type="number" class="input" name="max" id="" placeholder="Max Prijs">
+                    </p>
+
+                    <p class="control">
+                        <button type="submit" class="button is-black">Filter</button>
                     </p>
                 </div>
             </form>
