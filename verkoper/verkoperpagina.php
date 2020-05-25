@@ -4,9 +4,6 @@ include_once("../includes/db.php");
 
 global $conn;
 
-if (empty($_SESSION['gebruiker'])) {
-    header("Location: ../index.php");
-}
 
 $verkoper_GET = $_GET['verkoper'];
 $_SESSION['verkoper'] = $verkoper_GET;
@@ -39,11 +36,13 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
             <p class="is-size-5">Land</p>
             <p><?php echo $row_verkoper['land'] ?></p>
             <br>
+            <?php if (!empty($_SESSION['gebruiker'])) { ?>
             <a class="button is-info" href="../contact/contactVerkoper.php?verkoper=<?=$verkoper_GET?>">Bericht Sturen</a>
-
+            <?php } ?>
         </div>
         <div class="tile is-child box">
             <p class="title">Review Schrijven</p>
+            <?php if (!empty($_SESSION['gebruiker'])) { ?>
             <form method="post" action="../scripts/stuur_recensie.php">
                 <div class="field">
                     <label for="gebruikersnaam" class="label">Gebruikersnaam</label>
@@ -86,6 +85,9 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                         <button class="button is-danger" type="reset">Annuleren</button>
                     </div>
                 </div>
+                <?php } else {
+                    echo "<p class='subtitle'>Om een review te mogen schrijven moet u ingelogd zijn.</p>";
+                }?>
             </form>
         </div>
     </div>
