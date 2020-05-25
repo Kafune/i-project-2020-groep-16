@@ -367,6 +367,10 @@ if($isVerkoper == 1) {
                         <input type="checkbox" name="isAdmin" value="1" <?php if ($resultaat['isAdmin'] == 1) { echo "checked='checked'"; } ?>>
                     </div>
                     <div class="field">
+                        <label for="geblokkeerd">Geblokkeerd<br></label>
+                        <input type="checkbox" name="geblokkeerd" value="1" <?php if ($resultaat['geblokkeerd'] == 1) { echo "checked='checked'"; } ?>>
+                    </div>
+                    <div class="field">
                         <input type="submit" name="bewerken" value="Bijwerken" class="button is-primary">
                         <input type="submit" name="verwijderen" value="Verwijderen" class="button is-primary">
                     </div>

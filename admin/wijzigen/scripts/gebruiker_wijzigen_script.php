@@ -16,11 +16,15 @@ if (isset($_POST['bewerken'])) {
 
     $isVerkoper = $_POST['isVerkoper'];
     $isAdmin = $_POST['isAdmin'];
+    $geblokkeerd =$_POST['geblokkeerd'];
     if ($isVerkoper != 1) {
         $isVerkoper = 0;
     }
     if ($isAdmin != 1) {
         $isAdmin = 0;
+    }
+    if ($geblokkeerd != 1) {
+        $geblokkeerd = 0;
     }
 
     $banknaam = $_POST['banknaam'];
@@ -39,7 +43,8 @@ if (isset($_POST['bewerken'])) {
                   email = :email,
                   land = :land,
                   isVerkoper = :isVerkoper,
-                  isAdmin = :isAdmin
+                  isAdmin = :isAdmin,
+                  geblokkeerd = :geblokkeerd
                   WHERE gebruikersnaam = :gebruikersnaamoud";
 
     $stmt = $conn->prepare($sql_koper);
@@ -56,6 +61,7 @@ if (isset($_POST['bewerken'])) {
     $stmt->bindParam(':land', $land);
     $stmt->bindParam(':isVerkoper', $isVerkoper);
     $stmt->bindParam(':isAdmin', $isAdmin);
+    $stmt->bindParam(':geblokkeerd', $geblokkeerd);
     $stmt->bindParam(':gebruikersnaamoud', $gebruikersnaamoud);
 
     $stmt->execute();
