@@ -34,7 +34,7 @@ go
 CREATE TABLE Feedback (
 	voorwerpnummer int NOT NULL,
 	soortgebruiker varchar(8) NOT NULL,
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	feedbacksoort char(8) NOT NULL,
 	datum date NOT NULL,
 	commentaar varchar(100)
@@ -70,11 +70,11 @@ CREATE TABLE Gebruikerstelefoon (
 go
 
 go
+
 CREATE TABLE Rubriek (
-	rubrieknummer int NOT NULL,
-	rubrieknaam varchar(30) NOT NULL,
-	rubriek int,				 
-	volgnr int NOT NULL
+	rubrieknummer int IDENTITY(1,1) NOT NULL,
+    rubrieknaam varchar(100) NULL,
+    rubriek int NULL
 )
 go
 
@@ -254,7 +254,65 @@ ALTER COLUMN filenaam VARCHAR(100)
 
 ALTER TABLE Bestand
 DROP CONSTRAINT FK_Bestand_Voorwerp_REF_Voorwerpnummer
+
+--bod
+ALTER TABLE Bod
+DROP CONSTRAINT FK_Bod_Gebruiker_REF_Gebruikersnaam
+
+ALTER TABLE Bod
+ALTER COLUMN gebruiker VARCHAR(200)
+
+--gebruiker
+ALTER TABLE Verkoper
+DROP CONSTRAINT FK_Verkoper_Voorwerp_Ref_Verkoper
+ALTER TABLE Voorwerp
+DROP CONSTRAINT FK_Voorwerp_Gebruiker_REF_Gebruikersnaam
+ALTER TABLE Gebruiker
+DROP CONSTRAINT PK_Gebruiker
+
+ALTER TABLE Gebruiker
+ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
+
+--verkoper
+ALTER TABLE Verkoper
+DROP CONSTRAINT PK_VERKOPER
+ALTER TABLE Voorwerp
+DROP CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam
+
+ALTER TABLE Verkoper
+ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
+
+--feedback
+ALTER TABLE Feedback
+ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
+
+
+--gebruikerstelefoon
+ALTER TABLE gebruikerstelefoon
+ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
+
+--voorwerp
+ALTER TABLE Voorwerp
+ALTER COLUMN verkoper VARCHAR(200) NOT NULL
+
+ALTER TABLE Voorwerp
+ALTER COLUMN koper VARCHAR(200) NOT NULL
+
+--voorwerp
+ALTER TABLE Voorwerp
+ALTER COLUMN Titel VARCHAR(255)
+
+ALTER TABLE Voorwerp
+ALTER COLUMN land VARCHAR(60)
+
+ALTER TABLE Gebruiker
+ALTER COLUMN land VARCHAR(60)
+
+--bestand
+ALTER TABLE bestand
+ALTER COLUMN filenaam VARCHAR(100) NOT NULL
+
 ALTER TABLE Bestand
-ALTER COLUMN voorwerpnummer bigint
-
-
+DROP CONSTRAINT PK_Bestand
+ALTER TABLE Bestand
+ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam, voorwerpnummer);
