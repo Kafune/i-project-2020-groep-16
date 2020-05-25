@@ -47,6 +47,9 @@ if (isset($_SESSION['error'])) {
         case "errorMinderJarig":
             $message = "U moet 18 jaar of ouder zijn om te kunnen registreren!";
             break;
+        case "errorGeblokkeerd":
+            $message = "U account is geblokkeerd, neem contact op met Eenmaal Andermaal!";
+            break;
         default:
             $message = "";
     }
