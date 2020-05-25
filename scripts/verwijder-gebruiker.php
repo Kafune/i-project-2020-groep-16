@@ -1,21 +1,26 @@
 <?php
 session_start();
 include_once('../includes/db.php');
+include_once('../includes/functies.php');
 
-if(isset($_SESSION['gebruiker'])){
+if (isset($_SESSION['gebruiker'])) {
+
     $gebruiker = $_SESSION['gebruiker'];
+    $queryArray = array(
+        ':gebruiker' => $gebruiker
+    );
     $sql = "DELETE FROM gebruiker WHERE gebruikersnaam = ?";
-    $q = $conn->prepare($sql);
-    $res = $q->execute(array($gebruiker));
+    if (voerQueryUit($conn, $sql, $queryArray)) {
 
-//    session_destroy();
+        session_destroy();
 
-    $_SESSION['success'] = "succesAccountVerwijderd";
-    header('location: ../../index.php');
+        $_SESSION['success'] = "succesAccountVerwijderd";
+        header('location: ../../index.php');
+    }
+
 
     $conn->close();
-}
-else{
+} else {
     header("Location: /index.php");
 }
 ?>
