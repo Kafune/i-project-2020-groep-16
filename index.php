@@ -139,6 +139,8 @@ if(isset($_GET['filter'])){
                             <p class="">
                                 <?php echo $value['beschrijving'] ?>
                             </p>
+                            <br>
+
                         </div>
                         <footer class="card-footer">
                             <p class="card-footer-item">
@@ -146,9 +148,9 @@ if(isset($_GET['filter'])){
                                         <a href="playstation4.php?voorwerpnummer=<?php echo $value['voorwerpnummer'] ?>" class="">Details</a>
                                     </span>
                             </p>
-                            <p class="card-footer-item">
+                            <p class="card-footer-item has-background-info has-text-white">
                                     <span>
-                                        <a href="">Bied</a>
+                                        €<?=$value['startprijs']?>,-
                                     </span>
                             </p>
                         </footer>
