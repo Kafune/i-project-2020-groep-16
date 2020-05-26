@@ -21,13 +21,15 @@ if (isset($_POST['login'])) {
 
     $verkoper = $row['isVerkoper'];
     $isAdmin = $row['isAdmin'];
+    $geblokkeerd = $row['geblokkeerd'];
     $server_password = $row['wachtwoord'];
     $password = sha1($wachtwoord);
 
 //wachtwoord checken of het correct is
-    if ($server_password == $password) {
-        echo "Succesvol login";
-
+    if($geblokkeerd == 1){
+        $_SESSION['error'] = "errorGeblokkeerd";
+        header('location: /login.php');
+    } else if ($server_password == $password) {
         $_SESSION['gebruiker'] = $gebruikersnaam;
         $_SESSION['ingelogd'] = true;
 

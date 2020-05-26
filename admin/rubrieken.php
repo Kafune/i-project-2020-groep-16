@@ -3,27 +3,6 @@ include_once('../includes/header.php');
 include_once('menu.php');
 include_once('../includes/db.php');
 
-
-/*SQL Zoek statements & sub-rubriek statement*/
-//if (isset($_GET['rubrieknaam'])) {
-//    $zoek = $_GET['rubrieknaam'];
-//    $stmt = $conn->prepare("SELECT TOP 50 * FROM Rubriek WHERE rubrieknaam LIKE '%" . $zoek . "%'");
-//} else if (isset($_GET['rubrieknummer'])) {
-//    $zoek = $_GET['rubrieknummer'];
-//    $stmt = $conn->prepare("SELECT TOP 50 * FROM Rubriek WHERE rubrieknummer LIKE '%" . $zoek . "%'");
-//}else if (isset($_GET['parent'])) {
-//    $zoek = $_GET['parent'];
-//    $stmt = $conn->prepare("SELECT TOP 50 * FROM Rubriek WHERE rubriek LIKE '%" . $zoek . "%'");
-//} else if (isset($_GET['id'])){
-//    $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
-//            FROM Rubriek as r1
-//            LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer
-//            WHERE r1.Rubriek = :rubrieknummer ORDER BY r1.rubrieknaam ASC";
-//    $stmt = $conn->prepare($sql);
-//    $stmt->bindParam(':rubrieknummer', $_GET['id']);
-//} else if (empty($_GET['rubrieknaam'])) {
-//    $stmt = $conn->prepare("SELECT TOP 50 * FROM Rubriek WHERE Rubriek = -1 ORDER BY rubrieknaam");
-//}
 /*SQL Zoek statements & sub-rubriek statement*/
 if (isset($_GET['rubrieknaam'])) {
     $zoek = $_GET['rubrieknaam'];
@@ -93,7 +72,7 @@ $stmt->execute();
                                 <td>" . $parentnaam . "</td>
                                 <td>" . $rubrieknaam . "</td>
                                 <td><a class=\"button is-small is-primary\" href=\"/admin/rubrieken.php?id=".$id."\">Sub-rubrieken</a></td>
-                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken%20wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken_wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
                                 </tr>";
                             }
 
