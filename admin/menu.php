@@ -20,9 +20,10 @@ if(empty($_SESSION['admin'])){
                 <ul class="menu-list">
                     <li><a href="/admin/gebruikers.php">Gebruikers</a></li>
                     <li><a href="/admin/rubrieken.php">Rubrieken</a></li>
-                    <li><a>Cloud Storage Environment Settings</a></li>
-                    <li><a>Authentication</a></li>
-                    <li><a>Payments</a></li>
+<!--                    <li><a href="/admin/voorwerpen.php">Voorwerpen</a></li>-->
+<!--                    <li><a>Cloud Storage Environment Settings</a></li>-->
+<!--                    <li><a>Authentication</a></li>-->
+<!--                    <li><a>Payments</a></li>-->
                 </ul>
             </aside>
         </div>
