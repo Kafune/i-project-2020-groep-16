@@ -4,7 +4,7 @@ include_once('menu.php');
 include_once('../includes/db.php');
 
 if (isset($_GET['gebruikersnaam'])) {
-    $zoek = "SELECT * FROM Gebruiker
+    $zoek = "SELECT TOP 200 * FROM Gebruiker
          WHERE gebruikersnaam like '%".$_GET['gebruikersnaam']."%'
          and voornaam like '%".$_GET['voornaam']."%'
          and achternaam like '%".$_GET['achternaam']."%'";

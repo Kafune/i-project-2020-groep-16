@@ -1,5 +1,5 @@
 <?php
-if(empty($_SESSION['admin'])){
+if (empty($_SESSION['admin'])) {
     header('Location:../index.php');
 }
 ?>
@@ -19,11 +19,22 @@ if(empty($_SESSION['admin'])){
                 </p>
                 <ul class="menu-list">
                     <li><a href="/admin/gebruikers.php">Gebruikers</a></li>
-                    <li><a href="/admin/rubrieken.php">Rubrieken</a></li>
-<!--                    <li><a href="/admin/voorwerpen.php">Voorwerpen</a></li>-->
-<!--                    <li><a>Cloud Storage Environment Settings</a></li>-->
-<!--                    <li><a>Authentication</a></li>-->
-<!--                    <li><a>Payments</a></li>-->
+                    <li>
+                        <a href="/admin/rubrieken.php">Rubrieken</a>
+                        <ul>
+                            <li><a href="/admin/rubrieken.php">Wijzigen</a></li>
+                            <li><a href="/admin/wijzigen/rubriek_toevoegen/rubriek_toevoegen.php?status=kiesparent">Toevoegen</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <p class="menu-label">
+                    Rapporten
+                </p>
+                <ul class="menu-list">
+                    <li><a>Gebruikers</a></li>
+                    <li><a>Verkopers</a></li>
+                    <li><a>Voorwerpen</a></li>
+                    <li><a>Rubrieken</a></li>
                 </ul>
             </aside>
         </div>
