@@ -11,3 +11,23 @@
 .containerExtraPadding {
   padding: 20px;
 }
+
+//alle meldingen
+%meldingen {
+  border: solid #E50056 1px;
+  padding: 10px 0;
+  color: #ffffff;
+}
+
+//op basis van error of success een andere kleur geven.
+.errormsg {
+  @extend %meldingen;
+  background-color: #000000;
+  border-color: #ffffff;
+}
+
+.successmsg {
+  @extend %meldingen;
+  background-color: #ffffff;
+  border-color: #000000;
+}
