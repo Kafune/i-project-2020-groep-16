@@ -12,6 +12,12 @@ $page_photo= $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='".$row
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
+
+if(isset($_GET['status'])){
+    if($_GET['status'] == 0){
+        echo "<script>alert('Je kan niet bieden totdat iemand anders geboden heeft.');</script>";
+    }
+}
 ?>
 
     <link rel="stylesheet" href="styles/css/mystyles.css">
@@ -124,13 +130,16 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                         <div id="tableData" style="padding:20px;">
                         </div>
                         <div class="field has-addons has-addons-centered bid_data">
-                            <p class="control">
-                                <input type="number" class="input" name="" id="bid_amount" placeholder="€" required>
-                                <input type="hidden" id="bid_product_id" value="<?=$prod_id;?>">
-                            </p>
-                            <p class="control">
-                                <input type="submit" name="" id="bid_submit" class="button is-primary" onclick="getdata()">
-                            </p>
+                            <form method="post" action="insertByAjax.php" id="amountForm">
+                                <p class="control">
+                                    <input type="number" class="input" name="amount" id="bid_amount" placeholder="€" required>
+                                    <input type="hidden" name="action" value="insert">
+                                    <input type="hidden" id="bid_product_id" name="prod_id" value="<?=$prod_id;?>">
+                                </p>
+                                <p class="control">
+                                    <button type="button" name="" id="bid_submit" class="button is-primary">Verzenden</button>
+                                </p>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -145,71 +154,66 @@ if(isset($_SESSION['gebruiker'])){
     $username = $_SESSION['gebruiker'];
 }
 ?>
-
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    var username = "<?=$username;?>"; 
+    var username = "<?=$username;?>";
     var bid = 5;
     getdata();
     function getdata(){
 
         prod_id = $('#bid_product_id').val();
-            $.post("insertByAjax.php",
-                {
-                    action: 'get',
-                    prod_id: prod_id
-                },
+        $.post("insertByAjax.php",
+            {
+                action: 'get',
+                prod_id: prod_id
+            },
             function(data, status){
-            var array = JSON.parse(data);
-            //alert("Data: " + data + "\nStatus: " + status);
-            $('#tableData').html(array.output);
-            if(array.highestvalue != 'none'){
-            bid = array.highestvalue;
-            }
-            if(array.auction_end != 'none'){
-            $('#auction_end').html("<center><h2>Einde veiling : "+array.auction_end+"</h2></center>")
-            }
-            if(array.bid == 'stop'){
-                $('.bid_data').html('');
-                $('.bid_title').text('tijd voorbij');
-                $('#name').html('<center><h1>Winnaar is '+array.person+'</h1><h1>Hoogste geboden bedrag : € '+array.highestvalue+'</h1></center>');
-            }
+                var array = JSON.parse(data);
+                //alert("Data: " + data + "\nStatus: " + status);
+                $('#tableData').html(array.output);
+                if(array.highestvalue != 'none'){
+                    bid = array.highestvalue;
+                }
+                if(array.auction_end != 'none'){
+                    $('#auction_end').html("<center><h2>End time : "+array.auction_end+"</h2></center>")
+                }
+                if(array.bid == 'stop'){
+                    $('.bid_data').html('');
+                    $('.bid_title').text('tijd voorbij');
+                    $('#name').html('<center><h1>Winner is '+array.person+'</h1><h1>Highes bid amount : € '+array.highestvalue+'</h1></center>');
+                }
             });
-            $('#bid_amount').val('');
+        $('#bid_amount').val('');
 
     }
     $(document).ready(function(){
         $("#bid_submit").click(function(){
+            username = 'amar';
+
             if(username == ''){
-                alert('U moet eerst inloggen om te kunnen bieden!');
+                alert('Je moet eerst inloggen om mee te kunnen bieden.');
                 return false;
             }
             amount = $('#bid_amount').val();
+            amount = parseInt(amount);
+            bid = parseInt(bid);
             prod_id = $('#bid_product_id').val();
             if(amount != ''){
                 if(amount > bid){
-                $('#bid_amount').css('border','1px solid gray');
-            
-            $.post("insertByAjax.php",
-                {
-                    amount: amount,
-                    prod_id: prod_id
-                },
-            function(data, status){
-                var array = JSON.parse(data);
-                if(array.status == 0){
-                    alert("U kunt pas weer bieden als iemand u heeft overboden!");
-                }
-            getdata();
-            });
+                    $('#bid_amount').css('border','1px solid gray');
 
-            }else{
-                alert('Vul bedrag meer dan '+bid);
-            }
+                    $('#amountForm').submit();
+
+
+                }else{
+                    alert('vul bedrag meer dan '+bid);
+                }
 
             }else{
                 $('#bid_amount').css('border','2px solid red');
             }
-            
+
         });
 
         //alert('fine');
