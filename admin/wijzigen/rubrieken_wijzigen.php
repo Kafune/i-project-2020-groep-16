@@ -30,26 +30,21 @@ $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
                                value="<?= $resultaat['rubrieknaam'] ?>" required><br>
                     </div>
                     <div class="field">
-                        <label for="rubrieknummer">Rubrieknummer</label>
-                        <input type="number" name="rubrieknummer" id="rubrieknummer" class="input"
-                               value="<?= $resultaat['rubrieknummer'] ?>" required>
+                        <input type="hidden" name="rubrieknummer" id="rubrieknummer" class="input"
+                               value="<?= $resultaat['rubrieknummer'] ?>" hidden>
                     </div>
                     <div class="field">
-                        <input type="hidden" name="rubrieknummeroud" id="rubrieknummeroud" class="input"
-                               value="<?= $resultaat['rubrieknummer'] ?>" hidden>
+                        <button type="submit" name="wijzigen" id="wijzigen" class="button is-primary">Wijzingen
+                            toepassen
+                        </button>
                     </div>
                 </div>
                 <div class="column is-half has-text-weight-bold">
-                    <div class="field">
-                        <label for="parent">Parent rubriek</label>
-                        <input type="text" name="parent" id="parent" class="input"
-                               value="<?= $resultaat['rubriek'] ?>"><br>
-                    </div>
-                    <div class="field">
-                    <button type="submit" name="wijzigen" id="wijzigen" class="button is-primary">Wijzigen</button>
-                    </>
+                    <br><p class="button is-primary"><a
+                                href="parent_rubriek_wijzigen.php?rubrieknummer=<?php echo $resultaat['rubrieknummer'] ?>"
+                                class="has-text-white has-text-weight-normal">Parent wijzigen</a>
+                    </p>
                 </div>
-            </div>
         </form>
     </div>
 </div>
