@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 include_once("includes/db.php");
 session_start();
 $username = '';
@@ -13,7 +15,7 @@ if($_POST['action'] == 'insert'){
     $amount = $_POST['amount'];
     $prod_id = $_POST['prod_id'];
 
-    $page_details= $conn->prepare("SELECT gebruiker FROM bod WHERE Voorwerp ='".$prod_id."' ORDER BY id DESC LIMIT 1");
+    $page_details= $conn->prepare("SELECT gebruiker FROM bod WHERE Voorwerp ='".$prod_id."' ORDER BY id DESC");
     $page_details->execute();
     $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
@@ -21,8 +23,8 @@ if($_POST['action'] == 'insert'){
         header('location:playstation4.php?voorwerpnummer='.$prod_id.'&status=0');
     }
 
-    $sql = "INSERT INTO `bod`(
-				`Voorwerp`, `bodbedrag`, `gebruiker`, `boddag`, `bodtijdstip`
+    $sql = "INSERT INTO bod(
+				Voorwerp, bodbedrag, gebruiker, boddag, bodtijdstip
 			)
             VALUES (
             :Voorwerp,
