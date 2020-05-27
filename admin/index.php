@@ -80,6 +80,41 @@ $stmt->execute();
                 </div>
             </div>
         </div>
+        <div class="column is-half">
+            <section class="hero is-primary is-small">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1>Top 10 biedingen van de maand</h1>
+                    </div>
+                </div>
+            </section>
+            <div class="card-table">
+                <div class="content">
+                    <table class="table is-fullwidth is-striped">
+                        <tbody>
+                        <?php
+
+                        while ($resultbiedingen = $stmt_biedingen->fetch()) {
+                            $voorwerp = $resultbiedingen['Voorwerp'];
+                            $bodbedrag = $resultbiedingen['bodbedrag'];
+                            $gebruiker = $resultbiedingen['gebruiker'];
+
+                            echo "
+                                <tr>
+                                <td width=\"5%\"><i class=\"fa fa-credit-card\"></i></td>
+                                <td>" . $voorwerp . "</td>
+                                <td>€ " . $bodbedrag . "</td>
+                                <td>" . $gebruiker . "</td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" 
+                                href='/playstation4.php?voorwerpnummer=".$voorwerp."'>Bekijken</a></td>
+                                </tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -90,11 +125,4 @@ $stmt->execute();
 </html>
 
 <?php
-function getAantalGebruikers(){
-    $sql_gebruikers = "SELECT count(*) FROM Gebruiker";
-    $result = $conn->prepare($sql_gebruikers);
-    $result->execute();
-    $aantalgebruikers = $result->fetchColumn();
-    echo $aantalgebruikers;
-    return $aantalgebruikers;
-}
+include_once ('../includes/footer.php');

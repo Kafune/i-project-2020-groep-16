@@ -77,12 +77,12 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                         $id = $resultaten['rubriek'];
 
                     }
-                    echo "<li><a href='/voorwerpen/rubrieken.php?'>Rubrieken</a></li>";
+                    echo "<li><a href='/index.php?'>Rubrieken</a></li>";
                     $reversed_namen = array_reverse($namen);
                     $reversed_nummer = array_reverse($nummer);
 
                     for ($i=0; $i< count($reversed_namen);$i++){
-                        echo "<li><a href='/voorwerpen/rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                        echo "<li><a href='index.php?parent=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
                     }
                     ?>
                 </ul>
@@ -129,7 +129,7 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                                 <input type="hidden" id="bid_product_id" value="<?=$prod_id;?>">
                             </p>
                             <p class="control">
-                                <button type="submit" name="" id="bid_submit" class="button is-primary">Verzenden</button>
+                                <input type="submit" name="" id="bid_submit" class="button is-primary" onclick="getdata()">
                             </p>
                         </div>
                     </div>

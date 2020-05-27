@@ -47,6 +47,9 @@ if (isset($_SESSION['error'])) {
         case "errorMinderJarig":
             $message = "U moet 18 jaar of ouder zijn om te kunnen registreren!";
             break;
+        case "errorVerkoperRegistratie":
+            $message = "Verificatiecode fout. Probeer het nog een keer.";
+            break;
         default:
             $message = "";
     }
@@ -75,6 +78,12 @@ if (isset($_SESSION['success'])) {
         case "succesWachtwoordBijwerken":
             $message = "Uw wachtwoord is succesvol bijgewerkt!";
             break;
+        case "succesVerkoperRegistratie":
+            $message = "U bent nu als verkoper registreerd!";
+            break;
+        case "successAdminGebruikerWijzigen":
+            $message = "Wijzigen van gebruiker succesvol uitgevoerd.";
+            break;
         default:
             $message = "";
     }
@@ -98,7 +107,7 @@ function laatMeldingZien($achtergrondkleur = "")
             <h1 class="title has-text-centered is-fullwidth <?= $achtergrondkleuren[0] ?>"><?= $message ?></h1>
         </div>
     <?php
-    elseif(isset($_SESSION['success'])) :
+    elseif (isset($_SESSION['success'])) :
         unset($_SESSION['success']);
         if ($achtergrondkleur == "") {
             $achtergrondkleur = "has-background-success";
