@@ -4,13 +4,19 @@ include_once("includes/header.php");
 include_once("includes/db.php");
 
 $prod_id = $_GET['voorwerpnummer'];
-$page_details = $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='" . $prod_id . "'");
+$page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
-$page_photo = $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='" . $row_details['voorwerpnummer'] . "'");
+$page_photo= $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
+
+if(isset($_GET['status'])){
+    if($_GET['status'] == 0){
+        echo "<script>alert('Je kan niet bieden totdat iemand anders geboden heeft.');</script>";
+    }
+}
 
 ?>
 
@@ -28,19 +34,13 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
         padding: 8px;
     }
 
-    #table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+    #table tr:nth-child(even){background-color: #f2f2f2;}
 
-    #table tr:hover {
-        background-color: #ddd;
-    }
-
-    #table #high {
+    #table tr:hover {background-color: #ddd;}
+    #table #high{
         background-color: #4CAF50;
         color: white;
     }
-
     #table th {
         padding-top: 12px;
         padding-bottom: 12px;
@@ -58,7 +58,7 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                 <?php
                 $voorwerpnummer = $_GET['voorwerpnummer'];
 
-                $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = " . $voorwerpnummer . "";
+                $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = ".$voorwerpnummer."";
 
                 $rubriek_result = $conn->prepare($sql_rubriek);
                 $rubriek_result->execute();
@@ -83,25 +83,24 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     $id = $resultaten['rubriek'];
 
                 }
-                echo "<li><a href='/index.php?'>Rubrieken</a></li>";
+                echo "<li><a href='/voorwerpen/rubrieken.php?'>Rubrieken</a></li>";
                 $reversed_namen = array_reverse($namen);
                 $reversed_nummer = array_reverse($nummer);
 
-                for ($i = 0; $i < count($reversed_namen); $i++) {
-                    echo "<li><a href='index.php?parent=" . $reversed_nummer[$i] . "'>" . $reversed_namen[$i] . "</a></li>";
+                for ($i=0; $i< count($reversed_namen);$i++){
+                    echo "<li><a href='/voorwerpen/rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
                 }
                 ?>
             </ul>
         </nav>
         <div class="columns">
             <div class="column is-half">
-                <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;"
-                     class="image">
+                <img src="<?php echo 'upload/'.$row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
                 <p><?php echo $row_details['gebruikersnaam'] ?></p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>
                 <p class="has-text-weight-bold">Verkoper</p>
-                <a href="../verkoper/verkoperpagina.php?verkoper=<?= $row_details['verkoper'] ?>"><?php echo $row_details['verkoper'] ?></a>
+                <a href="../verkoper/verkoperpagina.php?verkoper=<?=$row_details['verkoper']?>"><?php echo $row_details['verkoper'] ?></a>
                 <p class="has-text-weight-bold">Betalingswijze</p>
                 <p><?php echo $row_details['betalingswijze'] ?></p>
                 <p class="has-text-weight-bold">Betalingsinstructies</p>
@@ -109,9 +108,8 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                 <br>
                 <p class="has-text-weight-bold">Startverkoop</p>
                 <p><?php $phpdate = strtotime($row_details['veilingbegin']);
-                    $sqldate = date('d-m-Y H:i:s', $phpdate);
-                    echo $sqldate ?>
-                </p>
+                    $sqldate = date('d-m-Y H:i:s',$phpdate);
+                    echo $sqldate?></p>
                 <br>
                 <p class="has-text-weight-bold">Product ID</p>
                 <p><?php echo $row_details['voorwerpnummer'] ?></p>
@@ -132,13 +130,21 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
                     <div id="tableData" style="padding:20px;">
                     </div>
                     <div class="field has-addons has-addons-centered bid_data">
-                        <p class="control">
-                            <input type="number" class="input" name="" id="bid_amount" placeholder="€" required>
-                            <input type="hidden" id="bid_product_id" value="<?= $prod_id; ?>">
-                        </p>
-                        <p class="control">
-                            <input type="submit" name="" id="bid_submit" class="button is-primary" onclick="getdata()">
-                        </p>
+                        <form method="post" action="insertByAjax.php" id="amountForm">
+                            <p class="control has-icons-left">
+                                <input type="number" class="input" name="amount" id="bid_amount" placeholder="€" required>
+                                <span class="icon is-left has-text-black" style="color: black">
+                                    <i class="fas fa-euro-sign"></i>
+                                </span>
+                            </p>
+                            <p>
+                                <input type="hidden" name="action" value="insert">
+                                <input type="hidden" id="bid_product_id" name="prod_id" value="<?=$prod_id;?>">
+                            </p>
+                            <p class="control">
+                                <button type="submit" name="" id="bid_submit" class="button is-primary">Verzenden</button>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -149,17 +155,18 @@ $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 <?php
 include_once("includes/footer.php");
 $username = '';
-if (isset($_SESSION['gebruiker'])) {
+if(isset($_SESSION['gebruiker'])){
     $username = $_SESSION['gebruiker'];
 }
 ?>
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
     var username = "<?=$username;?>";
     var bid = 5;
     getdata();
-
-    function getdata() {
+    function getdata(){
 
         prod_id = $('#bid_product_id').val();
         $.post("insertByAjax.php",
@@ -167,57 +174,50 @@ if (isset($_SESSION['gebruiker'])) {
                 action: 'get',
                 prod_id: prod_id
             },
-            function (data, status) {
+            function(data, status){
                 var array = JSON.parse(data);
                 //alert("Data: " + data + "\nStatus: " + status);
                 $('#tableData').html(array.output);
-                if (array.highestvalue != 'none') {
+                if(array.highestvalue != 'none'){
                     bid = array.highestvalue;
                 }
-                if (array.auction_end != 'none') {
-                    $('#auction_end').html("<center><h2>Einde veiling : " + array.auction_end + "</h2></center>")
+                if(array.auction_end != 'none'){
+                    $('#auction_end').html("<center><h2>Eind tijd : "+array.auction_end+"</h2></center>")
                 }
-                if (array.bid == 'stop') {
+                if(array.bid == 'stop'){
                     $('.bid_data').html('');
                     $('.bid_title').text('tijd voorbij');
-                    $('#name').html('<center><h1>Winnaar is ' + array.person + '</h1><h1>Hoogste geboden bedrag : € ' + array.highestvalue + '</h1></center>');
+                    $('#name').html('<center><h1>Winnaar is '+array.person+'</h1><h1>Hoogste geboden bedrag : â‚¬ '+array.highestvalue+'</h1></center>');
                 }
             });
         $('#bid_amount').val('');
 
     }
+    $(document).ready(function(){
+        $("#bid_submit").click(function(){
 
-    $(document).ready(function () {
-        $("#bid_submit").click(function () {
-            if (username == '') {
-                alert('U moet eerst inloggen om te kunnen bieden!');
+
+            if(username == ''){
+                alert('Je moet eerst inloggen om mee te kunnen bieden.');
                 return false;
             }
             amount = $('#bid_amount').val();
+            amount = parseInt(amount);
+            bid = parseInt(bid);
             prod_id = $('#bid_product_id').val();
-            if (amount != '') {
-                if (amount > bid) {
-                    $('#bid_amount').css('border', '1px solid gray');
+            if(amount != ''){
+                if(amount > bid){
+                    $('#bid_amount').css('border','1px solid gray');
 
-                    $.post("insertByAjax.php",
-                        {
-                            amount: amount,
-                            prod_id: prod_id
-                        },
-                        function (data, status) {
-                            var array = JSON.parse(data);
-                            if (array.status == 0) {
-                                alert("U kunt pas weer bieden als iemand u heeft overboden!");
-                            }
-                            getdata();
-                        });
+                    $('#amountForm').submit();
 
-                } else {
-                    alert('Vul bedrag meer dan ' + bid);
+
+                }else{
+                    alert('vul bedrag meer dan '+bid);
                 }
 
-            } else {
-                $('#bid_amount').css('border', '2px solid red');
+            }else{
+                $('#bid_amount').css('border','2px solid red');
             }
 
         });
@@ -243,14 +243,30 @@ if (isset($_SESSION['gebruiker'])) {
         var distance = countDownDate - now;
 
         // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        var dagen = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var uren = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minuten = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var secondes = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if ((uren+"").length === 1){
+            uren = "0"+uren;
+        }
+        if ((minuten+"").length === 1){
+            minuten = "0"+minuten;
+        }
+        if ((secondes+"").length === 1){
+            secondes = "0"+secondes;
+        }
+
+        if(dagen>0){
+            document.getElementById("countdown").innerHTML = dagen + " dagen en " + uren + ":"
+                + minuten + ":" + secondes;
+        } else {
+            document.getElementById("countdown").innerHTML = uren + ":" + minuten + ":" + secondes;
+        }
 
         // Display the result in the element with id="demo"
-        document.getElementById("countdown").innerHTML = days + " dagen " + hours + ":"
-            + minutes + ":" + seconds;
+
 
         // If the count down is finished, write some text
         if (distance < 0) {
