@@ -20,6 +20,12 @@ if (empty($_SESSION['admin'])) {
                 <ul class="menu-list">
                     <li><a href="/admin/gebruikers.php">Gebruikers</a></li>
                     <li>
+                        <a>Voorwerpen</a>
+                        <ul>
+                            <li><a href="/admin/wijzigen/voorwerp_blokkeren.php">Blokkeren</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a>Rubrieken</a>
                         <ul>
                             <li><a href="/admin/rubrieken.php">Wijzigen</a></li>
