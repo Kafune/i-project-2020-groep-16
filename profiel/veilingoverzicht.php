@@ -1,13 +1,23 @@
 <?php
 include_once("../includes/header.php");
+include_once("../includes/db.php");
 include_once("../includes/functies.php");
-
 
 
 if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
+$sql = "SELECT id, titel, bodbedrag, gebruiker
+        FROM Bod 
+        INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
+        WHERE gebruiker = :gebruiker";
+
+$queryArray = array(
+    ':gebruiker' => $_SESSION['gebruiker']
+);
+
+$resultaat = haalGegevensArray($conn, $sql, $queryArray);
 
 ?>
 
@@ -35,10 +45,23 @@ if (empty($_SESSION['gebruiker'])) {
                     </form>
                 </div>
             </div>
-            <table>
+            <table class="table is-primary">
+                <thead>
                 <tr>
-
+                    <th>Product</th>
+                    <th>Datum</th>
+                    <th>Startprijs</th>
+                    <th>Bodbedrag</th>
+                    <th>Verkoper</th>
+                    <th>Status</th>
                 </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#"><?=$resultaat['voorwerpnaam']?></a></td>
+                    <td></td>
+                </tr>
+                </tbody>
             </table>
 
         </div>
