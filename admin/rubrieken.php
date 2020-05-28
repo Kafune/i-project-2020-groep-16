@@ -43,17 +43,17 @@ if (isset($_GET['rubrieknaam'])) {
 $stmt->execute();
 ?>
 
-<div class="column is-9">
-    <div class="columns" style="padding-top: 3rem">
-        <div class="column is-8">
+<div class="column is-10" style="padding-top: 3rem">
+    <div class="columns">
+        <div class="column is-9">
+            <section class="hero is-primary is-small">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">Rubrieken wijzigen</h1>
+                    </div>
+                </div>
+            </section>
             <div class="card events-card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Rubrieken
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                    </a>
-                </header>
                 <div class="card-table">
                     <div class="content">
                         <table class="table is-fullwidth is-striped">
@@ -121,7 +121,7 @@ $stmt->execute();
             <div class="column">
                 <div class="card">
                     <header class="card-header">
-                        <p class="card-header-title">Zoeken op parent</p>
+                        <p class="card-header-title">Zoeken op parentnummer</p>
                     </header>
                     <form method="get" class="card-content">
                         <div class="content">

@@ -28,20 +28,17 @@ if (isset($_GET['gebruikersnaam'])) {
 $stmt->execute();
 ?>
 
-<div class="column is-9">
-    <div class="columns" style="padding-top: 3rem">
-        <div class="column is-8">
+<div class="column is-10" style="padding-top: 3rem">
+    <div class="columns">
+        <div class="column is-9">
+            <section class="hero is-primary is-small">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">Gebruikers</h1>
+                    </div>
+                </div>
+            </section>
             <div class="card events-card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Gebruikers
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                    </a>
-                </header>
                 <div class="card-table">
                     <div class="content">
                         <table class="table is-fullwidth is-striped">

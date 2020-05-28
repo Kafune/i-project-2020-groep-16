@@ -9,7 +9,7 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 ?>
 <!-- END NAV -->
-<div class="column is-9" style="padding-top: 3rem">
+<div class="column is-10" style="padding-top: 3rem">
     <section class="hero is-primary is-small">
         <div class="hero-body">
             <div class="container">
