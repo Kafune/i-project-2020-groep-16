@@ -3,6 +3,33 @@ include_once("../includes/header.php");
 ?>
     <link rel="stylesheet" href="styles/css/mystyles.css">
     <link rel="stylesheet" href="styles/custom_styles.css">
+    <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            placeSearch({
+                key: 'IUD1GtpZAWGgjmUGTiLK8J2xUU2IRGRE',
+                container: document.querySelector('#search-input'),
+                useDeviceLocation: true,
+                collection: [
+                    'address',
+                    'adminArea',
+                ],
+                templates: {
+                    header: function () {
+                        return '<span class="mq-header" />'
+                    },
+                    value: function (result) {
+                        return result.name;
+                    },
+                    empty: function () {
+                        return '<div class="mq-result empty-result">Geen steden gevonden</div>'
+                    },
+                }
+            });
+        }
+    </script>
 
     <title>Registreer</title>
 
@@ -42,8 +69,8 @@ include_once("../includes/header.php");
                                 <input type="text" name="postcode" id="postcode" class="input" required>
                             </div>
                             <div class="field">
-                                <label for="plaatsnaam" class="label has-text-white">Plaatsnaam</label>
-                                <input type="text" name="plaatsnaam" id="plaatsnaam" class="input" required>
+                                <label for="place-search-input" class="label has-text-white">Plaatsnaam</label>
+                                <input type="search" name="plaatsnaam" id="search-input" class="input" required>
                             </div>
                             <div class="field">
                                 <label for="land" class="label has-text-white">Land</label>
@@ -296,6 +323,10 @@ include_once("../includes/header.php");
                                     </select>
                                 </span>
                                 </label>
+                            </div>
+                            <div class="field">
+                                <label for="telefoonnummer">Telefoonnummer</label>
+                                <input type="tel" name="telefoonnummer" id="telefoonnummer" class="input" required>
                             </div>
                             <div class="field">
                                 <label for="geboortedag" class="label has-text-white">Geboortedag</label>

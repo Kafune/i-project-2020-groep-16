@@ -78,7 +78,7 @@ if (isset($_SESSION['gebruiker'])) {
                         <div class="column persoonlijke-data">
                             <p class="bewerkbaar"><?= $voornaam ?> <?= $achternaam ?></p>
                             <p><?= $gebruikersnaam ?></p>
-                            <p><?= $geboortedag ?></p>
+                            <p><?= date("d-m-Y", strtotime($geboortedag)) ?></p>
                             <br>
                             <p class="bewerkbaar"><?= $adresregel1 ?></p>
                             <p class="bewerkbaar"><?= $postcode ?></p>
@@ -96,13 +96,17 @@ if (isset($_SESSION['gebruiker'])) {
                         <div class="column has-text-weight-bold">
                             <p>Bank</p>
                             <p>Controle via</p>
+                            <?php if($controle === 'Creditcard') { ?>
                             <p>Creditcardnummer</p>
+                            <?php } ?>
                             <p>Rekeningnummer</p>
                         </div>
                         <div class="column">
                             <p><?= $bank ?></p>
                             <p><?= $controle ?></p>
+                            <?php if($controle === 'Creditcard') { ?>
                             <p><?= $creditcardnummer ?></p>
+                            <?php } ?>
                             <p><?= $rekeningnummer ?></p>
                         </div>
                     </div>
@@ -122,8 +126,13 @@ if (isset($_SESSION['gebruiker'])) {
             <!-- dit moet linken naar pagina 'AVG-verwijderformulier'-->
             <a href="/scripts/verwijder-gebruiker.php"
                onclick="return confirm('Weet je zeker deze account te verwijderen ?')">Account verwijderen</a>
+
+            <?php if(!$isVerkoper) { ?>
             <br>
             <a href="registrerenVerkoper.php">Registreren als verkoper</a>
+            <br>
+            <a href="verifierenVerkoper.php">Verifiëren voor verkoper</a>
+            <?php } ?>
             <br><br>
 
 
@@ -131,5 +140,5 @@ if (isset($_SESSION['gebruiker'])) {
     </div>
 </div>
 <?php
-include_once("/includes/footer.php");
+include_once("../includes/footer.php");
 ?>
