@@ -50,6 +50,9 @@ if (isset($_SESSION['error'])) {
         case "errorVerkoperRegistratie":
             $message = "Verificatiecode fout. Probeer het nog een keer.";
             break;
+        case "subrubrieken_aanwezig":
+            $message = "Verwijder eerst de sub-rubrieken.";
+            break;
         default:
             $message = "";
     }
@@ -83,6 +86,9 @@ if (isset($_SESSION['success'])) {
             break;
         case "successAdminGebruikerWijzigen":
             $message = "Wijzigen van gebruiker succesvol uitgevoerd.";
+            break;
+        case "rubriekVerwijdert":
+            $message = "De rubriek is succesvol verwijdert.";
             break;
         default:
             $message = "";
