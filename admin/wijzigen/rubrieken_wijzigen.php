@@ -12,7 +12,7 @@ $stmt->bindParam(':rubrieknummer', $rubrieknummer);
 $stmt->execute();
 $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
-<div class="column is-9" style="padding-top: 3rem">
+<div class="column is-10" style="padding-top: 3rem">
     <section class="hero is-primary welcome is-small">
         <div class="hero-body">
             <div class="container">
