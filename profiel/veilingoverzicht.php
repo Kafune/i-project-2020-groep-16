@@ -3,12 +3,13 @@ include_once("../includes/header.php");
 include_once("../includes/db.php");
 include_once("../includes/functies.php");
 
+$bodstatus = "";
 
 if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
-$sql = "SELECT id, titel, bodbedrag, gebruiker
+$sql = "SELECT id, voorwerp, titel, startprijs, bodbedrag, boddag, gebruiker
         FROM Bod 
         INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
         WHERE gebruiker = :gebruiker";
@@ -18,6 +19,21 @@ $queryArray = array(
 );
 
 $resultaat = haalGegevensArray($conn, $sql, $queryArray);
+
+$sql2 = "SELECT TOP 1 voorwerp, bodbedrag, gebruiker FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
+
+$queryArray2 = array(
+        ':voorwerp' => $resultaat['voorwerp']
+);
+
+$resultaat2 = haalGegevensArray($conn, $sql2, $queryArray2);
+
+if($resultaat2['gebruiker'] != $_SESSION['gebruiker']) {
+    $bodstatus = "Overboden";
+} else {
+    $bodstatus = "Hoogste bieder";
+}
+
 
 ?>
 
@@ -45,22 +61,32 @@ $resultaat = haalGegevensArray($conn, $sql, $queryArray);
                     </form>
                 </div>
             </div>
-            <table class="table is-primary">
+            <table class="table has-background-primary has-text-white is-fullwidth">
                 <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Datum</th>
-                    <th>Startprijs</th>
-                    <th>Bodbedrag</th>
-                    <th>Verkoper</th>
-                    <th>Status</th>
+                    <th class="has-text-white">Product</th>
+                    <th class="has-text-white">Datum</th>
+                    <th class="has-text-white">Startprijs</th>
+                    <th class="has-text-white">Bodbedrag</th>
+                    <th class="has-text-white">Verkoper</th>
+                    <th class="has-text-white">Status</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+                foreach($resultaat as $waarde) :
+                ?>
                 <tr>
-                    <td><a href="#"><?=$resultaat['voorwerpnaam']?></a></td>
-                    <td></td>
+                    <td><a href="#"><?=$waarde['titel']?></a></td>
+                    <td><?=date('d-m-Y', strtotime($waarde['boddag']))?></td>
+                    <td><?=$waarde['startprijs']?></td>
+                    <td><?=$waarde['bodbedrag']?></td>
+                    <td><?=$waarde['gebruiker']?></td>
+                    <td><?=$bodstatus?></td>
                 </tr>
+                <?php
+                endforeach;
+                ?>
                 </tbody>
             </table>
 
