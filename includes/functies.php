@@ -17,7 +17,7 @@ function haalGegevensArray($dbconnectie, $sql, $array) {
     $stmt = $dbconnectie->prepare($sql);
     $stmt->execute($array);
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function voerQueryUit($dbconnectie, $sql, $array) {

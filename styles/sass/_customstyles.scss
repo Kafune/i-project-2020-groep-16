@@ -33,8 +33,18 @@
 }
 
 
-//
+// veilingspagina
 .veilingoverzicht-container {
   height: 100%;
   padding: 100px 0;
+}
+
+.table {
+  tbody{
+    td{
+      a:link {
+        color: #00c4a7 !important;
+      }
+    }
+  }
 }
