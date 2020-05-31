@@ -17,6 +17,14 @@ function haalGegevensArray($dbconnectie, $sql, $array) {
     $stmt = $dbconnectie->prepare($sql);
     $stmt->execute($array);
 
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function haalAlleGegevensArray($dbconnectie, $sql, $array) {
+    //Check eerst of de e-mail al bestaat in de gebruikersdatabase
+    $stmt = $dbconnectie->prepare($sql);
+    $stmt->execute($array);
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
