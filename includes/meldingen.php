@@ -53,6 +53,18 @@ if (isset($_SESSION['error'])) {
         case "subrubrieken_aanwezig":
             $message = "Verwijder eerst de sub-rubrieken.";
             break;
+        case "zelfdeGebruiker":
+            $message = "U moet eerst overboden worden voordat u opnieuw kunt bieden.";
+            break;
+        case "bodTeLaag":
+            $message = "Uw bod is lager of gelijk dan het hoogste bod.";
+            break;
+        case "bodLagerDanStartprijs":
+            $message = "Uw bod is lager dan de startprijs.";
+            break;
+        case "veilingGesloten":
+            $message = "U kunt niet meer bieden, de veiling is al gesloten.";
+            break;
         default:
             $message = "";
     }
