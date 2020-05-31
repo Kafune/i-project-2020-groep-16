@@ -7,8 +7,8 @@ if (isset($_GET['rubriek'])) {
     $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp AS v
     LEFT JOIN VoorwerpInRubriek AS r 
     ON v.voorwerpnummer = r.voorwerpnummer
-    WHERE r.rubrieknummer =" . $rubrieknummer . "");
-} else if(isset($_GET['parent'])){
+    WHERE v.veilingGesloten = 0 AND (v.geblokkeerd = 0 OR v.geblokkeerd is NULL) AND r.rubrieknummer =" . $rubrieknummer . "");
+} else if (isset($_GET['parent'])) {
     $parent = $_GET['parent'];
     $sql_alle_childs = "declare @parent int = :parent ;
                         ;with cte 
@@ -24,46 +24,47 @@ if (isset($_GET['rubriek'])) {
                         from cte
                         INNER JOIN VoorwerpInRubriek as vr ON cte.rubrieknummer = vr.rubrieknummer
                         INNER JOIN Voorwerp as v ON vr.voorwerpnummer = v.voorwerpnummer
-                        order by v.veilingbegin DESC;";
+                        WHERE v.veilingGesloten = 0 AND (v.geblokkeerd = 0 OR v.geblokkeerd is NULL)
+                        ORDER BY v.veilingbegin DESC;";
     $page = $conn->prepare($sql_alle_childs);
     $page->bindParam(':parent', $parent);
-}else if (empty($_GET['searching'])) {
-    $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp ORDER BY veilingbegin DESC");
+} else if (empty($_GET['searching'])) {
+    $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp WHERE veilingGesloten = 0 AND (geblokkeerd = 0 OR geblokkeerd is NULL) ORDER BY veilingbegin DESC");
 } else {
     $search = $_GET['searching'];
-    $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp WHERE titel LIKE '%" . $search . "%' ORDER BY veilingbegin DESC");
+    $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp WHERE titel LIKE '%" . $search . "%' AND veilingGesloten = 0 AND (geblokkeerd = 0 OR geblokkeerd is NULL) ORDER BY veilingbegin DESC");
 }
 
 $page->execute();
 $row = $page->fetchAll(PDO::FETCH_ASSOC);
 
-if(isset($_GET['filter'])){
+if (isset($_GET['filter'])) {
     //print_r($_GET);
     $q = '';
-    if($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] == '' && $_GET['city'] == ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
-    }elseif ($_GET['country'] != '' && $_GET['city'] != '' && $_GET['max'] == '' && $_GET['min'] == '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND land LIKE '%".$_GET['country']."%'";
-    }elseif ($_GET['city'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%'";
-    }elseif ($_GET['country'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%'";
-    }elseif ($_GET['max'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN 0 AND ".$_GET['max'];
-    }elseif ($_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs > ".$_GET['min'];
-    }elseif ($_GET['country'] != '' && $_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%' AND startprijs > ".$_GET['min'];
-    }elseif($_GET['city'] != '' && $_GET['min'] != ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND startprijs > ".$_GET['min'];
-    }elseif($_GET['country'] != '' && $_GET['max'] != ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%".$_GET['country']."%' AND  startprijs BETWEEN 0 AND ".$_GET['max'];
-    }elseif($_GET['city'] != '' && $_GET['max'] != ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND  startprijs BETWEEN 0 AND ".$_GET['max'];
-    }elseif($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] != '' && $_GET['city'] != ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%".$_GET['city']."%' AND land LIKE '%".$_GET['country']."%' AND  startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
-    }elseif($_GET['max'] != '' && $_GET['min'] != ''){
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN ".$_GET['min']." AND ".$_GET['max'];
+    if ($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] == '' && $_GET['city'] == '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
+    } elseif ($_GET['country'] != '' && $_GET['city'] != '' && $_GET['max'] == '' && $_GET['min'] == '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND land LIKE '%" . $_GET['country'] . "%'";
+    } elseif ($_GET['city'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%'";
+    } elseif ($_GET['country'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%'";
+    } elseif ($_GET['max'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN 0 AND " . $_GET['max'];
+    } elseif ($_GET['min'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs > " . $_GET['min'];
+    } elseif ($_GET['country'] != '' && $_GET['min'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%' AND startprijs > " . $_GET['min'];
+    } elseif ($_GET['city'] != '' && $_GET['min'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND startprijs > " . $_GET['min'];
+    } elseif ($_GET['country'] != '' && $_GET['max'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%' AND  startprijs BETWEEN 0 AND " . $_GET['max'];
+    } elseif ($_GET['city'] != '' && $_GET['max'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND  startprijs BETWEEN 0 AND " . $_GET['max'];
+    } elseif ($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] != '' && $_GET['city'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND land LIKE '%" . $_GET['country'] . "%' AND  startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
+    } elseif ($_GET['max'] != '' && $_GET['min'] != '') {
+        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
     }
     $q .= "ORDER BY veilingbegin DESC";
     $page = $conn->prepare($q);
@@ -141,7 +142,8 @@ if(isset($_GET['filter'])){
                     <div class="card" style="min-height:460px">
                         <div class="card-image">
                             <figure class="image is-3by2">
-                                <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Placeholder">
+                                <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
+                                     style="object-fit: contain">
                             </figure>
                         </div>
                         <div class="card-content">
@@ -156,13 +158,13 @@ if(isset($_GET['filter'])){
                         <footer class="card-footer">
                             <p class="card-footer-item">
                                     <span>
-                                        <a href="playstation4.php?voorwerpnummer=<?php echo $value['voorwerpnummer'] ?>"
+                                        <a href="voorwerp.php?voorwerpnummer=<?php echo $value['voorwerpnummer'] ?>"
                                            class="">Details</a>
                                     </span>
                             </p>
                             <p class="card-footer-item has-background-primary has-text-white">
                                     <span>
-                                        €<?php echo $value['startprijs']?>,-
+                                        €<?php echo $value['startprijs'] ?>,-
                                     </span>
                             </p>
                         </footer>

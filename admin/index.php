@@ -71,7 +71,7 @@ $stmt->execute();
                                 <td>" . $titel . "</td>
                                 <td>" . $voorwerpnummer . "</td>
                                 <td class=\"level-right\"><a class=\"button is-small is-primary\" 
-                                href='/playstation4.php?voorwerpnummer=".$voorwerpnummer."'>Bekijken</a></td>
+                                href='/voorwerp.php?voorwerpnummer=".$voorwerpnummer."'>Bekijken</a></td>
                                 </tr>";
                         }
                         ?>
@@ -106,7 +106,7 @@ $stmt->execute();
                                 <td>€ " . $bodbedrag . "</td>
                                 <td>" . $gebruiker . "</td>
                                 <td class=\"level-right\"><a class=\"button is-small is-primary\" 
-                                href='/playstation4.php?voorwerpnummer=".$voorwerp."'>Bekijken</a></td>
+                                href='/voorwerp.php?voorwerpnummer=".$voorwerp."'>Bekijken</a></td>
                                 </tr>";
                         }
                         ?>

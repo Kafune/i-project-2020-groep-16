@@ -106,3 +106,15 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
 
     });
 </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150449112-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-150449112-2');
+</script>
+
+

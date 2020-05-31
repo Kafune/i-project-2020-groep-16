@@ -107,7 +107,7 @@ $stmt->execute();
                     <form method="get" class="card-content">
                         <div class="content">
                             <label class="label" for="voorwerpnummer">Voorwerpnummer</label>
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left">
                                 <input class="input is-medium" type="number" id="voorwerpnummer" name="voorwerpnummer">
                                 <span class="icon is-medium is-left">
                                 <i class="fa fa-hashtag"></i>
@@ -116,7 +116,7 @@ $stmt->execute();
                         <div class="content">
                             <div class="content">
                                 <label class="label" for="titel">Titel</label>
-                                <div class="control has-icons-left has-icons-right">
+                                <div class="control has-icons-left">
                                     <input class="input is-medium" type="text" id="titel" name="titel">
                                     <span class="icon is-medium is-left">
                                     <i class="fa fa-search"></i>
@@ -125,7 +125,7 @@ $stmt->execute();
                         </div>
                         <div class="content">
                             <label class="label" for="verkoper">Verkoper</label>
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left">
                                 <input class="input is-medium" type="text" id="verkoper" name="verkoper">
                                 <span class="icon is-medium is-left">
                                 <i class="fa fa-user"></i>
@@ -133,7 +133,7 @@ $stmt->execute();
                         </div>
                         <div class="content">
                             <label class="label" for="land">Land</label>
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left">
                                 <input class="input is-medium" type="text" id="land" name="land">
                                 <span class="icon is-medium is-left">
                                 <i class="fa fa-search"></i>
@@ -141,7 +141,7 @@ $stmt->execute();
                         </div>
                         <div class="content">
                             <label class="label" for="minstartprijs">Minimum startprijs</label>
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left">
                                 <input class="input is-medium" type="number" min="0" step="10" id="minstartprijs"
                                        name="minstartprijs">
                                 <span class="icon is-medium is-left">
@@ -150,7 +150,7 @@ $stmt->execute();
                         </div>
                         <div class="content">
                             <label class="label" for="maxstartprijs">Maximum startprijs</label>
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left">
                                 <input class="input is-medium" type="number" min="0" step="10" id="maxstartprijs"
                                        name="maxstartprijs">
                                 <span class="icon is-medium is-left">
