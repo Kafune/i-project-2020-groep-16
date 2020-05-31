@@ -9,7 +9,7 @@ if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
-$sql = "SELECT id, voorwerp, titel, startprijs, bodbedrag, boddag, gebruiker
+$sql = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
         FROM Bod 
         INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
         WHERE gebruiker = :gebruiker";
@@ -77,8 +77,8 @@ if($resultaat2['gebruiker'] != $_SESSION['gebruiker']) {
                 foreach($resultaat as $waarde) :
                 ?>
                 <tr>
-                    <td><a href="/playstation4.php?voorwerpnummer=<?=$waarde['voorwerp']?>"><?=$waarde['titel']?></a></td>
-                    <td><?=date('d-m-Y', strtotime($waarde['boddag']))?></td>
+                    <td><a href="/voorwerp.php?voorwerpnummer=<?=$waarde['voorwerp']?>"><?=$waarde['titel']?></a></td>
+                    <td><?=date('d-m-Y', strtotime($waarde['bodtijdstip']))?></td>
                     <td><?=$waarde['startprijs']?></td>
                     <td><?=$waarde['bodbedrag']?></td>
                     <td><?=$waarde['gebruiker']?></td>

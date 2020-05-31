@@ -2,7 +2,7 @@
 
 include_once("includes/header.php");
 include_once("includes/db.php");
-include_once("includes/meldingen.php.php");
+include_once("includes/meldingen.php");
 
 $prod_id = $_GET['voorwerpnummer'];
 $page_details = $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='" . $prod_id . "'");
