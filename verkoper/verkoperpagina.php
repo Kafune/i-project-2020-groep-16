@@ -11,7 +11,7 @@ $verkoperdetails= $conn->prepare("SELECT plaatsnaam, land, isVerkoper FROM Gebru
 $verkoperdetails->execute();
 $row_verkoper = $verkoperdetails->fetch(PDO::FETCH_ASSOC);
 
-$reviewdetails= $conn->prepare("SELECT TOP 7 Feedback.voorwerpnummer, gebruikersnaam, feedbacksoort, datum, commentaar FROM Feedback
+$reviewdetails= $conn->prepare("SELECT TOP 6 Feedback.voorwerpnummer, gebruikersnaam, feedbacksoort, datum, commentaar FROM Feedback
 LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
 WHERE Voorwerp.verkoper = '".$verkoper_GET."'
 ORDER BY datum desc");
@@ -44,7 +44,7 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
 <script src="https://kit.fontawesome.com/5777d3afe9.js" crossorigin="anonymous"></script>
 
 <div class="tile is-ancestor">
-    <div class="tile is-4 is-vertical is-parent">
+        <div class="tile is-4 is-vertical is-parent">
         <div class="tile is-child box">
             <p class="title">Verkoperinfo</p>
             <p class="is-size-5">Gebruikersnaam</p>
@@ -134,6 +134,8 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                                 <strong><?php echo $row_review['gebruikersnaam'] ?></strong> <small><?php echo $row_review['datum'] ?></small>
                                 <br>
                                 <?php echo $row_review['commentaar'] ?>
+                                <br>
+                                <a class="is-size-7 has-text-grey" href="../playstation4.php?voorwerpnummer=<?php echo $row_review['voorwerpnummer']?>">Productlink</a>
                             </p>
                         </div>
                     </div>

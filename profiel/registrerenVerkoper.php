@@ -1,10 +1,17 @@
 <?php
 include_once("../includes/header.php");
+include_once("../includes/db.php");
 
 if(empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
+global $conn;
 
+$gebruiker = $_SESSION['gebruiker'];
+$verkoperdetails= $conn->prepare("SELECT isVerkoper FROM Gebruiker WHERE gebruikersnaam ='".$gebruiker."'");
+$verkoperdetails->execute();
+$row_verkoper = $verkoperdetails->fetch(PDO::FETCH_ASSOC);
+if($row_verkoper['isVerkoper'] == 0) {
 ?>
 
 <div class="columns is-centered">
@@ -14,7 +21,7 @@ if(empty($_SESSION['gebruiker'])) {
             <h2 class="subtitle"> Vul hieronder uw gegevens in en begin direct met het verkopen van objecten! </h2>
             <h5 class="has-text-danger subtitle is-6">Als u geen creditcard tot uw beschikking heeft, wordt er per post een brief verstuurd ter controle.</h5>
 
-            <form method="post" action="/scripts/register-verkoper.php">
+            <form method="post" action="../scripts/register-verkoper.php">
                 <div class="field">
                     <label class="label" for="gebruikersnaam">Gebruikersnaam</label>
                     <div class="control">
@@ -61,5 +68,15 @@ if(empty($_SESSION['gebruiker'])) {
 </div>
 
 <?php
+} else {
+    echo "
+    <script type='text/javascript'>function browserBack() {window.history.back()}</script>
+    <article class=\"message is-warning\">
+    <div class=\"message-body\">
+    Je bent al een verkoper! <a onclick='browserBack()'>Ga terug</a>
+    </div>
+    </article>
+    ";
+}
 include_once("../includes/footer.php");
 ?>

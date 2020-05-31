@@ -194,7 +194,9 @@ ADD CONSTRAINT FK_Rubriek_Rubriek_Ref_Rubrieknummer FOREIGN KEY (rubriek)
 
 ALTER TABLE Verkoper
 ADD CONSTRAINT FK_Verkoper_Voorwerp_Ref_Verkoper FOREIGN KEY (gebruikersnaam)
-	REFERENCES Gebruiker (gebruikersnaam); 
+	REFERENCES Gebruiker (gebruikersnaam)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 ALTER TABLE Voorwerp
 ADD CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam FOREIGN KEY (verkoper)
