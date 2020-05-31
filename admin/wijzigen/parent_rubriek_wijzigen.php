@@ -1,9 +1,8 @@
 <?php
-include_once('../includes/header.php');
-include_once('menu.php');
-include_once('../includes/db.php');
+include_once('../../includes/header.php');
+include_once('../menu.php');
+include_once('../../includes/db.php');
 
-/*SQL Zoek statements & sub-rubriek statement*/
 if (isset($_GET['rubrieknaam'])) {
     $zoek = $_GET['rubrieknaam'];
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
@@ -25,14 +24,14 @@ if (isset($_GET['rubrieknaam'])) {
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer 
             WHERE r1.rubriek LIKE '%" . $zoek . "%'";
     $stmt = $conn->prepare($sql);
-} else if (isset($_GET['id'])){
+} else if (isset($_GET['id'])) {
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
             FROM Rubriek as r1
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer
             WHERE r1.Rubriek = :rubrieknummer ORDER BY r1.rubrieknaam ASC";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':rubrieknummer', $_GET['id']);
-} else if (empty($_GET['rubrieknaam'])) {
+} else if (empty($_GET['id'])) {
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
             FROM Rubriek as r1
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer 
@@ -40,39 +39,41 @@ if (isset($_GET['rubrieknaam'])) {
     $stmt = $conn->prepare($sql);
 }
 
+
 $stmt->execute();
+
 ?>
 
 <div class="column is-10" style="padding-top: 3rem">
     <div class="columns">
         <div class="column is-9">
-            <section class="hero is-primary is-small">
-                <div class="hero-body">
-                    <div class="container">
-                        <h1 class="title">Rubrieken wijzigen</h1>
-                    </div>
-                </div>
-            </section>
             <div class="card events-card">
                 <div class="card-table">
+                    <section class="hero is-primary is-small">
+                        <div class="hero-body">
+                            <div class="container">
+                                <h1 class="title">Parent rubriek toewijzen</h1>
+                            </div>
+                        </div>
+                    </section>
                     <div class="content">
                         <table class="table is-fullwidth is-striped">
                             <tbody>
                             <?php
 
                             while ($row = $stmt->fetch()) {
-                                $rubrieknaam = $row['rubrieknaam1'];
-                                $parentnaam = $row['rubrieknaam2'];
-                                $parent = $row['rubriek'];
-                                $id = $row['rubrieknummer'];
+                            $rubrieknaam = $row['rubrieknaam1'];
+                            $parentnaam = $row['rubrieknaam2'];
+                            $parent = $row['rubriek'];
+                            $id = $row['rubrieknummer'];
 
-                                echo "
+                            echo "
                                 <tr>
                                 <td width=\"5%\"><i class=\"fa fa-bookmark\"></i></td>
                                 <td>" . $parentnaam . "</td>
                                 <td>" . $rubrieknaam . "</td>
-                                <td><a class=\"button is-small is-primary\" href=\"/admin/rubrieken.php?id=".$id."\">Sub-rubrieken</a></td>
-                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken_wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
+                                <td><a class=\"button is-small is-primary\" href=\"/admin/wijzigen/parent_rubriek_wijzigen.php?rubrieknummer=".$_GET['rubrieknummer']."&id=" . $id . "\">Sub-rubrieken</a></td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"scripts/rubrieken_wijzigen_script.php?rubrieknummer=".$_GET['rubrieknummer']."&id=" . $id . "\">Kies parent</a></td>
                                 </tr>";
                             }
 

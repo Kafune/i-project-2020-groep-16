@@ -26,7 +26,7 @@ if($isVerkoper == 1) {
 
 ?>
 <!-- END NAV -->
-<div class="column is-9" style="padding-top: 3rem">
+<div class="column is-10" style="padding-top: 3rem">
     <section class="hero is-primary welcome is-small">
         <div class="hero-body">
             <div class="container">
@@ -51,22 +51,22 @@ if($isVerkoper == 1) {
                     <div class="field">
                         <label for="voornaam">Voornaam</label>
                         <input type="text" name="voornaam" id="voornaam" class="input"
-                               value="<?= $resultaat['voornaam'] ?>" required><br>
+                               value="<?= $resultaat['voornaam'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="achternaam">Achternaam</label>
                         <input type="text" name="achternaam" id="achternaam" class="input"
-                               value="<?= $resultaat['achternaam'] ?>" required><br>
+                               value="<?= $resultaat['achternaam'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="geboortedag">Geboortedag</label>
                         <input type="date" name="geboortedag" id="geboortedag" class="input"
-                               value="<?= $resultaat['geboortedag'] ?>" required><br>
+                               value="<?= $resultaat['geboortedag'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="adresregel1">Adresregel 1</label>
                         <input type="text" name="adresregel1" id="adresregel1" class="input"
-                               value="<?= $resultaat['adresregel1'] ?>" required><br>
+                               value="<?= $resultaat['adresregel1'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="adresregel2">Adresregel 2</label>
@@ -76,12 +76,12 @@ if($isVerkoper == 1) {
                     <div class="field">
                         <label for="postcode">Postcode</label>
                         <input type="text" name="postcode" id="postcode" class="input"
-                               value="<?= $resultaat['postcode'] ?>" required><br>
+                               value="<?= $resultaat['postcode'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="plaatsnaam">Plaats</label>
                         <input type="text" name="plaatsnaam" id="plaatsnaam" class="input"
-                               value="<?= $resultaat['plaatsnaam'] ?>" required><br>
+                               value="<?= $resultaat['plaatsnaam'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="land" class="label">Land</label>
@@ -356,7 +356,7 @@ if($isVerkoper == 1) {
                     <div class="field">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" class="input"
-                               value="<?= $resultaat['email'] ?>" required><br>
+                               value="<?= $resultaat['email'] ?>"><br>
                     </div>
                     <div class="field">
                         <label for="isVerkoper">Is Verkoper<br></label>
@@ -365,6 +365,10 @@ if($isVerkoper == 1) {
                     <div class="field">
                         <label for="isVerkoper">Is Admin<br></label>
                         <input type="checkbox" name="isAdmin" value="1" <?php if ($resultaat['isAdmin'] == 1) { echo "checked='checked'"; } ?>>
+                    </div>
+                    <div class="field">
+                        <label for="geblokkeerd">Geblokkeerd<br></label>
+                        <input type="checkbox" name="geblokkeerd" value="1" <?php if ($resultaat['geblokkeerd'] == 1) { echo "checked='checked'"; } ?>>
                     </div>
                     <div class="field">
                         <input type="submit" name="bewerken" value="Bijwerken" class="button is-primary">

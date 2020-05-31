@@ -1,5 +1,6 @@
 <?php
 include_once('../../../includes/db.php');
+session_start();
 
 if (isset($_POST['bewerken'])) {
     $gebruikersnaamoud = $_POST['gebruikersnaamoud'];
@@ -16,11 +17,15 @@ if (isset($_POST['bewerken'])) {
 
     $isVerkoper = $_POST['isVerkoper'];
     $isAdmin = $_POST['isAdmin'];
+    $geblokkeerd = $_POST['geblokkeerd'];
     if ($isVerkoper != 1) {
         $isVerkoper = 0;
     }
     if ($isAdmin != 1) {
         $isAdmin = 0;
+    }
+    if ($geblokkeerd != 1) {
+        $geblokkeerd = 0;
     }
 
     $banknaam = $_POST['banknaam'];
@@ -39,7 +44,8 @@ if (isset($_POST['bewerken'])) {
                   email = :email,
                   land = :land,
                   isVerkoper = :isVerkoper,
-                  isAdmin = :isAdmin
+                  isAdmin = :isAdmin,
+                  geblokkeerd = :geblokkeerd
                   WHERE gebruikersnaam = :gebruikersnaamoud";
 
     $stmt = $conn->prepare($sql_koper);
@@ -56,6 +62,7 @@ if (isset($_POST['bewerken'])) {
     $stmt->bindParam(':land', $land);
     $stmt->bindParam(':isVerkoper', $isVerkoper);
     $stmt->bindParam(':isAdmin', $isAdmin);
+    $stmt->bindParam(':geblokkeerd', $geblokkeerd);
     $stmt->bindParam(':gebruikersnaamoud', $gebruikersnaamoud);
 
     $stmt->execute();
@@ -76,22 +83,15 @@ if (isset($_POST['bewerken'])) {
 
     $stmt->execute();
 
+    $_SESSION['success'] = "successAdminGebruikerWijzigen";
     header('Location: ../gebruiker_wijzigen.php?gebruikersnaam=' . $gebruikersnaamnieuw . '');
 
-} else if ($_POST['verwijderen']){
+} else if(isset($_POST['verwijderen'])){
     $gebruikersnaamoud = $_POST['gebruikersnaamoud'];
-    $sql_verwijder = "DELETE FROM Verkoper WHERE gebruikersnaam = :gebruikersnaam";
-    $stmt = $conn->prepare($sql_verwijder);
-    $stmt->bindParam(':gebruikersnaam', $gebruikersnaamoud);
-    $stmt->execute();
-
     $sql_verwijder = "DELETE FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
     $stmt = $conn->prepare($sql_verwijder);
     $stmt->bindParam(':gebruikersnaam', $gebruikersnaamoud);
     $stmt->execute();
 
     header('Location: ../../gebruikers.php');
-
-} else {
-    echo 'fout';
 }

@@ -50,6 +50,9 @@ if (isset($_SESSION['error'])) {
         case "errorVerkoperRegistratie":
             $message = "Verificatiecode fout. Probeer het nog een keer.";
             break;
+        case "subrubrieken_aanwezig":
+            $message = "Verwijder eerst de sub-rubrieken.";
+            break;
         default:
             $message = "";
     }
@@ -81,6 +84,12 @@ if (isset($_SESSION['success'])) {
         case "succesVerkoperRegistratie":
             $message = "U bent nu als verkoper registreerd!";
             break;
+        case "successAdminGebruikerWijzigen":
+            $message = "Wijzigen van gebruiker succesvol uitgevoerd.";
+            break;
+        case "rubriekVerwijdert":
+            $message = "De rubriek is succesvol verwijdert.";
+            break;
         default:
             $message = "";
     }
@@ -91,28 +100,28 @@ if (isset($_SESSION['success'])) {
 function laatMeldingZien($achtergrondkleur = "")
 {
     global $message;
-    $achtergrondkleuren = array("has-background-warning", "has-background-success");
+    $achtergrondkleuren = array("has-background-black", "has-background-white");
 
     if (isset($_SESSION['error'])) :
         unset($_SESSION['error']);
         if ($achtergrondkleur == "") {
-            $achtergrondkleur = "has-background-warning";
+            $achtergrondkleur = "has-background-black";
         }
         $achtergrondkleuren[0] = $achtergrondkleur;
         ?>
         <div class="errormsg">
-            <h1 class="title has-text-centered is-fullwidth <?= $achtergrondkleuren[0] ?>"><?= $message ?></h1>
+            <h1 class="title has-text-centered is-fullwidth has-text-white <?= $achtergrondkleuren[0] ?>"><?= $message ?></h1>
         </div>
     <?php
     elseif (isset($_SESSION['success'])) :
         unset($_SESSION['success']);
         if ($achtergrondkleur == "") {
-            $achtergrondkleur = "has-background-success";
+            $achtergrondkleur = "has-background-white";
         }
         $achtergrondkleuren[1] = $achtergrondkleur;
         ?>
         <div class="successmsg">
-            <h1 class="title has-text-centered is-fullwidth <?= $achtergrondkleuren[1] ?>"><?= $message ?></h1>
+            <h1 class="title has-text-centered is-fullwidth has-text-black <?= $achtergrondkleuren[1] ?>"><?= $message ?></h1>
         </div>
     <?php
     endif;

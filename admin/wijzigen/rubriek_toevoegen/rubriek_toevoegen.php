@@ -1,9 +1,8 @@
 <?php
-include_once('../includes/header.php');
-include_once('menu.php');
-include_once('../includes/db.php');
+include_once('../../../includes/header.php');
+include_once('../../menu.php');
+include_once('../../../includes/db.php');
 
-/*SQL Zoek statements & sub-rubriek statement*/
 if (isset($_GET['rubrieknaam'])) {
     $zoek = $_GET['rubrieknaam'];
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
@@ -18,25 +17,25 @@ if (isset($_GET['rubrieknaam'])) {
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer 
             WHERE r1.rubrieknummer LIKE '%" . $zoek . "%'";
     $stmt = $conn->prepare($sql);
-}else if (isset($_GET['parent'])) {
+} else if (isset($_GET['parent'])) {
     $zoek = $_GET['parent'];
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
             FROM Rubriek as r1
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer 
             WHERE r1.rubriek LIKE '%" . $zoek . "%'";
     $stmt = $conn->prepare($sql);
-} else if (isset($_GET['id'])){
+} else if (isset($_GET['id'])) {
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
             FROM Rubriek as r1
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer
             WHERE r1.Rubriek = :rubrieknummer ORDER BY r1.rubrieknaam ASC";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':rubrieknummer', $_GET['id']);
-} else if (empty($_GET['rubrieknaam'])) {
+} else if (empty($_GET['id'])) {
     $sql = "SELECT r1.rubrieknummer, r1.rubrieknaam as rubrieknaam1, r1.rubriek, r2.rubrieknaam as rubrieknaam2
             FROM Rubriek as r1
             LEFT JOIN Rubriek as r2 ON r1.rubriek = r2.rubrieknummer 
-            WHERE r1.Rubriek = -1 ORDER BY r1.rubrieknaam";
+            WHERE r1.rubrieknummer = -1 ORDER BY r1.rubrieknaam";
     $stmt = $conn->prepare($sql);
 }
 
@@ -49,7 +48,7 @@ $stmt->execute();
             <section class="hero is-primary is-small">
                 <div class="hero-body">
                     <div class="container">
-                        <h1 class="title">Rubrieken wijzigen</h1>
+                        <h1 class="title">Rubriek toevoegen</h1>
                     </div>
                 </div>
             </section>
@@ -71,11 +70,10 @@ $stmt->execute();
                                 <td width=\"5%\"><i class=\"fa fa-bookmark\"></i></td>
                                 <td>" . $parentnaam . "</td>
                                 <td>" . $rubrieknaam . "</td>
-                                <td><a class=\"button is-small is-primary\" href=\"/admin/rubrieken.php?id=".$id."\">Sub-rubrieken</a></td>
-                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken_wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
+                                <td><a class=\"button is-small is-primary\" href=\"/admin/wijzigen/rubriek_toevoegen/rubriek_toevoegen.php?status=kiesparent&id=" . $id . "\">Sub-rubrieken</a></td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"rubriek_toevoegen_naam.php?id=" . $id . "\">Kies parent</a></td>
                                 </tr>";
                             }
-
                             ?>
                             </tbody>
                         </table>

@@ -89,7 +89,6 @@ $output = '';
                                     <p>'.$value['bodtijdstip'].'</p>
                                 </div>
                             </div>';
-    
     }
 
 

@@ -23,14 +23,6 @@ CREATE TABLE Bod (
 go
 
 go
-CREATE TABLE Categorieen (
-    ID int IDENTITY(1,1) NOT NULL,
-    Name varchar(100) NULL,
-    Parent int NULL
-)
-go
-
-go
 CREATE TABLE Feedback (
 	voorwerpnummer int NOT NULL,
 	soortgebruiker varchar(8) NOT NULL,
@@ -64,7 +56,7 @@ go
 CREATE TABLE Gebruikerstelefoon (
 	volgnr int IDENTITY (1,1) NOT NULL,
 	gebruikersnaam varchar(20) NOT NULL,
-	telefoonnummer int NOT NULL
+	telefoonnummer varchar(20) NOT NULL
 )
 
 go

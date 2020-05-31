@@ -1,7 +1,7 @@
 <?php
-include_once('../includes/header.php');
-include_once('menu.php');
-include_once('../includes/db.php');
+include_once('../../includes/header.php');
+include_once('../menu.php');
+include_once('../../includes/db.php');
 
 /*SQL Zoek statements & sub-rubriek statement*/
 if (isset($_GET['rubrieknaam'])) {
@@ -49,7 +49,7 @@ $stmt->execute();
             <section class="hero is-primary is-small">
                 <div class="hero-body">
                     <div class="container">
-                        <h1 class="title">Rubrieken wijzigen</h1>
+                        <h1 class="title">Rubrieken verwijderen</h1>
                     </div>
                 </div>
             </section>
@@ -71,8 +71,8 @@ $stmt->execute();
                                 <td width=\"5%\"><i class=\"fa fa-bookmark\"></i></td>
                                 <td>" . $parentnaam . "</td>
                                 <td>" . $rubrieknaam . "</td>
-                                <td><a class=\"button is-small is-primary\" href=\"/admin/rubrieken.php?id=".$id."\">Sub-rubrieken</a></td>
-                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"wijzigen/rubrieken_wijzigen.php?rubrieknummer=".$id."\">Wijzigen</a></td>
+                                <td><a class=\"button is-small is-primary\" href=\"/admin/wijzigen/rubriek_verwijderen.php?id=".$id."\">Sub-rubrieken</a></td>
+                                <td class=\"level-right\"><a class=\"button is-small is-primary\" href=\"scripts/rubriek_verwijderen_script.php?rubrieknummer=".$id."\">Verwijderen</a></td>
                                 </tr>";
                             }
 

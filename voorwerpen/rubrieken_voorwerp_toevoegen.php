@@ -25,12 +25,12 @@ include_once("../includes/db.php");
                         $id = $resultaten['rubriek'];
 
                     }
-                    echo "<li><a href='rubrieken.php?volgnr=1'>Rubrieken</a></li>";
+                    echo "<li><a href='rubrieken_voorwerp_toevoegen.php?volgnr=1'>Rubrieken</a></li>";
                     $reversed_namen = array_reverse($namen);
                     $reversed_nummer = array_reverse($nummer);
 
                     for ($i=0; $i< count($reversed_namen);$i++){
-                        echo "<li><a href='rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                        echo "<li><a href='rubrieken_voorwerp_toevoegen.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
                     }
                     ?>
                 </ul>
@@ -47,7 +47,7 @@ include_once("../includes/db.php");
                     $id = $row['rubrieknummer'];
                     $rubriek = $row['rubrieknaam'];
                     $rubrieknr = $row['rubrieknummer'];
-                    echo '<a href="rubrieken.php?rubriek=' . $id . '"> '.$rubriek.'</a><br>';
+                    echo '<a href="rubrieken_voorwerp_toevoegen.php?rubriek=' . $id . '"> '.$rubriek.'</a><br>';
                 }
             } else {
                 $sql = "SELECT * FROM Rubriek WHERE rubriek = :rubrieknummer ORDER BY rubrieknaam ASC";
@@ -64,7 +64,7 @@ include_once("../includes/db.php");
                     $id = $row['rubrieknummer'];
                     $rubriek = $row['rubrieknaam'];
                     $rubrieknr = $row['rubrieknummer'];
-                    echo '<a href="rubrieken.php?rubriek=' .$id. '"> '.$rubriek.'</a><br>';
+                    echo '<a href="rubrieken_voorwerp_toevoegen.php?rubriek=' .$id. '"> '.$rubriek.'</a><br>';
                 }
             }
             ?>

@@ -1,35 +1,6 @@
 SELECT * FROM Items
 SELECT * FROM Voorwerp
 
---items
---verander id zodat het bij 1000.000 begint
-DECLARE @id AS BIGINT
-SET @id = 1000000
-
-UPDATE Items
-SET @id = ID = @id + 1
-
---converteer daarna alle items naar de tabel voorwerp.
-INSERT INTO Voorwerp
-SELECT CAST(ID AS int) AS voorwerpnummer,
-LEFT(titel, 255) AS titel,
-Beschrijving AS Beschrijving, --maximale aantal
-CAST(prijs AS NUMERIC(10, 2)) AS startprijs,
-'' AS betalingswijze,
-NULL AS betalingsinstructie,
-'Geen' AS plaatsnaam,
-LEFT(locatie, 60) AS land,
-0 AS looptijd,
-'1999-01-01 00:00:00.000' AS veilingbegin,
-0.00 AS verzendkosten,
-NULL AS verzendinstructies,
-verkoper AS verkoper,
-'' AS Koper,
-'1999-01-11 00:00:00.000' AS veilingeinde,
-1 AS veilingGesloten,
-NULL AS verkoopprijs
-FROM Items
-
 --Users
 SELECT * FROM Users
 SELECT * FROM Gebruiker
@@ -43,24 +14,15 @@ NULL AS adresregel2,
 LEFT(Postalcode, 10) AS postcode,
 '' AS plaatsnaam,
 LEFT(Location, 60) AS land,
-'1970-01-01 00:00:00.000' AS geboortedag,
-'' AS email,
+'' AS geboortedag,
+'null@null.null' AS email, --geldige emailformaat
 '' AS wachtwoord,
 1 AS vraag,
 '' AS antwoordtekst,
-1 AS isVerkoper
+1 AS isVerkoper,
+0 AS isAdmin,
+NULL AS geblokkeerd
 FROM Users
-
-
---Bestand
-SELECT * FROM Illustraties
-SELECT * FROM Bestand
-
-INSERT INTO Bestand
-SELECT illustratieFile AS filenaam,
-ItemID AS voorwerpnummer
-FROM Illustraties
-
 
 --verkoper
 INSERT INTO Verkoper
@@ -72,6 +34,48 @@ NULL AS creditcardnummer,
 NULL AS controlenummer
 FROM Gebruiker
 WHERE isVerkoper = 1
+
+--items
+--verander id zodat het bij 1000.000 begint. Zo komen er geen conflicten tussen de huidige en oude producten en kunnen wij de voorwerpnummers overnemen zonder de datatype te wijzigen
+DECLARE @id AS BIGINT
+SET @id = 1000000
+
+UPDATE Items
+SET @id = ID = @id + 1
+
+--converteer daarna alle items naar de tabel voorwerp.
+INSERT INTO Voorwerp
+SELECT CAST(ID AS int) AS voorwerpnummer,
+LEFT(titel, 255) AS titel,
+'Beschrijving van: ' + titel AS Beschrijving,
+CAST(prijs AS NUMERIC(10, 2)) AS startprijs,
+'' AS betalingswijze,
+NULL AS betalingsinstructie,
+'' AS plaatsnaam,
+LEFT(locatie, 60) AS land,
+0 AS looptijd,
+'' AS veilingbegin,
+0.00 AS verzendkosten,
+NULL AS verzendinstructies,
+verkoper AS verkoper,
+NULL AS Koper,
+'' AS veilingeinde,
+1 AS veilingGesloten,
+NULL AS verkoopprijs
+FROM Items
+
+
+
+
+--Bestand
+SELECT * FROM Illustraties
+SELECT * FROM Bestand
+
+INSERT INTO Bestand
+SELECT illustratieFile AS filenaam,
+ItemID AS voorwerpnummer
+FROM Illustraties
+
 
 --rubrieken
 SELECT * FROM Categorieen

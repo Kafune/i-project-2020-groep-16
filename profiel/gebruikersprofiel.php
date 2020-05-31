@@ -114,7 +114,7 @@ if (isset($_SESSION['gebruiker'])) {
             </div>
             <br><br>
             <!-- deze knop moet linken naar 'Mijn veilingen-pagina' -->
-            <a href="" class="button is-primary">Naar mijn veilingen</a>
+            <a href="veilingoverzicht.php" class="button is-primary">Naar mijn veilingen</a>
             <br><br>
             <!-- dit moet linken naar pagina 'Wijzig accountgegevens'-->
             <a href="profielbewerken.php" class="accountwijzigen">Wijzig accountgegevens</a>
