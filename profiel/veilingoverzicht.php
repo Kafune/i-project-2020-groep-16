@@ -18,9 +18,9 @@ $queryArray = array(
     ':gebruiker' => $_SESSION['gebruiker']
 );
 
-$resultaat = haalGegevensArray($conn, $sql, $queryArray);
+$resultaat = haalAlleGegevensArray($conn, $sql, $queryArray);
 
-$sql2 = "SELECT TOP 1 voorwerp, bodbedrag, gebruiker FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
+$sql2 = "SELECT TOP 2 voorwerp, bodbedrag, gebruiker FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
 $queryArray2 = array(
         ':voorwerp' => $resultaat['voorwerp']
@@ -77,7 +77,7 @@ if($resultaat2['gebruiker'] != $_SESSION['gebruiker']) {
                 foreach($resultaat as $waarde) :
                 ?>
                 <tr>
-                    <td><a href="#"><?=$waarde['titel']?></a></td>
+                    <td><a href="/playstation4.php?voorwerpnummer=<?=$waarde['voorwerp']?>"><?=$waarde['titel']?></a></td>
                     <td><?=date('d-m-Y', strtotime($waarde['boddag']))?></td>
                     <td><?=$waarde['startprijs']?></td>
                     <td><?=$waarde['bodbedrag']?></td>
