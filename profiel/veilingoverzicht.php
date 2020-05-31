@@ -20,24 +20,43 @@ $queryArray = array(
 
 $resultaat = haalAlleGegevensArray($conn, $sql, $queryArray);
 
-$sql2 = "SELECT TOP 2 voorwerp, bodbedrag, gebruiker FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
-$queryArray2 = array(
-        ':voorwerp' => $resultaat['voorwerp']
-);
 
-$resultaat2 = haalGegevensArray($conn, $sql2, $queryArray2);
+foreach($resultaat as $waarde) {
+    $sql2 = "SELECT TOP 1 gebruiker, voorwerp, bodbedrag FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
-if($resultaat2['gebruiker'] != $_SESSION['gebruiker']) {
-    $bodstatus = "Overboden";
-} else {
-    $bodstatus = "Hoogste bieder";
+    $queryArray2 = array(
+        ':voorwerp' => $waarde['voorwerp'],
+    );
+
+    var_dump($waarde['voorwerp']);
+
+    $resultaat2 = haalGegevensArray($conn, $sql2, $queryArray2);
+
+    if($resultaat2['gebruiker'] !== $_SESSION['gebruiker']) {
+        $bodstatus = "Overboden";
+    } else {
+        $bodstatus = "Hoogste bieder";
+    }
 }
 
 
+//Zoekveld op naam
+if(isset($_GET['verzenden'])) {
+    $zoekquery = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
+                FROM Bod 
+                INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
+                WHERE gebruiker = :gebruiker AND titel LIKE CONCAT('%', :zoekopdracht, '%')";
+
+    $zoekQueryArray = array(
+        ':gebruiker' => $_SESSION['gebruiker'],
+        ':zoekopdracht' => $_GET['searching']
+    );
+
+    $resultaat = haalAlleGegevensArray($conn, $zoekquery, $zoekQueryArray);
+}
+
 ?>
-
-
     <div class="has-background-black has-text-white">
         <div class="container veilingoverzicht-container">
             <div class="columns">
@@ -51,11 +70,11 @@ if($resultaat2['gebruiker'] != $_SESSION['gebruiker']) {
                     <form method="GET" action="">
                         <div class="field has-addons has-addons-centered">
                             <p class="control">
-                                <input type="text" class="input" name="searching" id="" placeholder="Veiling zoeken"
+                                <input type="text" class="input" name="searching" id="" placeholder="Voorwerp zoeken"
                                        required>
                             </p>
                             <p class="control">
-                                <button type="submit" class="button is-primary">Zoek</button>
+                                <input type="submit" name="verzenden" value="Zoeken" class="button is-primary">
                             </p>
                         </div>
                     </form>
