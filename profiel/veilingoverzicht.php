@@ -3,8 +3,6 @@ include_once("../includes/header.php");
 include_once("../includes/db.php");
 include_once("../includes/functies.php");
 
-$bodstatus = "";
-
 if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
@@ -12,7 +10,8 @@ if (empty($_SESSION['gebruiker'])) {
 $sql = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
         FROM Bod 
         INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
-        WHERE gebruiker = :gebruiker";
+        WHERE gebruiker = :gebruiker
+        ORDER BY bodtijdstip DESC";
 
 $queryArray = array(
     ':gebruiker' => $_SESSION['gebruiker']
@@ -20,29 +19,31 @@ $queryArray = array(
 
 $resultaat = haalAlleGegevensArray($conn, $sql, $queryArray);
 
-
-
-foreach($resultaat as $waarde) {
+//Check of de huidige ingelogde gebruiker de hoogste bieder is.
+$bodstatusItem = array();
+foreach ($resultaat as $waarde) {
     $sql2 = "SELECT TOP 1 gebruiker, voorwerp, bodbedrag FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
     $queryArray2 = array(
         ':voorwerp' => $waarde['voorwerp'],
     );
 
-    var_dump($waarde['voorwerp']);
-
     $resultaat2 = haalGegevensArray($conn, $sql2, $queryArray2);
 
-    if($resultaat2['gebruiker'] !== $_SESSION['gebruiker']) {
-        $bodstatus = "Overboden";
+    var_dump($resultaat2['gebruiker']);
+
+    if ($resultaat2['gebruiker'] !== $_SESSION['gebruiker']) {
+//        $bodstatus = "Overboden";
+        array_push($bodstatusItem, "Overboden");
     } else {
-        $bodstatus = "Hoogste bieder";
+//        $bodstatus = "Hoogste bieder";
+        array_push($bodstatusItem, "Hoogste bieder");
     }
 }
 
 
 //Zoekveld op naam
-if(isset($_GET['verzenden'])) {
+if (isset($_GET['verzenden'])) {
     $zoekquery = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
                 FROM Bod 
                 INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
@@ -84,7 +85,7 @@ if(isset($_GET['verzenden'])) {
                 <thead>
                 <tr>
                     <th class="has-text-white">Product</th>
-                    <th class="has-text-white">Datum</th>
+                    <th class="has-text-white">Datum & tijdstip</th>
                     <th class="has-text-white">Startprijs</th>
                     <th class="has-text-white">Bodbedrag</th>
                     <th class="has-text-white">Verkoper</th>
@@ -93,16 +94,18 @@ if(isset($_GET['verzenden'])) {
                 </thead>
                 <tbody>
                 <?php
-                foreach($resultaat as $waarde) :
-                ?>
-                <tr>
-                    <td><a href="/voorwerp.php?voorwerpnummer=<?=$waarde['voorwerp']?>"><?=$waarde['titel']?></a></td>
-                    <td><?=date('d-m-Y', strtotime($waarde['bodtijdstip']))?></td>
-                    <td><?=$waarde['startprijs']?></td>
-                    <td><?=$waarde['bodbedrag']?></td>
-                    <td><?=$waarde['gebruiker']?></td>
-                    <td><?=$bodstatus?></td>
-                </tr>
+                foreach ($resultaat as $key => $waarde) :
+                    ?>
+                    <tr>
+                        <td>
+                            <a href="/voorwerp.php?voorwerpnummer=<?= $waarde['voorwerp'] ?>"><?= $waarde['titel'] ?></a>
+                        </td>
+                        <td><?= date('d-m-Y', strtotime($waarde['bodtijdstip'])) ?> <?=date('H:i', strtotime($waarde['bodtijdstip']))?></td>
+                        <td><?= $waarde['startprijs'] ?></td>
+                        <td><?= $waarde['bodbedrag'] ?></td>
+                        <td><?= $waarde['gebruiker'] ?></td>
+                        <td><?= $bodstatusItem[$key] ?></td>
+                    </tr>
                 <?php
                 endforeach;
                 ?>
