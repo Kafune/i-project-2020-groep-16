@@ -95,6 +95,7 @@ if ($fileError === 0) {
         echo 'Bestand te groot!';
     }
 } else {
+    header('Location: /voorwerpen/voorwerptoevoegen.php');
     echo 'Er is iets fout gegaan tijdens het uploaden, probeer het opnieuw!';
 }
 

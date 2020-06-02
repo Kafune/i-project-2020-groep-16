@@ -44,7 +44,7 @@ $voornaam = $result['voornaam'];
 
 /*SQL voor hoogste biedingen van de week*/
 $sql_hoogstebiedingen = "SELECT TOP 10 * FROM Bod
-                        WHERE MONTH(boddag) = MONTH(GETDATE())
+                        WHERE MONTH(bodtijdstip) = MONTH(GETDATE())
                         ORDER BY bodbedrag DESC";
 $stmt_biedingen = $conn->prepare($sql_hoogstebiedingen);
 $stmt_biedingen->execute();

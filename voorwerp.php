@@ -2,18 +2,19 @@
 
 include_once("includes/header.php");
 include_once("includes/db.php");
+include_once("includes/meldingen.php");
 
 $prod_id = $_GET['voorwerpnummer'];
-$page_details= $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='".$prod_id."'");
+$page_details = $conn->prepare("SELECT * FROM voorwerp WHERE voorwerpnummer ='" . $prod_id . "'");
 $page_details->execute();
 $row_details = $page_details->fetch(PDO::FETCH_ASSOC);
 
-$page_photo= $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='".$row_details['voorwerpnummer']."'");
+$page_photo = $conn->prepare("SELECT * FROM Bestand WHERE voorwerpnummer ='" . $row_details['voorwerpnummer'] . "'");
 $page_photo->execute();
 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
-if(isset($_GET['status'])){
-    if($_GET['status'] == 0){
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 0) {
         echo "<script>alert('Je kan niet bieden totdat iemand anders geboden heeft.');</script>";
     }
 }
@@ -34,13 +35,19 @@ if(isset($_GET['status'])){
         padding: 8px;
     }
 
-    #table tr:nth-child(even){background-color: #f2f2f2;}
+    #table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-    #table tr:hover {background-color: #ddd;}
-    #table #high{
+    #table tr:hover {
+        background-color: #ddd;
+    }
+
+    #table #high {
         background-color: #4CAF50;
         color: white;
     }
+
     #table th {
         padding-top: 12px;
         padding-bottom: 12px;
@@ -58,7 +65,7 @@ if(isset($_GET['status'])){
                 <?php
                 $voorwerpnummer = $_GET['voorwerpnummer'];
 
-                $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = ".$voorwerpnummer."";
+                $sql_rubriek = "SELECT rubrieknummer FROM VoorwerpInRubriek WHERE voorwerpnummer = " . $voorwerpnummer . "";
 
                 $rubriek_result = $conn->prepare($sql_rubriek);
                 $rubriek_result->execute();
@@ -83,24 +90,25 @@ if(isset($_GET['status'])){
                     $id = $resultaten['rubriek'];
 
                 }
-                echo "<li><a href='/voorwerpen/rubrieken.php?'>Rubrieken</a></li>";
+                echo "<li><a href='/rubriekenboom.php?'>Rubrieken</a></li>";
                 $reversed_namen = array_reverse($namen);
                 $reversed_nummer = array_reverse($nummer);
 
-                for ($i=0; $i< count($reversed_namen);$i++){
-                    echo "<li><a href='/voorwerpen/rubrieken.php?rubriek=" . $reversed_nummer[$i] ."'>" . $reversed_namen[$i] . "</a></li>";
+                for ($i = 0; $i < count($reversed_namen); $i++) {
+                    echo "<li><a href='/index.php?parent=" . $reversed_nummer[$i] . "'>" . $reversed_namen[$i] . "</a></li>";
                 }
                 ?>
             </ul>
         </nav>
         <div class="columns">
             <div class="column is-half">
-                <img src="<?php echo 'upload/'.$row_image['filenaam'] ?>" alt="Placeholder" style="width:100%;" class="image">
+                <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%; max-height:500px ;object-fit: contain"
+                     class="image">
                 <p><?php echo $row_details['gebruikersnaam'] ?></p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>
                 <p class="has-text-weight-bold">Verkoper</p>
-                <a href="../verkoper/verkoperpagina.php?verkoper=<?=$row_details['verkoper']?>"><?php echo $row_details['verkoper'] ?></a>
+                <a href="../verkoper/verkoperpagina.php?verkoper=<?= $row_details['verkoper'] ?>"><?php echo $row_details['verkoper'] ?></a>
                 <p class="has-text-weight-bold">Betalingswijze</p>
                 <p><?php echo $row_details['betalingswijze'] ?></p>
                 <p class="has-text-weight-bold">Betalingsinstructies</p>
@@ -108,8 +116,8 @@ if(isset($_GET['status'])){
                 <br>
                 <p class="has-text-weight-bold">Startverkoop</p>
                 <p><?php $phpdate = strtotime($row_details['veilingbegin']);
-                    $sqldate = date('d-m-Y H:i:s',$phpdate);
-                    echo $sqldate?></p>
+                    $sqldate = date('d-m-Y H:i:s', $phpdate);
+                    echo $sqldate ?></p>
                 <br>
                 <p class="has-text-weight-bold">Product ID</p>
                 <p><?php echo $row_details['voorwerpnummer'] ?></p>
@@ -124,28 +132,60 @@ if(isset($_GET['status'])){
                 <p>€<?php echo $row_details['startprijs'] ?></p>
                 <br>
                 <div class="box">
-                    <h1 id="countdown" class="title has-text-weight-bold has-text-centered has-background-primary has-text-white"></h1>
-                    <div id="auction_end"></div>
-                    <div id="name"></div>
-                    <div id="tableData" style="padding:20px;">
+                    <h1 id="countdown" style="padding: 1rem"
+                        class="title has-text-weight-bold has-text-centered has-background-primary has-text-white"></h1>
+                    <div class="card events-card">
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                    <?php
+
+                                    $sql = "SELECT * FROM Bod where voorwerp = :voorwerp ORDER BY bodbedrag DESC";
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bindParam('voorwerp', $row_details['voorwerpnummer']);
+                                    $stmt->execute();
+
+                                    while ($row = $stmt->fetch()) {
+                                        $bieder = $row['gebruiker'];
+                                        $bodbedrag = $row['bodbedrag'];
+                                        $tijdstip = date('H:i:s', strtotime($row['bodtijdstip']));
+                                        $dag = date('d-m-Y', strtotime($row['bodtijdstip']));
+
+                                        echo "
+                                            <tr>
+                                            <td width=\"5%\"><i class=\"fa fa-user\"></i></td>
+                                            <td>" . $bieder . "</td>
+                                            <td>€" . $bodbedrag . "</td>
+                                            <td >" . $tijdstip . "</td>
+                                            <td >" . $dag . "</td>
+                                            </tr>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="field has-addons has-addons-centered bid_data">
-                        <form method="post" action="insertByAjax.php" id="amountForm">
-                            <p class="control has-icons-left">
-                                <input type="number" class="input" name="amount" id="bid_amount" placeholder="€" required>
-                                <span class="icon is-left has-text-black" style="color: black">
-                                    <i class="fas fa-euro-sign"></i>
-                                </span>
-                            </p>
-                            <p>
-                                <input type="hidden" name="action" value="insert">
-                                <input type="hidden" id="bid_product_id" name="prod_id" value="<?=$prod_id;?>">
-                            </p>
-                            <p class="control">
-                                <button type="submit" name="" id="bid_submit" class="button is-primary">Verzenden</button>
-                            </p>
-                        </form>
-                    </div>
+                    <form class="form-inline" action="scripts/bieden.php" method="post" style="padding-top: 2rem">
+                        <div class="columns">
+                            <div class="column is-three-quarters">
+                                <div class="control has-icons-left">
+                                    <input class="input is-medium" type="number" min="0" id="bodbedrag"
+                                           name="bodbedrag" required>
+                                    <span class="icon is-medium is-left">
+                                <i class="fa fa-eur"></i>
+                                </div>
+                            </div>
+                            <div class="column is-one-quarter">
+                                <div class="control is-1">
+                                    <input class="is-hidden" type="number" id="voorwerpnummer" name="voorwerpnummer"
+                                           value="<?= $voorwerpnummer?>">
+                                    <input type="submit" class="button is-primary" name="bied" value="Bied">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -155,83 +195,18 @@ if(isset($_GET['status'])){
 <?php
 include_once("includes/footer.php");
 $username = '';
-if(isset($_SESSION['gebruiker'])){
+if (isset($_SESSION['gebruiker'])) {
     $username = $_SESSION['gebruiker'];
 }
 ?>
-<script
-        src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-<script>
-    var username = "<?=$username;?>";
-    var bid = 5;
-    getdata();
-    function getdata(){
-
-        prod_id = $('#bid_product_id').val();
-        $.post("insertByAjax.php",
-            {
-                action: 'get',
-                prod_id: prod_id
-            },
-            function(data, status){
-                var array = JSON.parse(data);
-                //alert("Data: " + data + "\nStatus: " + status);
-                $('#tableData').html(array.output);
-                if(array.highestvalue != 'none'){
-                    bid = array.highestvalue;
-                }
-                if(array.auction_end != 'none'){
-                    $('#auction_end').html("<center><h2>Eind tijd : "+array.auction_end+"</h2></center>")
-                }
-                if(array.bid == 'stop'){
-                    $('.bid_data').html('');
-                    $('.bid_title').text('tijd voorbij');
-                    $('#name').html('<center><h1>Winnaar is '+array.person+'</h1><h1>Hoogste geboden bedrag : â‚¬ '+array.highestvalue+'</h1></center>');
-                }
-            });
-        $('#bid_amount').val('');
-
-    }
-    $(document).ready(function(){
-        $("#bid_submit").click(function(){
-
-
-            if(username == ''){
-                alert('Je moet eerst inloggen om mee te kunnen bieden.');
-                return false;
-            }
-            amount = $('#bid_amount').val();
-            amount = parseInt(amount);
-            bid = parseInt(bid);
-            prod_id = $('#bid_product_id').val();
-            if(amount != ''){
-                if(amount > bid){
-                    $('#bid_amount').css('border','1px solid gray');
-
-                    $('#amountForm').submit();
-
-
-                }else{
-                    alert('vul bedrag meer dan '+bid);
-                }
-
-            }else{
-                $('#bid_amount').css('border','2px solid red');
-            }
-
-        });
-
-        //alert('fine');
-    });
-</script>
 
 <!--Countdown Script-->
 <script>
     // Set the date we're counting down to
     var countDownDate = new Date("<?php $phpdate = strtotime($row_details['veilingeinde']);
-                                    $sqldate = date('Y-m-d H:i:s', $phpdate);
-                                    echo $sqldate ?>").getTime();
+        $sqldate = date('Y-m-d H:i:s', $phpdate);
+        echo $sqldate ?>").getTime();
 
     // Update the count down every 1 second
     var x = setInterval(function () {
@@ -248,17 +223,17 @@ if(isset($_SESSION['gebruiker'])){
         var minuten = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var secondes = Math.floor((distance % (1000 * 60)) / 1000);
 
-        if ((uren+"").length === 1){
-            uren = "0"+uren;
+        if ((uren + "").length === 1) {
+            uren = "0" + uren;
         }
-        if ((minuten+"").length === 1){
-            minuten = "0"+minuten;
+        if ((minuten + "").length === 1) {
+            minuten = "0" + minuten;
         }
-        if ((secondes+"").length === 1){
-            secondes = "0"+secondes;
+        if ((secondes + "").length === 1) {
+            secondes = "0" + secondes;
         }
 
-        if(dagen>0){
+        if (dagen > 0) {
             document.getElementById("countdown").innerHTML = dagen + " dagen en " + uren + ":"
                 + minuten + ":" + secondes;
         } else {
