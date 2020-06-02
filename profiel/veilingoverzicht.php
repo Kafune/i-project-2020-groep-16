@@ -7,10 +7,11 @@ if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
-$sql = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
-        FROM Bod 
+$sql = "SELECT voorwerp, titel, startprijs, max(bodbedrag) AS bodbedrag, max(bodtijdstip) AS bodtijdstip, gebruiker, verkoper
+        FROM Bod
         INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
         WHERE gebruiker = :gebruiker
+        GROUP BY voorwerp, titel, gebruiker, startprijs, verkoper
         ORDER BY bodtijdstip DESC";
 
 $queryArray = array(
@@ -21,33 +22,37 @@ $resultaat = haalAlleGegevensArray($conn, $sql, $queryArray);
 
 //Check of de huidige ingelogde gebruiker de hoogste bieder is.
 $bodstatusItem = array();
+$bodstatusBedrag = array();
+
 foreach ($resultaat as $waarde) {
     $sql2 = "SELECT TOP 1 gebruiker, voorwerp, bodbedrag FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
     $queryArray2 = array(
         ':voorwerp' => $waarde['voorwerp'],
     );
+    $stmt = $conn->prepare($sql2);
+    $stmt->execute($queryArray2);
 
-    $resultaat2 = haalGegevensArray($conn, $sql2, $queryArray2);
 
-    var_dump($resultaat2['gebruiker']);
+    $resultaat2 = $stmt->fetch();
 
     if ($resultaat2['gebruiker'] !== $_SESSION['gebruiker']) {
-//        $bodstatus = "Overboden";
         array_push($bodstatusItem, "Overboden");
     } else {
-//        $bodstatus = "Hoogste bieder";
         array_push($bodstatusItem, "Hoogste bieder");
     }
+    array_push($bodstatusBedrag, $resultaat2['bodbedrag']);
 }
 
 
 //Zoekveld op naam
 if (isset($_GET['verzenden'])) {
-    $zoekquery = "SELECT id, voorwerp, titel, startprijs, bodbedrag, bodtijdstip, gebruiker
+    $zoekquery = "SELECT voorwerp, titel, startprijs, max(bodbedrag) AS bodbedrag, max(bodtijdstip) AS bodtijdstip, gebruiker
                 FROM Bod 
                 INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
-                WHERE gebruiker = :gebruiker AND titel LIKE CONCAT('%', :zoekopdracht, '%')";
+                WHERE gebruiker = :gebruiker AND titel LIKE CONCAT('%', :zoekopdracht, '%')
+                GROUP BY voorwerp, titel, gebruiker, startprijs
+                ORDER BY bodtijdstip DESC";
 
     $zoekQueryArray = array(
         ':gebruiker' => $_SESSION['gebruiker'],
@@ -62,7 +67,17 @@ if (isset($_GET['verzenden'])) {
         <div class="container veilingoverzicht-container">
             <div class="columns">
                 <div class="column is-hidden-touch">
-                    <a href="/profiel/gebruikersprofiel.php" class="button is-primary"><- Terug</a>
+                    <?php
+                    if (isset($_GET['verzenden'])) :
+                        ?>
+                        <a href="/profiel/veilingoverzicht.php" class="button is-primary"><- Terug</a>
+                    <?php
+                    else :
+                        ?>
+                        <a href="/profiel/gebruikersprofiel.php" class="button is-primary"><- Terug</a>
+                    <?php
+                    endif;
+                    ?>
                 </div>
                 <div class="column">
                     <h1 class="title is-2 has-text-white has-text-centered">Mijn Veilingen</h1>
@@ -88,8 +103,9 @@ if (isset($_GET['verzenden'])) {
                     <th class="has-text-white">Datum & tijdstip</th>
                     <th class="has-text-white">Startprijs</th>
                     <th class="has-text-white">Bodbedrag</th>
-                    <th class="has-text-white">Verkoper</th>
+                    <th class="has-text-white">Hoogste bod</th>
                     <th class="has-text-white">Status</th>
+                    <th class="has-text-white">Verkoper</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -100,11 +116,12 @@ if (isset($_GET['verzenden'])) {
                         <td>
                             <a href="/voorwerp.php?voorwerpnummer=<?= $waarde['voorwerp'] ?>"><?= $waarde['titel'] ?></a>
                         </td>
-                        <td><?= date('d-m-Y', strtotime($waarde['bodtijdstip'])) ?> <?=date('H:i', strtotime($waarde['bodtijdstip']))?></td>
-                        <td><?= $waarde['startprijs'] ?></td>
-                        <td><?= $waarde['bodbedrag'] ?></td>
-                        <td><?= $waarde['gebruiker'] ?></td>
+                        <td><?= date('d-m-Y', strtotime($waarde['bodtijdstip'])) ?> <?= date('H:i', strtotime($waarde['bodtijdstip'])) ?></td>
+                        <td>€<?= $waarde['startprijs'] ?>,-</td>
+                        <td>€<?= $waarde['bodbedrag'] ?>,-</td>
+                        <td>€<?= $bodstatusBedrag[$key]?>,-</td>
                         <td><?= $bodstatusItem[$key] ?></td>
+                        <td><?= $waarde['verkoper'] ?></td>
                     </tr>
                 <?php
                 endforeach;

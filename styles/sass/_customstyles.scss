@@ -42,8 +42,9 @@
 .table {
   tbody{
     td{
-      a:link {
-        color: #00c4a7 !important;
+      a{
+        color: #fff !important;
+        text-decoration: underline;
       }
     }
   }

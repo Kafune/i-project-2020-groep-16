@@ -14829,8 +14829,9 @@ label.panel-block:hover {
   padding: 100px 0;
 }
 
-.table tbody td a:link {
-  color: #00c4a7 !important;
+.table tbody td a {
+  color: #fff !important;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=mystyles.css.map */
