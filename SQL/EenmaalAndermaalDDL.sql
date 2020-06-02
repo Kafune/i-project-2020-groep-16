@@ -99,6 +99,7 @@ CREATE TABLE Voorwerp (
 	koper varchar(200) NULL,
     veilingeinde datetime NOT NULL,
 	veilingGesloten bit NOT NULL,
+	mailVerzonden bit NOT NULL default 0,
     verkoopprijs numeric(15, 2) null
 )
 go
