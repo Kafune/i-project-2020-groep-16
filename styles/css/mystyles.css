@@ -14828,8 +14828,7 @@ label.panel-block:hover {
   height: 100%;
   padding: 100px 0;
 }
-
-.table tbody td a {
+.veilingoverzicht-container .table tbody td a {
   color: #fff !important;
   text-decoration: underline;
 }

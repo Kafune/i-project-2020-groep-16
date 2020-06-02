@@ -1,5 +1,6 @@
 <?php
 include_once('../../../includes/db.php');
+session_start();
 
 if(isset($_POST['toevoegen'])) {
     $parent = $_POST['parent'];
@@ -11,5 +12,6 @@ if(isset($_POST['toevoegen'])) {
     $stmt->bindParam(':parent', $parent);
     $stmt->execute();
 
+    $_SESSION['success'] = "rubriekToevoegen";
     header('Location: ../../rubrieken.php');
 }

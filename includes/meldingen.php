@@ -99,8 +99,20 @@ if (isset($_SESSION['success'])) {
         case "successAdminGebruikerWijzigen":
             $message = "Wijzigen van gebruiker succesvol uitgevoerd.";
             break;
+        case "rubriekToevoegen":
+            $message = "De rubriek is succesvol toegevoegd";
+            break;
+        case "rubriekGewijzigd":
+            $message = "De rubriek is succesvol gewijzigd";
+            break;
         case "rubriekVerwijdert":
             $message = "De rubriek is succesvol verwijdert.";
+            break;
+        case "successVeilingBlokkeren":
+            $message = "Voorwerp is succesvol geblokkeerd!";
+            break;
+        case "successVeilingDeBlokkeren":
+            $message = "Voorwerp is niet meer geblokkeerd!";
             break;
         default:
             $message = "";

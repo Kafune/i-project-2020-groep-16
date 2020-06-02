@@ -37,15 +37,13 @@
 .veilingoverzicht-container {
   height: 100%;
   padding: 100px 0;
-}
-
-//tabel
-.table {
-  tbody{
-    td{
-      a{
-        color: #fff !important;
-        text-decoration: underline;
+  .table {
+    tbody{
+      td{
+        a{
+          color: #fff !important;
+          text-decoration: underline;
+        }
       }
     }
   }
