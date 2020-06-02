@@ -16,7 +16,7 @@ CREATE TABLE Bod (
     	ID int IDENTITY (1,1) NOT NULL,
 	voorwerp int NOT NULL,
 	bodbedrag numeric(10,2) NOT NULL,
-	gebruiker varchar(20) NOT NULL,
+	gebruiker varchar(200) NOT NULL,
 	boddag date NOT NULL,
 	bodtijdstip datetime NOT NULL
 )
@@ -35,14 +35,14 @@ go
 
 go
 CREATE TABLE Gebruiker (
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	voornaam varchar(15) NOT NULL,
 	achternaam varchar(30) NOT NULL,
 	adresregel1 varchar(50) NOT NULL,
 	adresregel2 varchar(50) NULL,
 	postcode varchar(10) NOT NULL,
 	plaatsnaam varchar(25) NOT NULL,
-	land varchar(20) NOT NULL,
+	land varchar(60) NOT NULL,
 	geboortedag date NOT NULL,
 	email varchar(50) NOT NULL,
 	wachtwoord varchar(64) NOT NULL,
@@ -72,7 +72,7 @@ go
 
 go
 CREATE TABLE Verkoper (
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	banknaam varchar(20),
 	rekeningnummer varchar(34),
 	controleoptienaam char(10) NOT NULL,
@@ -84,21 +84,22 @@ go
 go
 CREATE TABLE Voorwerp (
 	voorwerpnummer int IDENTITY(1,1) NOT NULL,
-	titel varchar(50) NOT NULL,
-	beschrijving varchar(5000) NOT NULL,
+	titel varchar(255) NOT NULL,
+	beschrijving varchar(MAX) NOT NULL,
 	startprijs numeric(10,2) NOT NULL,
 	betalingswijze varchar(25) NOT NULL,
 	betalingsinstructie varchar(50) NULL,
 	plaatsnaam varchar(50) NOT NULL,
-	land varchar(20) NOT NULL,
+	land varchar(60) NOT NULL,
 	looptijd smallint NOT NULL,
 	veilingbegin datetime NOT NULL,
 	verzendkosten numeric(8,2) NULL,
 	verzendinstructies varchar(50) NULL,
-	verkoper varchar(20) NOT NULL,
-	koper varchar(20) NULL,
+	verkoper varchar(200) NOT NULL,
+	koper varchar(200) NULL,
     veilingeinde datetime NOT NULL,
 	veilingGesloten bit NOT NULL,
+	mailVerzonden bit NOT NULL default 0,
     verkoopprijs numeric(15, 2) null
 )
 go
@@ -120,7 +121,7 @@ go
 /* Primary Keys */
 go
 ALTER TABLE Bestand
-ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam);
+ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam, voorwerpnummer);
 
 ALTER TABLE Bod 
 ADD CONSTRAINT PK_Bod PRIMARY KEY (id, bodbedrag);
@@ -186,7 +187,9 @@ ADD CONSTRAINT FK_Rubriek_Rubriek_Ref_Rubrieknummer FOREIGN KEY (rubriek)
 
 ALTER TABLE Verkoper
 ADD CONSTRAINT FK_Verkoper_Voorwerp_Ref_Verkoper FOREIGN KEY (gebruikersnaam)
-	REFERENCES Gebruiker (gebruikersnaam); 
+	REFERENCES Gebruiker (gebruikersnaam)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 ALTER TABLE Voorwerp
 ADD CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam FOREIGN KEY (verkoper)

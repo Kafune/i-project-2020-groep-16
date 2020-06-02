@@ -4,9 +4,6 @@ include_once("../includes/db.php");
 
 global $conn;
 
-if (empty($_SESSION['gebruiker'])) {
-    header("Location: ../index.php");
-}
 
 $verkoper_GET = $_GET['verkoper'];
 $_SESSION['verkoper'] = $verkoper_GET;
@@ -14,11 +11,29 @@ $verkoperdetails= $conn->prepare("SELECT plaatsnaam, land, isVerkoper FROM Gebru
 $verkoperdetails->execute();
 $row_verkoper = $verkoperdetails->fetch(PDO::FETCH_ASSOC);
 
-$reviewdetails= $conn->prepare("SELECT TOP 7 Feedback.voorwerpnummer, gebruikersnaam, feedbacksoort, datum, commentaar FROM Feedback
+$reviewdetails= $conn->prepare("SELECT TOP 6 Feedback.voorwerpnummer, gebruikersnaam, feedbacksoort, datum, commentaar FROM Feedback
 LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
 WHERE Voorwerp.verkoper = '".$verkoper_GET."'
 ORDER BY datum desc");
 $reviewdetails->execute();
+
+$reviewdetails_positief = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'positief'");
+$reviewdetails_positief->execute();
+$row_positief = $reviewdetails_positief->fetch(PDO::FETCH_ASSOC);
+
+$reviewdetails_neutraal = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'neutraal'");
+$reviewdetails_neutraal->execute();
+$row_neutraal = $reviewdetails_neutraal->fetch(PDO::FETCH_ASSOC);
+
+$reviewdetails_negatief = $conn->prepare("SELECT COUNT(feedbacksoort) as feedbacksoort FROM Feedback
+LEFT JOIN Voorwerp ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
+WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'negatief'");
+$reviewdetails_negatief->execute();
+$row_negatief = $reviewdetails_negatief->fetch(PDO::FETCH_ASSOC);
 
 $voorwerpdetails = $conn->prepare("SELECT voorwerpnummer, titel FROM Voorwerp WHERE verkoper = '".$verkoper_GET."'");
 $voorwerpdetails->execute();
@@ -29,7 +44,7 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
 <script src="https://kit.fontawesome.com/5777d3afe9.js" crossorigin="anonymous"></script>
 
 <div class="tile is-ancestor">
-    <div class="tile is-4 is-vertical is-parent">
+        <div class="tile is-4 is-vertical is-parent">
         <div class="tile is-child box">
             <p class="title">Verkoperinfo</p>
             <p class="is-size-5">Gebruikersnaam</p>
@@ -38,12 +53,15 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
             <p><?php echo $row_verkoper['plaatsnaam'] ?></p>
             <p class="is-size-5">Land</p>
             <p><?php echo $row_verkoper['land'] ?></p>
-            <br>
+            <p class="is-size-5">Reviews</p
+            <p>Positief: <?php echo $row_positief['feedbacksoort']?> Neutraal: <?php echo $row_neutraal['feedbacksoort']?> Negatief: <?php echo $row_negatief['feedbacksoort']?></p>
+            <?php if (!empty($_SESSION['gebruiker'])) { ?>
             <a class="button is-info" href="../contact/contactVerkoper.php?verkoper=<?=$verkoper_GET?>">Bericht Sturen</a>
-
+            <?php } ?>
         </div>
         <div class="tile is-child box">
             <p class="title">Review Schrijven</p>
+            <?php if (!empty($_SESSION['gebruiker'])) { ?>
             <form method="post" action="../scripts/stuur_recensie.php">
                 <div class="field">
                     <label for="gebruikersnaam" class="label">Gebruikersnaam</label>
@@ -86,6 +104,9 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                         <button class="button is-danger" type="reset">Annuleren</button>
                     </div>
                 </div>
+                <?php } else {
+                    echo "<p class='subtitle'>Om een review te mogen schrijven moet u ingelogd zijn.</p>";
+                }?>
             </form>
         </div>
     </div>
@@ -113,6 +134,8 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                                 <strong><?php echo $row_review['gebruikersnaam'] ?></strong> <small><?php echo $row_review['datum'] ?></small>
                                 <br>
                                 <?php echo $row_review['commentaar'] ?>
+                                <br>
+                                <a class="is-size-7 has-text-grey" href="../playstation4.php?voorwerpnummer=<?php echo $row_review['voorwerpnummer']?>">Productlink</a>
                             </p>
                         </div>
                     </div>

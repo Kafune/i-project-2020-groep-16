@@ -11,56 +11,29 @@ if (empty($_SESSION['gebruiker'])) {
 $verkoper = $_GET['verkoper'];
 
 ?>
-
 <div class="columns is-centered">
     <section class="section is-small">
         <div class="container">
             <h1 class="title">Contact opnemen met verkoper</h1>
             <h2 class="subtitle"> Voor als u problemen of vragen heeft over een product </h2>
-            <h5 class="has-text-danger subtitle is-6">Zoeken op gebruiker is hoofdlettergevoelig</h5>
-            <?php if(empty($verkoper)) { ?>
-            <div class="field">
-                <label class="label" for="zoekbalk">Verkoper zoeken</label>
-                <div class="control">
-                    <script type="text/javascript">
-                        function searchUser() {
-                            let input = document.getElementById('zoekbalk').value;
-                            let output = document.getElementById('gebruikersnaamverkoper').options;
-                            for (let i = 0; i < output.length; i++) {
-                                if (output[i].value.indexOf(input) === 0) {
-                                    output[i].selected = true;
-                                }
-                                if (document.getElementById('zoekbalk').value === '') {
-                                    output[0].selected = true;
-                                }
-                            }
-                        }
-                    </script>
-                    <input name="zoekbalk" id="zoekbalk" class="input" type="text" onkeyup="searchUser()">
-                </div>
-            </div>
+            <?php if(empty(($verkoper))) { ?>
+                <p></p>
             <?php } ?>
             <form method="post" action="../scripts/stuurBerichtVerkoper.php" id="contactform">
                 <div class="field">
                     <label class="label" for="gebruikersnaamverkoper">Gebruikersnaam Verkoper</label>
-                    <div class="select">
                     <?php if(empty($verkoper)) { ?>
-                        <select id="gebruikersnaamverkoper" name="gebruikersnaamverkoper">
-                            <?php
-                            $sql = "SELECT gebruikersnaam FROM Verkoper";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->execute();
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<option value="' . $row["gebruikersnaam"] . '">' . $row["gebruikersnaam"] . '</option>';
-                            }
-                            ?>
-                        </select>
+                        <div class="control">
+                        <input class="input" type="text" id="gebruikersnaamverkoper" name="gebruikersnaamverkoper">
+                        </div>
                     <?php } else if(!empty($verkoper)) {?>
+                    <div class="select">
                         <select id="gebruikersnaamverkoper" name="gebruikersnaamverkoper">
                             <option <?php echo $verkoper;?> selected><?php echo $verkoper;?></option>
                         </select>
-                    <?php } ?>
                     </div>
+                    <?php } ?>
+
                 </div>
                 <div class="field">
                     <label for="vraagtype" class="label">Vraagtype</label>
