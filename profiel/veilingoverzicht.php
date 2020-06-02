@@ -9,10 +9,17 @@ if (empty($_SESSION['gebruiker'])) {
 
 $sql = "SELECT voorwerp, titel, startprijs, max(bodbedrag) AS bodbedrag, max(bodtijdstip) AS bodtijdstip, gebruiker, verkoper
         FROM Bod
-        INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer
-        WHERE gebruiker = :gebruiker
-        GROUP BY voorwerp, titel, gebruiker, startprijs, verkoper
-        ORDER BY bodtijdstip DESC";
+        INNER JOIN Voorwerp ON Bod.voorwerp = Voorwerp.voorwerpnummer";
+$sql .= " WHERE gebruiker = :gebruiker";
+$sql .= " AND";
+if(isset($_GET['archief'])) {
+    $sql .= " veilinggesloten = 1";
+} else {
+    $sql .= " veilinggesloten = 0";
+}
+
+$sql .= " GROUP BY voorwerp, titel, gebruiker, startprijs, verkoper";
+$sql .= " ORDER BY bodtijdstip DESC";
 
 $queryArray = array(
     ':gebruiker' => $_SESSION['gebruiker']
@@ -66,9 +73,9 @@ if (isset($_GET['verzenden'])) {
     <div class="has-background-black has-text-white">
         <div class="container veilingoverzicht-container">
             <div class="columns">
-                <div class="column is-hidden-touch">
+                <div class="column is-2">
                     <?php
-                    if (isset($_GET['verzenden'])) :
+                    if (isset($_GET['verzenden'])||isset($_GET['archief'])):
                         ?>
                         <a href="/profiel/veilingoverzicht.php" class="button is-primary"><- Terug</a>
                     <?php
@@ -78,6 +85,11 @@ if (isset($_GET['verzenden'])) {
                     <?php
                     endif;
                     ?>
+                </div>
+                <div class="column is-2">
+                    <form method="GET">
+                        <input type="submit" name="archief" value="Gesloten Veilingen" class="button is-primary">
+                    </form>
                 </div>
                 <div class="column">
                     <h1 class="title is-2 has-text-white has-text-centered">Mijn Veilingen</h1>
@@ -96,6 +108,7 @@ if (isset($_GET['verzenden'])) {
                     </form>
                 </div>
             </div>
+            <div class="tablewrapper">
             <table class="table has-background-primary has-text-white is-fullwidth">
                 <thead>
                 <tr>
@@ -128,7 +141,7 @@ if (isset($_GET['verzenden'])) {
                 ?>
                 </tbody>
             </table>
-
+            </div>
         </div>
     </div>
 
