@@ -28,10 +28,10 @@ if (isset($_GET['rubriek'])) {
                         ORDER BY v.veilingbegin DESC;";
     $page = $conn->prepare($sql_alle_childs);
     $page->bindParam(':parent', $parent);
-} else if (empty($_GET['searching'])) {
+} else if (empty($_GET['zoek'])) {
     $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp WHERE veilingGesloten = 0 AND (geblokkeerd = 0 OR geblokkeerd is NULL) ORDER BY veilingbegin DESC");
 } else {
-    $search = $_GET['searching'];
+    $search = $_GET['zoek'];
     $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp WHERE titel LIKE '%" . $search . "%' AND veilingGesloten = 0 AND (geblokkeerd = 0 OR geblokkeerd is NULL) ORDER BY veilingbegin DESC");
 }
 
@@ -88,10 +88,10 @@ if (isset($_GET['filter'])) {
                 <h2 class="subtitle has-text-weight-bold">De veiling website van Nederland</h2>
             </div>
             <br><br><br>
-            <form method="GET" action="">
+            <form method="GET" action="index.php">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
-                        <input type="text" class="input" name="searching" id="" placeholder="Veiling zoeken" required>
+                        <input type="text" class="input" name="zoek" id="" placeholder="Veiling zoeken" required>
                     </p>
                     <p class="control">
                         <button type="submit" class="button is-black">Zoek</button>
@@ -99,7 +99,7 @@ if (isset($_GET['filter'])) {
                 </div>
             </form>
             <br>
-            <form method="GET" action="">
+            <form method="GET">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
                         <input type="text" class="input" name="country" id="" placeholder="Land">
