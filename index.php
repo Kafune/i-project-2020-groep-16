@@ -39,8 +39,20 @@ $page->execute();
 $row = $page->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_GET['filter'])) {
-    //print_r($_GET);
-    $q = '';
+    $q = "SELECT TOP 60 * FROM voorwerp";
+    $queryArray = array();
+
+    if(isset($_GET['searching'])) {
+        $queryArray[':titel'] = $_GET['searching'];
+    }
+
+    if(isset($_GET['min']) && isset($_GET['max'])) {
+        $q .= " AND startprijs BETWEEN :minprijs AND :maxprijs";
+        $queryArray[':minprijs'] = $_GET['min'];
+        $queryArray[':maxprijs'] = $_GET['max'];
+    }
+
+
     if ($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] == '' && $_GET['city'] == '') {
         $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
     } elseif ($_GET['country'] != '' && $_GET['city'] != '' && $_GET['max'] == '' && $_GET['min'] == '') {

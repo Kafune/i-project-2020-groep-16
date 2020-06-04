@@ -2,14 +2,19 @@
 include_once("../includes/db.php");
 session_start();
 
+$voorwerpnummer = $_POST['voorwerpnummer'];
+
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
+} else {
+    $_SESSION['error'] = 'errorBodNietIngelogd';
+    header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
 }
 
 if (isset($_POST['bied'])) {
+
     $tijdstip = date('Y-m-d H:i:s');
     $bod = $_POST['bodbedrag'];
-    $voorwerpnummer = $_POST['voorwerpnummer'];
 
     /*Haal het hoogst geboden bedrag op uit de database*/
     $sql = "SELECT TOP 1 gebruiker, bodbedrag FROM Bod WHERE Voorwerp = :voorwerpnummer ORDER BY bodbedrag DESC";

@@ -65,6 +65,15 @@ if (isset($_SESSION['error'])) {
         case "veilingGesloten":
             $message = "U kunt niet meer bieden, de veiling is al gesloten.";
             break;
+        case "errorGeblokkeerd":
+            $message = "Gebruiker is geblokkeerd!";
+            break;
+        case "bestaandeReview":
+            $message = "Er bestaat al een review over dit product, probeer een ander product te kiezen. <br> Als dit probleem zich blijft voordoen, neem contact op met de webmaster.";
+            break;
+        case "errorBodNietIngelogd":
+            $message = "U moet ingelogd zijn om een bod te plaatsen!";
+            break;
         default:
             $message = "";
     }
@@ -74,9 +83,6 @@ if (isset($_SESSION['success'])) {
     switch ($_SESSION['success']) {
         case "succesUitloggen":
             $message = "U bent succesvol uitgelogd!";
-            break;
-        case "succesInloggen":
-            $message = "U bent succesvol ingelogd!";
             break;
         case "succesAccountVerwijderd":
             $message = "Uw account is succesvol verwijderd!";
@@ -113,6 +119,9 @@ if (isset($_SESSION['success'])) {
             break;
         case "successVeilingDeBlokkeren":
             $message = "Voorwerp is niet meer geblokkeerd!";
+            break;
+        case "successGebruikerVerwijderen":
+            $message = "Gebruiker is succesvol verwijderd!";
             break;
         default:
             $message = "";

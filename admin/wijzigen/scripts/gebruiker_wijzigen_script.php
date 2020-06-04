@@ -93,5 +93,6 @@ if (isset($_POST['bewerken'])) {
     $stmt->bindParam(':gebruikersnaam', $gebruikersnaamoud);
     $stmt->execute();
 
+    $_SESSION['success'] = "successGebruikerVerwijderen";
     header('Location: ../../gebruikers.php');
 }
