@@ -104,11 +104,10 @@ if (isset($_GET['status'])) {
             <div class="column is-half">
                 <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%; max-height:500px ;object-fit: contain"
                      class="image">
-                <p><?php echo $row_details['gebruikersnaam'] ?></p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>
                 <p class="has-text-weight-bold">Verkoper</p>
-                <a href="../verkoper/verkoperpagina.php?verkoper=<?= $row_details['verkoper'] ?>"><?php echo $row_details['verkoper'] ?></a>
+                <a href="/verkoper/verkoperpagina.php?verkoper=<?= $row_details['verkoper'] ?>"><?php echo $row_details['verkoper'] ?></a>
                 <p class="has-text-weight-bold">Betalingswijze</p>
                 <p><?php echo $row_details['betalingswijze'] ?></p>
                 <p class="has-text-weight-bold">Betalingsinstructies</p>
