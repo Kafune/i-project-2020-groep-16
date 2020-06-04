@@ -77,6 +77,9 @@ if (isset($_SESSION['error'])) {
         case "errorBodNietIngelogd":
             $message = "U moet ingelogd zijn om een bod te plaatsen!";
             break;
+        case "errorLeegZoekOpdracht":
+            $message = "U heeft geen zoekopdracht gedaan!";
+            break;
         default:
             $message = "";
     }
