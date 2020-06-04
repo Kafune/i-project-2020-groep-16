@@ -2,12 +2,26 @@
 session_start();
 include_once("root.php");
 include_once("meldingen.php");
+include_once("db.php");
 
 if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
     $redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     header("Location: $redirect_url");
     exit();
 }
+
+$sql = "UPDATE Voorwerp
+SET veilinggesloten = (case when veilingeinde > CURRENT_TIMESTAMP THEN 0 ELSE 1 END)";
+
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+$sql = "UPDATE Voorwerp
+SET Koper = (SELECT TOP 1 gebruiker FROM Bod WHERE bod.Voorwerp = Voorwerp.voorwerpnummer ORDER BY bodbedrag DESC)
+WHERE veilingGesloten = 1";
+
+$stmt = $conn->prepare($sql);
+$stmt->execute();
 
 ?>
 
@@ -116,5 +130,6 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
 
     gtag('config', 'UA-150449112-2');
 </script>
+
 
 
