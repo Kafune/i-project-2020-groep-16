@@ -60,7 +60,7 @@ $stmt2->execute();
 //Toevoegen van afbeeldingen aan de database
 $voorwerpnummer = $conn->lastInsertId();
 
-$sql_insertrubriek = "INSERT INTO VoorwerpInRubriek (voorwerpnummer, rubrieknummer) VALUES (".$voorwerpnummer.",".$rubrieknummer.")";
+$sql_insertrubriek = "INSERT INTO VoorwerpInRubriek (voorwerpnummer, rubrieknummer) VALUES (" . $voorwerpnummer . "," . $rubrieknummer . ")";
 $stmt = $conn->prepare($sql_insertrubriek);
 $stmt->execute();
 
@@ -73,30 +73,37 @@ $fileType = $file['type'];
 
 $fileExt = explode('.', $fileName);
 $fileActualExt = strtolower(end($fileExt));
+$toegestaan = array("image/jpeg", "image/png", "image/jpg");
 
 
-if ($fileError === 0) {
-    if ($fileSize < 1000000) {
-        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-        $fileDestination = '../../upload/' . $fileNameNew;
+if (in_array($fileType, $toegestaan) ) {
+    if ($fileError === 0) {
+        if ($fileSize < 10000000) {
+            $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+            $fileDestination = '../../upload/' . $fileNameNew;
 
-        move_uploaded_file($fileTmpName, $fileDestination);
+            move_uploaded_file($fileTmpName, $fileDestination);
 
-        $sql = "INSERT INTO Bestand (filenaam, voorwerpnummer) VALUES (:fileNameNew, :voorwerpnummer)";
+            $sql = "INSERT INTO Bestand (filenaam, voorwerpnummer) VALUES (:fileNameNew, :voorwerpnummer)";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':fileNameNew', $fileNameNew);
-        $stmt->bindParam(':voorwerpnummer', $voorwerpnummer);
-        $stmt->execute();
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':fileNameNew', $fileNameNew);
+            $stmt->bindParam(':voorwerpnummer', $voorwerpnummer);
+            $stmt->execute();
 
-        header("Location:/voorwerpen/voorwerptoevoegenVoltooid.php");
+            header("Location:/voorwerpen/voorwerptoevoegenVoltooid.php");
 
+        } else {
+            $_SESSION['error'] = ' bestandTeGroot';
+            header('Location: /voorwerpen/voorwerptoevoegen.php');
+        }
     } else {
-        echo 'Bestand te groot!';
+        $_SESSION['error'] = 'errorBijUploaden';
+        header('Location: /voorwerpen/voorwerptoevoegen.php');
     }
 } else {
+    $_SESSION['error'] = 'verkeerdBestand';
     header('Location: /voorwerpen/voorwerptoevoegen.php');
-    echo 'Er is iets fout gegaan tijdens het uploaden, probeer het opnieuw!';
 }
 
 
