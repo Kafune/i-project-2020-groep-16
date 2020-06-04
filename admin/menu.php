@@ -38,10 +38,9 @@ if (empty($_SESSION['admin'])) {
                     Rapporten
                 </p>
                 <ul class="menu-list">
-                    <li><a>Gebruikers</a></li>
-                    <li><a>Verkopers</a></li>
-                    <li><a>Voorwerpen</a></li>
-                    <li><a>Rubrieken</a></li>
+                    <li><a href="/admin/rapporten/sessie_aantal.php">Aantal sessie's</a></li>
+                    <li><a href="/admin/rapporten/sessie_landen.php">Landen</a></li>
+                    <li><a href="/admin/rapporten/pagina_bezoeken.php">Pagina bezoeken</a></li>
                 </ul>
             </aside>
         </div>
