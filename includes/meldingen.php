@@ -65,6 +65,9 @@ if (isset($_SESSION['error'])) {
         case "veilingGesloten":
             $message = "U kunt niet meer bieden, de veiling is al gesloten.";
             break;
+        case "biedenVerkoper":
+            $message = "U kunt niet op uw eigen voorwerpen bieden.";
+            break;
         case "errorGeblokkeerd":
             $message = "Gebruiker is geblokkeerd!";
             break;

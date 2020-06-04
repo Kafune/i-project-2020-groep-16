@@ -104,7 +104,6 @@ if (isset($_GET['status'])) {
             <div class="column is-half">
                 <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%; max-height:500px ;object-fit: contain"
                      class="image">
-                <p><?php echo $row_details['gebruikersnaam'] ?></p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>
                 <p class="has-text-weight-bold">Verkoper</p>
