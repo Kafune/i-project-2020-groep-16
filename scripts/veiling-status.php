@@ -1,6 +1,4 @@
 <?php
-session_start();
-require_once('../includes/root.php');
 include_once('../includes/db.php');
 global $conn;
 
@@ -21,27 +19,28 @@ while ($row_voorwerp = $voorwerpdetails->fetch(PDO::FETCH_ASSOC)) {
         $result_verkoper = $row_verkoper->fetch(PDO::FETCH_ASSOC);
 
         $bericht_verkoper = "
-        Beste verkoper van EenmaalAndermaal,
+Beste verkoper van EenmaalAndermaal,
 
-        We willen je graag informeren dat de volgende veiling: {$result_voorwerp["titel"]} verkocht is.
-        De koper van de veiling is: {$result_koper["gebruikersnaam"]}
+We willen u graag informeren dat de volgende veiling: {$result_voorwerp["titel"]} verkocht is.
+De koper van de veiling is: {$result_koper["gebruikersnaam"]}. 
+U kunt de koper met het volgende e-mailadres bereiken: {$result_koper['email']}
 
-        We hopen je met dit mailtje voldoende geinformeerd te hebben.
+We hopen u met dit mailtje voldoende geinformeerd te hebben.
 
-        Met vriendelijke groet,
-        Team EenmaalAndermaal.
+Met vriendelijke groet,
+Team EenmaalAndermaal.
         ";
 
         $bericht_koper = "
-        Beste gebruiker van EenmaalAndermaal,
+Beste gebruiker van EenmaalAndermaal,
 
-        We willen je graag informeren dat je de volgende veiling gewonnen hebt: {$result_voorwerp["titel"]}.
-        De verkoper zal jouw voorwerp zo snel mogelijk versturen.
+We willen u graag informeren dat u de volgende veiling gewonnen hebt: {$result_voorwerp["titel"]}.
+De verkoper zal zo snel mogelijk contact met u opnemen per mail om de verkoop te voltooien, u hoeft nu verder niets te doen.
 
-        We hopen je met dit mailtje voldoende geinformeerd te hebben.
+We hopen u met dit mailtje voldoende geinformeerd te hebben.
 
-        Met vriendelijke groet,
-        Team EenmaalAndermaal.
+Met vriendelijke groet,
+Team EenmaalAndermaal.
         ";
 
         mail($result_koper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_koper);
