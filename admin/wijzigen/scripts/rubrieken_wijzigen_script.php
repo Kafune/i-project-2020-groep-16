@@ -16,7 +16,7 @@ if (isset($_POST['wijzigen'])) {
 
     $stmt->execute();
 
-    $_SESSION['success'] = 'rubriekGewijzigd';
+    $_SESSION['success'] = "rubriekGewijzigd";
     header('Location: ../rubrieken_wijzigen.php?rubrieknummer=' . $rubrieknummer . '');
 } else if (isset($_GET['rubrieknummer']) && isset($_GET['id'])) {
     $rubrieknummer = $_GET['rubrieknummer'];

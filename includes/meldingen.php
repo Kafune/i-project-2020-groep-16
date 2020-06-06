@@ -65,11 +65,20 @@ if (isset($_SESSION['error'])) {
         case "veilingGesloten":
             $message = "U kunt niet meer bieden, de veiling is al gesloten.";
             break;
+        case "biedenVerkoper":
+            $message = "U kunt niet op uw eigen voorwerpen bieden.";
+            break;
         case "errorGeblokkeerd":
             $message = "Gebruiker is geblokkeerd!";
             break;
         case "bestaandeReview":
             $message = "Er bestaat al een review over dit product, probeer een ander product te kiezen. <br> Als dit probleem zich blijft voordoen, neem contact op met de webmaster.";
+            break;
+        case "errorBodNietIngelogd":
+            $message = "U moet ingelogd zijn om een bod te plaatsen!";
+            break;
+        case "errorLeegZoekOpdracht":
+            $message = "U heeft geen zoekopdracht gedaan!";
             break;
         default:
             $message = "";

@@ -1,8 +1,6 @@
 <?php
 include_once("../includes/header.php");
 ?>
-    <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
     <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script>
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css"/>
 
