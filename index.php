@@ -3,6 +3,9 @@ include_once("includes/header.php");
 include_once("includes/db.php");
 include_once("includes/functies.php");
 
+$textlimiet = 100;
+$textbreedte = 45;
+
 if (isset($_GET['rubriek'])) {
     $rubrieknummer = $_GET['rubriek'];
     $page = $conn->prepare("SELECT TOP 60 * FROM voorwerp AS v
@@ -95,9 +98,6 @@ if (isset($_GET['filter'])) {
 
 
 ?>
-<link rel="stylesheet" href="styles/css/mystyles.css">
-<link rel="stylesheet" href="styles/custom_styles.css">
-
 <body>
 <div class="block">
     <section class="hero is-primary"> <!-- repeat staat aan & het is niet mooi responsive -->
@@ -169,7 +169,14 @@ if (isset($_GET['filter'])) {
                                 <span class="tag is-black"> <?php echo $value['plaatsnaam'] ?></span>
                             </p>
                             <p class="">
-                                <?php echo $value['beschrijving'] ?>
+                                <?php
+                                // zorg dat er een line-break plaatsvindt bij een aantal karakters.
+                                if(strlen($value['beschrijving']) > $textlimiet) {
+                                    echo wordwrap(substr($value['beschrijving'], 0, $textlimiet), $textbreedte, "<br>", true);
+                                } else {
+                                    echo $value['beschrijving'];
+                                }
+                                ?>
                             </p>
                         </div>
                         <footer class="card-footer">
