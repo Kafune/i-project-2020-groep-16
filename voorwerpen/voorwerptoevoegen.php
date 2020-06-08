@@ -77,7 +77,7 @@ $rubrieknaam = $resultaat['rubrieknaam'];
                         <div class="field">
                             <label class="label" for="betalingsinstructie">Betalingsintructie</label>
                             <div class="control">
-                                <input type="text" name="betalingsinstructie" id="betalingsinstructie" maxlength="50" class="input">
+                                <input type="text" name="betalingsinstructie" id="betalingsinstructie" step="0.01" maxlength="50" class="input">
                             </div>
                         </div>
 
@@ -97,7 +97,7 @@ $rubrieknaam = $resultaat['rubrieknaam'];
                         <div class="field">
                             <label class="label" for="verzendkosten">Verzendkosten</label>
                             <div class="control">
-                                <input name="verzendkosten" id="verzendkosten" min="0" max="99999999" class="input" type="number">
+                                <input name="verzendkosten" id="verzendkosten" min="0" max="99999999" step="0.01" class="input" type="number">
                             </div>
                         </div>
 
