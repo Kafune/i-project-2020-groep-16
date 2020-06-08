@@ -80,6 +80,15 @@ if (isset($_SESSION['error'])) {
         case "errorLeegZoekOpdracht":
             $message = "U heeft geen zoekopdracht gedaan!";
             break;
+	case "errorBijUploaden":
+            $message = "Er is een error opgetreden bij het uploaden van uw bestand.";
+            break;
+        case "verkeerdBestand":
+            $message = "Uw foto heeft geen juist formaat, upload in JPG, JPEG of PNG.";
+            break;
+        case "bestandTeGroot":
+            $message = "Uw foto is te groot, probeer een klein bestand te uploaden.";
+            break;
         default:
             $message = "";
     }
