@@ -21,16 +21,21 @@ if ($_SESSION["registratieStatus"] == 2) {
             $wachtwoord = $_POST['wachtwoord'];
             $_SESSION['error'] = "";
 
-            if (checkWachtwoord($wachtwoord)) {
-                $wachtwoordHash = sha1($wachtwoord);
+            if(preg_match("/^[a-zA-Z0-9]+$/", $gebruikersnaam)){
+                if (checkWachtwoord($wachtwoord)) {
+                    $wachtwoordHash = sha1($wachtwoord);
 
-                $_SESSION['gebruikersnaam'] = $gebruikersnaam;
-                $_SESSION['wachtwoord'] = $wachtwoordHash;
+                    $_SESSION['gebruikersnaam'] = $gebruikersnaam;
+                    $_SESSION['wachtwoord'] = $wachtwoordHash;
 
-                $_SESSION['registratieStatus'] = 3;
-                header('Location: ../../registratie/gegevens.php');
+                    $_SESSION['registratieStatus'] = 3;
+                    header('Location: ../../registratie/gegevens.php');
+                } else {
+                    //verkeerd wachtwoord, stuur gebruiker terug naar zelfde scherm
+                    header('location: ../../registratie/inlog.php');
+                }
             } else {
-                //verkeerd wachtwoord, stuur gebruiker terug naar zelfde scherm
+                $_SESSION['error'] = 'gebruikersnaamTekens';
                 header('location: ../../registratie/inlog.php');
             }
         } else {
