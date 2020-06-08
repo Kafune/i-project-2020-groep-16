@@ -68,6 +68,15 @@ if (isset($_SESSION['error'])) {
         case "biedenVerkoper":
             $message = "U kunt niet op uw eigen voorwerpen bieden.";
             break;
+        case "errorBijUploaden":
+            $message = "Er is een error opgetreden bij het uploaden van uw bestand.";
+            break;
+        case "verkeerdBestand":
+            $message = "Uw foto is geen juist formaat.";
+            break;
+        case "bestandTeGroot":
+            $message = "Uw foto is te groot, probeer een klein bestand te uploaden.";
+            break;
         default:
             $message = "";
     }
