@@ -135,7 +135,7 @@ if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {
                                 <br>
                                 <?php echo $row_review['commentaar'] ?>
                                 <br>
-                                <a class="is-size-7 has-text-grey" href="../playstation4.php?voorwerpnummer=<?php echo $row_review['voorwerpnummer']?>">Productlink</a>
+                                <a class="is-size-7 has-text-grey" href="../voorwerp.php?voorwerpnummer=<?php echo $row_review['voorwerpnummer']?>">Productlink</a>
                             </p>
                         </div>
                     </div>

@@ -1,6 +1,10 @@
 <?php
 include_once("includes/header.php");
 include_once("includes/db.php");
+include_once("includes/functies.php");
+
+$textlimiet = 100;
+$textbreedte = 45;
 
 if (isset($_GET['rubriek'])) {
     $rubrieknummer = $_GET['rubriek'];
@@ -38,47 +42,62 @@ if (isset($_GET['rubriek'])) {
 $page->execute();
 $row = $page->fetchAll(PDO::FETCH_ASSOC);
 
+//kijk of er op een knop geklikt is
 if (isset($_GET['filter'])) {
-    //print_r($_GET);
-    $q = '';
-    if ($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] == '' && $_GET['city'] == '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
-    } elseif ($_GET['country'] != '' && $_GET['city'] != '' && $_GET['max'] == '' && $_GET['min'] == '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND land LIKE '%" . $_GET['country'] . "%'";
-    } elseif ($_GET['city'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%'";
-    } elseif ($_GET['country'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%'";
-    } elseif ($_GET['max'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN 0 AND " . $_GET['max'];
-    } elseif ($_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs > " . $_GET['min'];
-    } elseif ($_GET['country'] != '' && $_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%' AND startprijs > " . $_GET['min'];
-    } elseif ($_GET['city'] != '' && $_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND startprijs > " . $_GET['min'];
-    } elseif ($_GET['country'] != '' && $_GET['max'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE land LIKE '%" . $_GET['country'] . "%' AND  startprijs BETWEEN 0 AND " . $_GET['max'];
-    } elseif ($_GET['city'] != '' && $_GET['max'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND  startprijs BETWEEN 0 AND " . $_GET['max'];
-    } elseif ($_GET['max'] != '' && $_GET['min'] != '' && $_GET['country'] != '' && $_GET['city'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE plaatsnaam LIKE '%" . $_GET['city'] . "%' AND land LIKE '%" . $_GET['country'] . "%' AND  startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
-    } elseif ($_GET['max'] != '' && $_GET['min'] != '') {
-        $q = "SELECT TOP 60 * FROM voorwerp WHERE startprijs BETWEEN " . $_GET['min'] . " AND " . $_GET['max'];
-    }
-    $q .= "ORDER BY veilingbegin DESC";
-    $page = $conn->prepare($q);
-    $page->execute();
-    $row = $page->fetchAll(PDO::FETCH_ASSOC);
-    //print_r($row);
+    //kijk daarna of er een veld ingevuld is, omdat er geen verplichte velden zijn
+    if (!empty($_GET['zoek']) || !empty($_GET['country']) || !empty($_GET['city']) || !empty($_GET['min'] || !empty($_GET['max']))) {
+//if(count(array_filter($_GET)) != count($_GET)) {
 
+        $q = "SELECT TOP 60 * FROM voorwerp";
+        $gevuldeVelden = array();
+        $queryArray = array();
+
+        if (!empty($_GET['zoek'])) {
+            $gevuldeVelden[] = "titel LIKE CONCAT('%', :titel, '%')";
+            $queryArray[':titel'] = $_GET['zoek'];
+        }
+
+        if (!empty($_GET['country'])) {
+            $gevuldeVelden[] = "land LIKE CONCAT('%', :land, '%')";
+            $queryArray[':land'] = $_GET['country'];
+        }
+
+        if (!empty($_GET['city'])) {
+            $gevuldeVelden[] = "plaatsnaam LIKE CONCAT('%', :plaatsnaam, '%')";
+            $queryArray[':plaatsnaam'] = $_GET['city'];
+        }
+
+        if (!empty($_GET['min']) && !empty($_GET['max'])) {
+            $gevuldeVelden[] = "startprijs BETWEEN :minprijs AND :maxprijs";
+            $queryArray[':minprijs'] = $_GET['min'];
+            $queryArray[':maxprijs'] = $_GET['max'];
+        } else if (!empty($_GET['min'])) {
+            $gevuldeVelden[] = "startprijs >= :minprijs";
+            $queryArray[':minprijs'] = $_GET['min'];
+        } else if (!empty($_GET['max'])) {
+            $gevuldeVelden[] = "startprijs <= :maxprijs";
+            $queryArray[':maxprijs'] = $_GET['max'];
+        }
+
+        //zoek naar alle veilingen die open staan.
+        $gevuldeVelden[] = "veilinggesloten=0";
+
+        if (count($gevuldeVelden) > 0) {
+            $q .= " WHERE " . implode(' AND ', $gevuldeVelden);
+        }
+        $q .= " ORDER BY veilingbegin DESC";
+
+
+        $row = haalAlleGegevensArray($conn, $q, $queryArray);
+        //print_r($row);
+    } else {
+        $_SESSION['error'] = "errorLeegZoekOpdracht";
+        header('location: index.php');
+    }
 }
 
 
 ?>
-<link rel="stylesheet" href="styles/css/mystyles.css">
-<link rel="stylesheet" href="styles/custom_styles.css">
-
 <body>
 <div class="block">
     <section class="hero is-primary"> <!-- repeat staat aan & het is niet mooi responsive -->
@@ -92,14 +111,16 @@ if (isset($_GET['filter'])) {
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
                         <input type="text" class="input" name="zoek" id="" placeholder="Veiling zoeken" required>
+
                     </p>
                     <p class="control">
-                        <button type="submit" class="button is-black">Zoek</button>
+                        <input type="submit" class="button is-black" value="Zoeken" name="Zoeken"></input>
                     </p>
                 </div>
             </form>
             <br>
             <form method="GET">
+                <br>
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
                         <input type="text" class="input" name="country" id="" placeholder="Land">
@@ -114,10 +135,6 @@ if (isset($_GET['filter'])) {
                     <p class="control" style="width:110px">
                         <input type="number" class="input" name="max" id="" placeholder="Max Prijs">
                     </p>
-
-                    <p class="control">
-                        <button type="submit" class="button is-black">Filter</button>
-                    </p>
                 </div>
             </form>
             <br>
@@ -131,7 +148,7 @@ if (isset($_GET['filter'])) {
         <div class="columns is-multiline">
 
             <?php
-            foreach ($row as $value) {
+            foreach ($row as $value) :
 
                 $page_photo = $conn->prepare("SELECT * FROM bestand WHERE voorwerpnummer ='" . $value['voorwerpnummer'] . "'");
                 $page_photo->execute();
@@ -143,7 +160,7 @@ if (isset($_GET['filter'])) {
                         <div class="card-image">
                             <figure class="image is-3by2">
                                 <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
-                                     style="object-fit: contain">
+                                     class="voorwerp-afbeelding">
                             </figure>
                         </div>
                         <div class="card-content">
@@ -152,7 +169,14 @@ if (isset($_GET['filter'])) {
                                 <span class="tag is-black"> <?php echo $value['plaatsnaam'] ?></span>
                             </p>
                             <p class="">
-                                <?php echo $value['beschrijving'] ?>
+                                <?php
+                                // zorg dat er een line-break plaatsvindt bij een aantal karakters.
+                                if(strlen($value['beschrijving']) > $textlimiet) {
+                                    echo wordwrap(substr($value['beschrijving'], 0, $textlimiet), $textbreedte, "<br>", true);
+                                } else {
+                                    echo $value['beschrijving'];
+                                }
+                                ?>
                             </p>
                         </div>
                         <footer class="card-footer">
@@ -170,7 +194,7 @@ if (isset($_GET['filter'])) {
                         </footer>
                     </div>
                 </div>
-            <?php } ?>
+            <?php endforeach; ?>
 
         </div>
     </div>

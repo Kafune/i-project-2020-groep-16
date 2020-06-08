@@ -40,7 +40,6 @@ if (isset($_POST['login'])) {
         if($isAdmin == true){
             $_SESSION['admin'] = true;
         }
-        $_SESSION['success'] = 'succesInloggen';
         header('location: ' . $root . '/index.php');
     } else {
         $_SESSION['error'] = "errorOnjuistLogin";

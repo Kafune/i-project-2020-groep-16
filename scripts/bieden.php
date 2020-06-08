@@ -8,14 +8,19 @@ SET veilinggesloten = (case when veilingeinde > CURRENT_TIMESTAMP THEN 0 ELSE 1 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
+$voorwerpnummer = $_POST['voorwerpnummer'];
+
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
+} else {
+    $_SESSION['error'] = 'errorBodNietIngelogd';
+    header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
 }
 
 if (isset($_POST['bied'])) {
+
     $tijdstip = date('Y-m-d H:i:s');
     $bod = $_POST['bodbedrag'];
-    $voorwerpnummer = $_POST['voorwerpnummer'];
 
     /*Haal het hoogst geboden bedrag op uit de database*/
     $sql = "SELECT TOP 1 gebruiker, bodbedrag FROM Bod WHERE Voorwerp = :voorwerpnummer ORDER BY bodbedrag DESC";
@@ -38,7 +43,8 @@ if (isset($_POST['bied'])) {
     $veilingGesloten = $results['veilingGesloten'];
     $verkoper = $results['verkoper'];
 
-    if ($gebruikersnaam != $verkoper) {
+
+    if ($gebruikersnaam !== $verkoper) {
         if ($veilingGesloten == 0) {
             if ($bod >= $startprijs) {
                 if ($bod > $hoogstebod) {
@@ -74,6 +80,4 @@ if (isset($_POST['bied'])) {
         header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
     }
 }
-
-
 

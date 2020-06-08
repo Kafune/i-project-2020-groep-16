@@ -1,8 +1,8 @@
 <?php
 include_once("../includes/header.php");
 ?>
-    <link rel="stylesheet" href="styles/css/mystyles.css">
-    <link rel="stylesheet" href="styles/custom_styles.css">
+    <link rel="stylesheet" href="/styles/css/mystyles.css">
+    <link rel="stylesheet" href="/styles/custom_styles.css">
 
     <title>Registreer</title>
 

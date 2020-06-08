@@ -14808,6 +14808,10 @@ label.panel-block:hover {
   padding: 20px;
 }
 
+.voorwerp-afbeelding {
+  object-fit: cover;
+}
+
 .successmsg, .errormsg {
   border: solid #E50056 1px;
   padding: 10px 0;
