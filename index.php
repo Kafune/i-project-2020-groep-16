@@ -114,7 +114,7 @@ if (isset($_GET['filter'])) {
 
                     </p>
                     <p class="control">
-                        <input type="submit" class="button is-black" value="Zoeken" name="Zoeken"></input>
+                        <input type="submit" class="button is-black" value="Zoeken" name="Zoeken">
                     </p>
                 </div>
             </form>
@@ -145,7 +145,7 @@ if (isset($_GET['filter'])) {
 
 <div class="container">
     <div class="block">
-        <div class="columns is-multiline">
+        <div class="columns is-multiline is-flex">
 
             <?php
             foreach ($row as $value) :
@@ -155,8 +155,8 @@ if (isset($_GET['filter'])) {
                 $row_image = $page_photo->fetch(PDO::FETCH_ASSOC);
 
                 ?>
-                <div class="column is-one-third">
-                    <div class="card" style="min-height:460px">
+                <div class="column is-4 voorwerp-kolom">
+                    <div class="card voorwerp-card">
                         <div class="card-image">
                             <figure class="image is-3by2">
                                 <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
@@ -170,9 +170,9 @@ if (isset($_GET['filter'])) {
                             </p>
                             <p class="">
                                 <?php
-                                // zorg dat er een line-break plaatsvindt bij een aantal karakters.
+                                // Kijk of de beschrijving langer is dan een bepaald aantal tekens
                                 if(strlen($value['beschrijving']) > $textlimiet) {
-                                    echo wordwrap(substr($value['beschrijving'], 0, $textlimiet), $textbreedte, "<br>", true);
+                                    echo wordwrap(mb_strimwidth($value['beschrijving'], 0, $textlimiet, "..."), $textbreedte, "<br>", true);
                                 } else {
                                     echo $value['beschrijving'];
                                 }
