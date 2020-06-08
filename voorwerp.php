@@ -23,39 +23,7 @@ if (isset($_GET['status'])) {
 
 <link rel="stylesheet" href="styles/css/mystyles.css">
 <link rel="stylesheet" href="styles/custom_styles.css">
-<style>
-    #table {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-    #table td, #table th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    #table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    #table tr:hover {
-        background-color: #ddd;
-    }
-
-    #table #high {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    #table th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
 
 <body style="background-image: url('sources/background 1.gif');">
 <div class="container has-background-white containerExtraPadding">
@@ -97,6 +65,8 @@ if (isset($_GET['status'])) {
                 for ($i = 0; $i < count($reversed_namen); $i++) {
                     echo "<li><a href='/index.php?parent=" . $reversed_nummer[$i] . "'>" . $reversed_namen[$i] . "</a></li>";
                 }
+
+                echo "<li><a href='' style='color: black'>" .$row_details['titel']. "</a></li>";
                 ?>
             </ul>
         </nav>

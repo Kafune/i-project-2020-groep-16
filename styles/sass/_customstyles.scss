@@ -12,13 +12,17 @@
   padding: 20px;
 }
 
-//homepagina
+//homepagina voorwerpen
 .voorwerp-afbeelding {
     object-fit: cover;
 }
 
 .voorwerp-kolom {
   align-items: stretch;
+}
+
+.voorwerp-title {
+  margin-bottom: 0rem !important;
 }
 
 .voorwerp-card {
