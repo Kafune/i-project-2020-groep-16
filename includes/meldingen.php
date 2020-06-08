@@ -89,6 +89,18 @@ if (isset($_SESSION['error'])) {
         case "bestandTeGroot":
             $message = "Uw foto is te groot, probeer een klein bestand te uploaden.";
             break;
+        case "errorBijUploaden":
+            $message = "Er is een error opgetreden bij het uploaden van uw bestand.";
+            break;
+        case "verkeerdBestand":
+            $message = "Uw foto is geen juist formaat.";
+            break;
+        case "bestandTeGroot":
+            $message = "Uw foto is te groot, probeer een klein bestand te uploaden.";
+            break;
+        case 'gebruikersnaamTekens':
+            $message = "Uw gekozen gebruikersnaam bevat speciale tekens, kies een nieuwe gebruikersnaam.";
+            break;
         default:
             $message = "";
     }
