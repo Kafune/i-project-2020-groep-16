@@ -88,7 +88,6 @@ if (isset($_GET['filter'])) {
         }
         $q .= " ORDER BY veilingbegin DESC";
 
-
         $row = haalAlleGegevensArray($conn, $q, $queryArray);
         //print_r($row);
     } else {

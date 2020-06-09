@@ -3,7 +3,7 @@ session_start();
 include_once("root.php");
 include_once("meldingen.php");
 include_once("db.php");
-include("../scripts/veiling-status.php");
+include_once("../scripts/veiling-status.php");
 
 
 if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {

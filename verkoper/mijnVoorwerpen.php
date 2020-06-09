@@ -12,29 +12,40 @@ if (isset($_SESSION['gebruiker'])) {
 $sql = "SELECT voorwerpnummer, titel,veilingeinde, startprijs,
         max(bodbedrag) as 'hoogste bod', gebruiker, geblokkeerd, veilingGesloten
         FROM voorwerp
-        LEFT JOIN Bod ON voorwerp.voorwerpnummer = bod.Voorwerp
-        WHERE verkoper = :verkoper ";
+        LEFT JOIN Bod ON voorwerp.voorwerpnummer = bod.Voorwerp";
 
-//if (strlen($_GET['titel']) > 0) {
-//    $sql .= " and titel like '%" . $_GET['titel'] . "%' ";
-//}
-if (isset($_GET['voorwerpnummer'])) {
-    $sql .= " and voorwerpnummer = " . $_GET['voorwerpnummer'] . " ";
+$gevuldeVelden = array();
+$queryArray = array();
+
+$gevuldeVelden[] = "verkoper= :verkoper ";
+$queryArray[':verkoper'] = $gebruikersnaam;
+
+if (!empty($_GET['voorwerpnummer'])) {
+    $gevuldeVelden[] = "voorwerpnummer = " . $_GET['voorwerpnummer'];
 }
-if (isset($_GET['gesloten'])) {
-    $sql .= " and veilingGesloten = 1 ";
+if(!empty($_GET['titel'])) {
+    $gevuldeVelden[] = "titel LIKE CONCAT('%', :titel, '%')";
+    $queryArray[':titel'] = $_GET['titel'];
 }
-if (isset($_GET['geblokkeerd'])) {
-    $sql .= " and geblokkeerd = 1 ";
+
+if (!empty($_GET['gesloten'])) {
+    $gevuldeVelden[] = "veilingGesloten = 1";
 }
-//
-$sql .= " GROUP BY voorwerpnummer, titel, veilingeinde, gebruiker, startprijs, geblokkeerd, veilingGesloten";
+if (!empty($_GET['geblokkeerd'])) {
+    $gevuldeVelden[] = "geblokkeerd = 1";
+}
+if (count($gevuldeVelden) > 0) {
+    $sql .= " WHERE " . implode(' AND ', $gevuldeVelden);
+}
+
+
+$sql .= "GROUP BY voorwerpnummer, titel, veilingeinde, gebruiker, startprijs, geblokkeerd, veilingGesloten";
+
 //
 $stmt = $conn->prepare($sql);
 //
-$stmt->bindParam(':verkoper', $gebruikersnaam);
-$stmt->execute();
-echo "test";
+//$stmt->bindParam(':verkoper', $gebruikersnaam);
+$stmt->execute($queryArray);
 ?>
 
     <link rel="stylesheet" href="styles/css/mystyles.css">
