@@ -1,7 +1,9 @@
 <?php
 $message = "";
 
+// kijk of er een error sessie is gezet
 if (isset($_SESSION['error'])) {
+    // kijk welke error sessie er is gezet. Op basis daarvan wordt er een andere bericht weergegeven door het systeem.
     switch ($_SESSION['error']) {
         //email
         case "errorEmailOnbekend":
@@ -106,6 +108,7 @@ if (isset($_SESSION['error'])) {
     }
 }
 
+// Kijk of er een success sessie wordt gezet. Dit proces is hetzelfde als bij de error systeem.
 if (isset($_SESSION['success'])) {
     switch ($_SESSION['success']) {
         case "succesUitloggen":

@@ -34,5 +34,6 @@
     <br>
     <p>Copyright © 2020 Eenmaal Andermaal Alle rechten voorbehouden.</p>
 </footer>
-<script src="../styles/jquery-3.5.1.min.js"></script>
-<script src="../styles/js/app.js"></script>
+<script src="/styles/jquery-3.5.1.min.js"></script>
+<script src="/styles/jquery.countdown.min.js"></script>
+<script src="/styles/js/app.js"></script>

@@ -14816,6 +14816,10 @@ label.panel-block:hover {
   align-items: stretch;
 }
 
+.voorwerp-title {
+  margin-bottom: 0rem !important;
+}
+
 .voorwerp-card {
   min-height: 504px;
   width: 100%;

@@ -5,6 +5,7 @@ include_once("includes/functies.php");
 
 $textlimiet = 100;
 $textbreedte = 45;
+$voorwerpTimers = array();
 
 if (isset($_GET['rubriek'])) {
     $rubrieknummer = $_GET['rubriek'];
@@ -96,7 +97,6 @@ if (isset($_GET['filter'])) {
     }
 }
 
-
 ?>
 <body>
 <div class="block">
@@ -111,7 +111,6 @@ if (isset($_GET['filter'])) {
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
                         <input type="text" class="input" name="zoek" id="" placeholder="Veiling zoeken" required>
-
                     </p>
                     <p class="control">
                         <input type="submit" class="button is-black" value="Zoeken" name="Zoeken">
@@ -146,7 +145,6 @@ if (isset($_GET['filter'])) {
 <div class="container">
     <div class="block">
         <div class="columns is-multiline is-flex">
-
             <?php
             foreach ($row as $value) :
 
@@ -157,6 +155,9 @@ if (isset($_GET['filter'])) {
                 ?>
                 <div class="column is-4 voorwerp-kolom">
                     <div class="card voorwerp-card">
+                        <h1 style="padding: 1.3rem"
+                            class="countdown title voorwerp-title is-size-4 has-text-weight-bold has-text-centered has-background-primary has-text-white"><?=$value['veilingeinde']?></h1>
+
                         <div class="card-image">
                             <figure class="image is-3by2">
                                 <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
@@ -194,18 +195,29 @@ if (isset($_GET['filter'])) {
                         </footer>
                     </div>
                 </div>
-            <?php endforeach; ?>
+
+            <?php
+            array_push($voorwerpTimers, $value['veilingeinde']);
+            endforeach;
+            ?>
 
         </div>
     </div>
 </div>
 <br>
 </body>
+
 <?php
 include_once("includes/footer.php");
 ?>
-
 <script>
-
-
+    $(function(){
+        $('.countdown').each(function(){
+            $(this).countdown($(this).text(), function(event) {
+                $(this).text(
+                    event.strftime('%D dagen %H:%M:%S')
+                );
+            });
+        });
+    });
 </script>

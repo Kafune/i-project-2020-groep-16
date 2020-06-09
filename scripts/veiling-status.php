@@ -1,6 +1,5 @@
 <?php
 include_once('../includes/db.php');
-global $conn;
 
 $voorwerpdetails = $conn->prepare("SELECT * FROM Voorwerp WHERE veilingGesloten = 1 AND veilingeinde >= DATEADD(DAY, -5, GETDATE()) AND mailVerzonden = 0");
 $voorwerpdetails->execute();
@@ -25,7 +24,7 @@ We willen u graag informeren dat de volgende veiling: {$result_voorwerp["titel"]
 De koper van de veiling is: {$result_koper["gebruikersnaam"]}. 
 U kunt de koper met het volgende e-mailadres bereiken: {$result_koper['email']}
 
-We hopen u met dit mailtje voldoende geinformeerd te hebben.
+Wij hopen u met deze mail voldoende te hebben geinformeerd.
 
 Met vriendelijke groet,
 Team EenmaalAndermaal.
@@ -37,7 +36,7 @@ Beste gebruiker van EenmaalAndermaal,
 We willen u graag informeren dat u de volgende veiling gewonnen hebt: {$result_voorwerp["titel"]}.
 De verkoper zal zo snel mogelijk contact met u opnemen per mail om de verkoop te voltooien, u hoeft nu verder niets te doen.
 
-We hopen u met dit mailtje voldoende geinformeerd te hebben.
+Wij hopen u met deze mail voldoende te hebben geinformeerd.
 
 Met vriendelijke groet,
 Team EenmaalAndermaal.
