@@ -110,15 +110,14 @@ if (isset($_GET['filter'])) {
             <form method="GET" action="index.php">
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
-                        <input type="text" class="input" name="zoek" id="" placeholder="Veiling zoeken" required>
+                        <input type="text" class="input" name="zoek" id="" placeholder="Veiling zoeken">
                     </p>
                     <p class="control">
                         <input type="submit" class="button is-black" value="Zoeken" name="Zoeken">
                     </p>
                 </div>
-            </form>
-            <br>
-            <form method="GET">
+
+                <br>
                 <br>
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
@@ -156,7 +155,7 @@ if (isset($_GET['filter'])) {
                 <div class="column is-4 voorwerp-kolom">
                     <div class="card voorwerp-card">
                         <h1 style="padding: 1rem"
-                            class="countdown title voorwerp-title has-text-weight-bold has-text-centered has-background-primary has-text-white"><?=$value['veilingeinde']?></h1>
+                            class="countdown title voorwerp-title has-text-weight-bold has-text-centered has-background-primary has-text-white"><?= $value['veilingeinde'] ?></h1>
 
                         <div class="card-image">
                             <figure class="image is-3by2">
@@ -172,7 +171,7 @@ if (isset($_GET['filter'])) {
                             <p class="">
                                 <?php
                                 // Kijk of de beschrijving langer is dan een bepaald aantal tekens
-                                if(strlen($value['beschrijving']) > $textlimiet) {
+                                if (strlen($value['beschrijving']) > $textlimiet) {
                                     echo wordwrap(mb_strimwidth($value['beschrijving'], 0, $textlimiet, "..."), $textbreedte, "<br>", true);
                                 } else {
                                     echo $value['beschrijving'];
@@ -196,8 +195,8 @@ if (isset($_GET['filter'])) {
                     </div>
                 </div>
 
-            <?php
-            array_push($voorwerpTimers, $value['veilingeinde']);
+                <?php
+                array_push($voorwerpTimers, $value['veilingeinde']);
             endforeach;
             ?>
 
@@ -211,9 +210,9 @@ if (isset($_GET['filter'])) {
 include_once("includes/footer.php");
 ?>
 <script>
-    $(function(){
-        $('.countdown').each(function(){
-            $(this).countdown($(this).text(), function(event) {
+    $(function () {
+        $('.countdown').each(function () {
+            $(this).countdown($(this).text(), function (event) {
                 $(this).text(
                     event.strftime('%D dagen %H:%M:%S')
                 );
