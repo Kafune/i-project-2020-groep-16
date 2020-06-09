@@ -43,40 +43,44 @@ if (isset($_POST['bied'])) {
     $veilingGesloten = $results['veilingGesloten'];
     $verkoper = $results['verkoper'];
 
+    if (isset($_SESSION['ingelogd'])) {
+        if ($gebruikersnaam !== $verkoper) {
+            if ($veilingGesloten == 0) {
+                if ($bod >= $startprijs) {
+                    if ($bod > $hoogstebod) {
+                        if ($gebruikersnaam != $laatstebieder) {
+                            $sql_insertbod = "INSERT INTO Bod(Voorwerp, bodbedrag, gebruiker, bodtijdstip) VALUES (:voorwerp, :bod, :gebruiker, :bodtijdstip)";
+                            $stmt = $conn->prepare($sql_insertbod);
+                            $stmt->bindParam(':voorwerp', $voorwerpnummer);
+                            $stmt->bindParam(':bod', $bod);
+                            $stmt->bindParam(':gebruiker', $gebruikersnaam);
+                            $stmt->bindParam(':bodtijdstip', $tijdstip);
 
-    if ($gebruikersnaam !== $verkoper) {
-        if ($veilingGesloten == 0) {
-            if ($bod >= $startprijs) {
-                if ($bod > $hoogstebod) {
-                    if ($gebruikersnaam != $laatstebieder) {
-                        $sql_insertbod = "INSERT INTO Bod(Voorwerp, bodbedrag, gebruiker, bodtijdstip) VALUES (:voorwerp, :bod, :gebruiker, :bodtijdstip)";
-                        $stmt = $conn->prepare($sql_insertbod);
-                        $stmt->bindParam(':voorwerp', $voorwerpnummer);
-                        $stmt->bindParam(':bod', $bod);
-                        $stmt->bindParam(':gebruiker', $gebruikersnaam);
-                        $stmt->bindParam(':bodtijdstip', $tijdstip);
+                            $stmt->execute();
+                            header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
+                        } else {
+                            $_SESSION['error'] = 'zelfdeGebruiker';
+                            header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
+                        }
 
-                        $stmt->execute();
-                        header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
                     } else {
-                        $_SESSION['error'] = 'zelfdeGebruiker';
+                        $_SESSION['error'] = 'bodTeLaag';
                         header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
                     }
-
                 } else {
-                    $_SESSION['error'] = 'bodTeLaag';
+                    $_SESSION['error'] = 'bodLagerDanStartprijs';
                     header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
                 }
             } else {
-                $_SESSION['error'] = 'bodLagerDanStartprijs';
+                $_SESSION['error'] = 'veilingGesloten';
                 header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
             }
         } else {
-            $_SESSION['error'] = 'veilingGesloten';
+            $_SESSION['error'] = 'biedenVerkoper';
             header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
         }
     } else {
-        $_SESSION['error'] = 'biedenVerkoper';
+        $_SESSION['error'] = 'errorBodNietIngelogd';
         header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
     }
 }
