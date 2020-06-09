@@ -41,14 +41,16 @@ if (isset($_POST['recenseren'])) {
         header("Location: ../verkoper/verkoperpagina.php?verkoper=$verkoper_redirect");
     } catch (PDOException $e) {
         include_once("../includes/header.php");
-        echo "
-    <script type='text/javascript'>function browserBack() {window.history.back()}</script>
-    <article class=\"message is-warning\">
-    <div class=\"message-body\">
-    Er bestaat al een review over dit product, probeer een ander product te kiezen. Als dit probleem zich blijft voordoen, neem contact op met de webmaster. <a onclick='browserBack()'>Ga terug</a>
-    </div>
-    </article>
-    ";
+        $_SESSION['error'] = "bestaandeReview";
+        header("Location: ../verkoper/verkoperpagina.php?verkoper={$verkoper_redirect}");
+//        echo "
+//    <script type='text/javascript'>function browserBack() {window.history.back()}</script>
+//    <article class=\"message is-warning\">
+//    <div class=\"message-body\">
+//    Er bestaat al een review over dit product, probeer een ander product te kiezen. Als dit probleem zich blijft voordoen, neem contact op met de webmaster. <a onclick='browserBack()'>Ga terug</a>
+//    </div>
+//    </article>
+//    ";
         include_once("../includes/footer.php");
     }
 }

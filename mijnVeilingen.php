@@ -2,18 +2,7 @@
 //includes
 include_once("includes/header.php");
 include_once("includes/db.php");
-
-
-//verbinding met local db
-$gebruiker = "iproject16";
-$wachtwoord = "zv1VeSWK";
-
-try {
-    $conn = new PDO('sqlsrv:server=localhost;database=EenmaalAndermaalTestMilan', $gebruiker, $wachtwoord);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Er is iets fout<br>{$e->getMessage()}";
-}
+global $conn;
 
 
 ////als gebruiker niet is ingelogd wordt hij/zij gestuurd naar login pagina
@@ -29,18 +18,23 @@ if (isset($_SESSION['gebruiker'])) {
 
 //als de GET van zoekbalk leeg is worden alle voorwerpen laten zien
 if(empty($_GET['searching'])){
-    $page = $conn->prepare("SELECT * FROM voorwerp WHERE koper ='".$value['gebruikersnaam']."' OR verkoper ='".$value['gebruikersnaam']."'");
+    //$page = $conn->prepare("SELECT * FROM voorwerp WHERE koper ='".$value['gebruikersnaam']."' OR verkoper ='".$value['gebruikersnaam']."'");
+    $sql = "SELECT * FROM voorwerp WHERE koper = :gebruikersnaam OR verkoper = :gebruikersnaam";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':gebruikersnaam', $value['gebruikersnaam']);
 
 }
 //als de GET van zoekbalk gevuld is worden alle voorwerpen laten zien die de zoekopdracht ergens in de inhoud heeft zitten
 else{
     $search = $_GET['searching'];
-    $page = $conn->prepare("SELECT * FROM voorwerp WHERE titel LIKE '%".$search."%' AND (koper ='".$value['gebruikersnaam']."' OR verkoper ='".$value['gebruikersnaam']."')");
+    //$page = $conn->prepare("SELECT * FROM voorwerp WHERE titel LIKE '%".$search."%' AND (koper ='".$value['gebruikersnaam']."' OR verkoper ='".$value['gebruikersnaam']."')");
+    $sql = "SELECT * FROM voorwerp WHERE TITEL LIKE '%:search%' AND koper = :gebruikersnaaam OR verkoper = :gebruikersnaam";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':gebruikersnaam', $value['gebruikersnaam']);
 }
 
-
-$page->execute();
-$row = $page->fetchAll(PDO::FETCH_ASSOC);
+$stmt->execute();
+$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <link rel="stylesheet" href="styles/css/mystyles.css">
@@ -86,7 +80,7 @@ $row = $page->fetchAll(PDO::FETCH_ASSOC);
                                 <p class="title is-5 has-text-weight-bold">
                                     <?php echo $value['titel'] ?>
                                 </p>
-                                <p>Uw laatste bod: <?php echo $value[''] ?></p> <!--?-->
+                                <p>Uw laatste bod: <?php echo $value[''] ?></p>
                                 <br>
                                 <div class="columns is-multiline"> <!--dit moet hetzelfde zijn als de biedlijst in playstaytion4.php/voorwerp.php-->
                                     <div class="column">
@@ -101,9 +95,6 @@ $row = $page->fetchAll(PDO::FETCH_ASSOC);
                                         <p class="has-text-weight-bold">Datum/Tijd</p>
                                         <p>test3</p> <!--auction-end-->
                                     </div>
-<!--                                    <div id="auction_end"></div>-->
-<!--                                    <div id="name"></div>-->
-<!--                                    <div id="tableData" style="padding:20px;">-->
                                 </div>
 
 
@@ -161,9 +152,6 @@ $row = $page->fetchAll(PDO::FETCH_ASSOC);
                                         <p class="has-text-weight-bold">Datum/Tijd</p>
                                         <p>test3</p> <!--auction-end-->
                                     </div>
-<!--                                    <div id="auction_end"></div>-->
-<!--                                    <div id="name"></div>-->
-<!--                                    <div id="tableData" style="padding:20px;">-->
                                 </div>
 
 
