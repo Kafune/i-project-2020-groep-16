@@ -155,8 +155,8 @@ if (isset($_GET['filter'])) {
                 ?>
                 <div class="column is-4 voorwerp-kolom">
                     <div class="card voorwerp-card">
-                        <h1 style="padding: 1rem"
-                            class="countdown title voorwerp-title has-text-weight-bold has-text-centered has-background-primary has-text-white"><?=$value['veilingeinde']?></h1>
+                        <h1 style="padding: 1.3rem"
+                            class="countdown title voorwerp-title is-size-4 has-text-weight-bold has-text-centered has-background-primary has-text-white"><?=$value['veilingeinde']?></h1>
 
                         <div class="card-image">
                             <figure class="image is-3by2">
