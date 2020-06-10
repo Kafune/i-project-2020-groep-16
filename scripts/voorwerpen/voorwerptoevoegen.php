@@ -30,15 +30,17 @@ if (in_array($fileType, $toegestaan)) {
             $plaatsnaam = $resultaat['plaatsnaam'];
             $land = $resultaat['land'];
 
-            $titel = $_POST['titel'];
-            $beschrijving = $_POST['beschrijving'];
+            $titel = strip_tags($_POST['titel']);
+            $beschrijving = strip_tags($_POST['beschrijving']);
             $startprijs = $_POST['startprijs'];
             $betalingswijze = $_POST['betalingswijze'];
-            $betalingsinstructie = $_POST['betalingsinstructie'];
+            $betalingsinstructie = strip_tags($_POST['betalingsinstructie']);
             $looptijd = $_POST['looptijd'];
             $verzendkosten = $_POST['verzendkosten'];
-            $verzendinstructies = $_POST['verzendinstructies'];
-            $verzendinstructies = $_POST['verzendinstructies'];
+            if(empty($verzendkosten)){
+                $verzendkosten = 0;
+            }
+            $verzendinstructies = strip_tags($_POST['verzendinstructies']);
             $veilingbegin = date("Y-m-d H:i:s");
             $veilingeinde = date("Y-m-d H:i:s", strtotime($veilingbegin . '+' . $looptijd . 'days'));
             $rubrieknummer = $_POST['rubrieknummer'];

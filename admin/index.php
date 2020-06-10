@@ -39,8 +39,8 @@ $stmt->execute();
             </div>
             <div class="tile is-parent">
                 <article class="tile is-child box">
-                    <?php echo '<p class="title">'.$aantalrubrieken.'</p>'?>
-                    <p class="subtitle">Rubrieken</p>
+                    <?php echo '<p class="title">'.$aantalactievevoorwerpen.'</p>'?>
+                    <p class="subtitle">Actieve veilingen</p>
                 </article>
             </div>
 

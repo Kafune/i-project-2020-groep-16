@@ -14809,7 +14809,7 @@ label.panel-block:hover {
 }
 
 .voorwerp-afbeelding {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .voorwerp-kolom {
@@ -14821,7 +14821,7 @@ label.panel-block:hover {
 }
 
 .voorwerp-card {
-  min-height: 504px;
+  min-height: 573px;
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -10,6 +10,6 @@ include_once('../menu.php');
             </div>
         </div>
     </section>
-    <iframe width="950.5" height="553.5" seamless frameborder="0" scrolling="no"
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRaJ-OhdUqGdzLjPGYv-JxGKHqmyzauIiNDa3ytdU_7pgBfQZ5KtK5RFkrUDTMIl3yLeJcxEBCUrAk/pubchart?oid=1201696033&amp;format=interactive"></iframe>
+    <iframe width="1054" height="547" seamless frameborder="0" scrolling="no"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRaJ-OhdUqGdzLjPGYv-JxGKHqmyzauIiNDa3ytdU_7pgBfQZ5KtK5RFkrUDTMIl3yLeJcxEBCUrAk/pubchart?oid=356859206&amp;format=interactive"></iframe>
 </div>

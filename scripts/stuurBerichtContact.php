@@ -1,3 +1,6 @@
+<!-- Contact mail die wordt verstuurd naar EenmaalAndermaal nadat een gebruiker
+     het contact formulier heeft ingevuld. -->
+
 <?php
 session_start();
 require_once('../includes/root.php');

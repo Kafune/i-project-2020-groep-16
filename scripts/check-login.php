@@ -3,12 +3,10 @@ session_start();
 require_once('../includes/root.php');
 include_once('../includes/db.php');
 
-// check of de user alle twee velden heeft ingevuld en dan pas de code hieronder uitvoeren
+// Checkt of de gebruiker alle twee velden heeft ingevuld
 if (isset($_POST['login'])) {
 
-
-// gebruikersnaam checken of het bestaat
-
+    /* Haalt de gegevens van de gebruiker op */
     $gebruikersnaam = $_POST['gebruikersnaam'];
     $wachtwoord = $_POST['wachtwoord'];
     $statement = "SELECT * FROM Gebruiker WHERE gebruikersnaam = :gebruikersnaam";
@@ -25,19 +23,21 @@ if (isset($_POST['login'])) {
     $server_password = $row['wachtwoord'];
     $password = sha1($wachtwoord);
 
-//wachtwoord checken of het correct is
-    if($geblokkeerd == 1){
+/* Checkt of de gebruiker geblokkeerd en of het wachtwoord juist is */
+    if ($geblokkeerd == 1) {
         $_SESSION['error'] = "errorGeblokkeerd";
         header('location: /login.php');
     } else if ($server_password == $password) {
         $_SESSION['gebruiker'] = $gebruikersnaam;
         $_SESSION['ingelogd'] = true;
 
-        if($verkoper == true){
+        /* Zet de sessie verkoper op waar, zodat de gebruiker verkoper rechten heeft */
+        if ($verkoper == true) {
             $_SESSION['verkoper'] = true;
         }
 
-        if($isAdmin == true){
+        /* Zet de sessie admin op waar, zodat de gebruiker admin rechten heeft */
+        if ($isAdmin == true) {
             $_SESSION['admin'] = true;
         }
         header('location: ' . $root . '/index.php');
@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
         $_SESSION['error'] = "errorOnjuistLogin";
         header('location: ' . $root . '/login.php');
     }
-} // als velden niet ingevuld zijn dan pagina refresh
+} /* Als de velden niet ingevuld zijn dan wordt de gebruiker weer terug gestuurd. */
 else {
     header('location: ' . $root . '/login.php');
 }
