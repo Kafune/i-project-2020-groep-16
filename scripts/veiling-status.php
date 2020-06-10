@@ -5,14 +5,17 @@ $voorwerpdetails = $conn->prepare("SELECT * FROM Voorwerp WHERE veilingGesloten 
 $voorwerpdetails->execute();
 
 while ($row_voorwerp = $voorwerpdetails->fetch(PDO::FETCH_ASSOC)) {
+        /* Haalt de gegevens op van het product. */
         $voorwerp_row = $conn->prepare("select * from Voorwerp where voorwerpnummer = '".$row_voorwerp["voorwerpnummer"]."'");
         $voorwerp_row->execute();
         $result_voorwerp = $voorwerp_row->fetch(PDO::FETCH_ASSOC);
 
+        /* Haalt de gegevens op van de hoogste bieder van het product. */
         $row_koper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '".$row_voorwerp["koper"]."'");
         $row_koper->execute();
         $result_koper = $row_koper->fetch(PDO::FETCH_ASSOC);
 
+        /* Haalt de gegevens op van de verkoper van het product. */
         $row_verkoper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '".$row_voorwerp["verkoper"]."'");
         $row_verkoper->execute();
         $result_verkoper = $row_verkoper->fetch(PDO::FETCH_ASSOC);
@@ -42,9 +45,11 @@ Met vriendelijke groet,
 Team EenmaalAndermaal.
         ";
 
+        /* Verstuurt een mail naar zowel de koper als de verkoper. */
         mail($result_koper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_koper);
         mail($result_verkoper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_verkoper);
 
+        /* Update de tabel voorwerp, zodat er gezien kan worden dat er een mail is verzonden. */
         $update_row = $conn->prepare("UPDATE Voorwerp SET mailVerzonden = 1 WHERE voorwerpnummer = '".$result_voorwerp['voorwerpnummer']."'");
         $update_row->execute();
 }
