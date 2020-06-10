@@ -29,10 +29,10 @@ $result->execute();
 $aantalvoorwerpen = $result->fetchColumn();
 $_SESSION['aantalvoorwerpen'] = $aantalvoorwerpen;
 
-$sql_rubrieken = "SELECT count(*) FROM Rubriek";
+$sql_rubrieken = "SELECT count(*) FROM Voorwerp WHERE veilingGesloten = 0 and (geblokkeerd = 0 OR geblokkeerd is NULL)";
 $result = $conn->prepare($sql_rubrieken);
 $result->execute();
-$aantalrubrieken = $result->fetchColumn();
+$aantalactievevoorwerpen = $result->fetchColumn();
 
 /*SQL Code voor het ophalen van de admin gegevens*/
 $sqlKoper = "SELECT voornaam FROM Gebruiker where gebruikersnaam = :gebruikersnaam";
