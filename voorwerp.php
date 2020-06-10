@@ -72,8 +72,19 @@ if (isset($_GET['status'])) {
         </nav>
         <div class="columns">
             <div class="column is-half">
-                <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%; max-height:500px ;object-fit: contain"
-                     class="image">
+                <?php
+                $eersteLetter = substr($row_image['filenaam'], 0, 1);
+                if ($eersteLetter == 'd') {
+                    ?>
+                    <img src='pics/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                         class='image' style="width:100%; max-height:500px ;object-fit: contain">
+                <?php } else {
+                    ?>
+                    <img src='upload/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                         class='image' style="width:100%; max-height:500px ;object-fit: contain">
+                    <?php
+                }
+                ?>
                 <p class="has-text-weight-bold">Verkoper</p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>

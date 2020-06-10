@@ -156,12 +156,23 @@ if (isset($_GET['filter'])) {
                 <div class="column is-4 voorwerp-kolom">
                     <div class="card voorwerp-card">
                         <h1 style="padding: 1rem"
-                            class="countdown title voorwerp-title has-text-weight-bold has-text-centered has-background-primary has-text-white"><?=$value['veilingeinde']?></h1>
+                            class="countdown title voorwerp-title has-text-weight-bold has-text-centered has-background-primary has-text-white"><?= $value['veilingeinde'] ?></h1>
 
                         <div class="card-image">
                             <figure class="image is-3by2">
-                                <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
-                                     class="voorwerp-afbeelding">
+                                <?php
+                                $eersteLetter = substr($row_image['filenaam'], 0, 1);
+                                if ($eersteLetter == 'd') {
+                                    ?>
+                                    <img src='pics/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                                         class='voorwerp-afbeelding'>
+                                <?php } else {
+                                    ?>
+                                    <img src='upload/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                                         class='voorwerp-afbeelding'>
+                                    <?php
+                                }
+                                ?>
                             </figure>
                         </div>
                         <div class="card-content">
@@ -172,7 +183,7 @@ if (isset($_GET['filter'])) {
                             <p class="">
                                 <?php
                                 // Kijk of de beschrijving langer is dan een bepaald aantal tekens
-                                if(strlen($value['beschrijving']) > $textlimiet) {
+                                if (strlen($value['beschrijving']) > $textlimiet) {
                                     echo wordwrap(mb_strimwidth($value['beschrijving'], 0, $textlimiet, "..."), $textbreedte, "<br>", true);
                                 } else {
                                     echo $value['beschrijving'];
@@ -196,8 +207,8 @@ if (isset($_GET['filter'])) {
                     </div>
                 </div>
 
-            <?php
-            array_push($voorwerpTimers, $value['veilingeinde']);
+                <?php
+                array_push($voorwerpTimers, $value['veilingeinde']);
             endforeach;
             ?>
 
@@ -211,9 +222,9 @@ if (isset($_GET['filter'])) {
 include_once("includes/footer.php");
 ?>
 <script>
-    $(function(){
-        $('.countdown').each(function(){
-            $(this).countdown($(this).text(), function(event) {
+    $(function () {
+        $('.countdown').each(function () {
+            $(this).countdown($(this).text(), function (event) {
                 $(this).text(
                     event.strftime('%D dagen %H:%M:%S')
                 );
