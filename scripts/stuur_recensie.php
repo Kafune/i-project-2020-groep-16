@@ -14,7 +14,7 @@ if (isset($_POST['recenseren'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
     $waardering = $_POST['waardering'];
     $voorwerp = $_POST['voorwerp'];
-    $bericht = $_POST['bericht'];
+    $bericht = strip_tags($_POST['bericht']);
     $datum = date('Y-m-d');
     $gebruikerssoort = "koper";
 
