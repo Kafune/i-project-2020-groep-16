@@ -35,7 +35,7 @@ WHERE Voorwerp.verkoper = '".$verkoper_GET."' and feedbacksoort = 'negatief'");
 $reviewdetails_negatief->execute();
 $row_negatief = $reviewdetails_negatief->fetch(PDO::FETCH_ASSOC);
 
-$voorwerpdetails = $conn->prepare("SELECT voorwerpnummer, titel FROM Voorwerp WHERE verkoper = '".$verkoper_GET."'");
+$voorwerpdetails = $conn->prepare("SELECT voorwerpnummer, titel FROM Voorwerp WHERE verkoper = '".$verkoper_GET."' AND veilingGesloten = 1 AND mailVerzonden = 1");
 $voorwerpdetails->execute();
 
 if(!empty($row_verkoper['plaatsnaam']) && $row_verkoper['isVerkoper'] == 1) {

@@ -6,19 +6,19 @@ go
 /* Tabellen aanmaken */
 go
 CREATE TABLE Bestand (
-	filenaam varchar(20) NOT NULL,
+	filenaam varchar(100) NOT NULL,
 	voorwerpnummer int NOT NULL
 )
 go
 
 go
 CREATE TABLE Bod (
-    	ID int IDENTITY (1,1) NOT NULL,
-	voorwerp int NOT NULL,
-	bodbedrag numeric(10,2) NOT NULL,
+    ID int IDENTITY (1,1) NOT NULL,
+	Voorwerp int NOT NULL,
+	bodbedrag int NOT NULL,
 	gebruiker varchar(200) NOT NULL,
-	boddag date NOT NULL,
-	bodtijdstip datetime NOT NULL
+	bodtijdstip datetime NOT NULL,
+	status int NOT NULL
 )
 go
 
@@ -48,14 +48,16 @@ CREATE TABLE Gebruiker (
 	wachtwoord varchar(64) NOT NULL,
 	vraag int NOT NULL,
 	antwoordtekst varchar(30) NOT NULL,
-	isVerkoper bit NOT NULL
+	isVerkoper bit NOT NULL,
+    isAdmin bit NULL,
+    geblokkeerd bit NULL
 )
 go
 
 go
 CREATE TABLE Gebruikerstelefoon (
 	volgnr int IDENTITY (1,1) NOT NULL,
-	gebruikersnaam varchar(20) NOT NULL,
+	gebruikersnaam varchar(200) NOT NULL,
 	telefoonnummer varchar(20) NOT NULL
 )
 
@@ -73,10 +75,10 @@ go
 go
 CREATE TABLE Verkoper (
 	gebruikersnaam varchar(200) NOT NULL,
-	banknaam varchar(20),
-	rekeningnummer varchar(34),
+	banknaam varchar(20) NULL,
+	rekeningnummer varchar(34) NULL,
 	controleoptienaam char(10) NOT NULL,
-	creditcardnummer varchar(19),
+	creditcardnummer varchar(19) NULL,
     controlenummer char(23) NULL
 )
 go
@@ -100,7 +102,8 @@ CREATE TABLE Voorwerp (
     veilingeinde datetime NOT NULL,
 	veilingGesloten bit NOT NULL,
 	mailVerzonden bit NOT NULL default 0,
-    verkoopprijs numeric(15, 2) null
+    verkoopprijs numeric(15, 2) null,
+    geblokkeerd BIT NULL
 )
 go
 
@@ -233,81 +236,3 @@ go
 ALTER TABLE Bod
 ADD CONSTRAINT UN_Bod_Twee_Keer UNIQUE (gebruiker, bodtijdstip);
 go
-
---/********
---Conversie
---*/*******
-
---Laat maximale aantal tekens toe bij beschrijving wegens conversie
-ALTER TABLE Voorwerp
-ALTER COLUMN beschrijving VARCHAR(MAX)
-
-ALTER TABLE Bestand
-DROP CONSTRAINT PK_bestand
-ALTER TABLE Bestand
-ALTER COLUMN filenaam VARCHAR(100)
-
-ALTER TABLE Bestand
-DROP CONSTRAINT FK_Bestand_Voorwerp_REF_Voorwerpnummer
-
---bod
-ALTER TABLE Bod
-DROP CONSTRAINT FK_Bod_Gebruiker_REF_Gebruikersnaam
-
-ALTER TABLE Bod
-ALTER COLUMN gebruiker VARCHAR(200)
-
---gebruiker
-ALTER TABLE Verkoper
-DROP CONSTRAINT FK_Verkoper_Voorwerp_Ref_Verkoper
-ALTER TABLE Voorwerp
-DROP CONSTRAINT FK_Voorwerp_Gebruiker_REF_Gebruikersnaam
-ALTER TABLE Gebruiker
-DROP CONSTRAINT PK_Gebruiker
-
-ALTER TABLE Gebruiker
-ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
-
---verkoper
-ALTER TABLE Verkoper
-DROP CONSTRAINT PK_VERKOPER
-ALTER TABLE Voorwerp
-DROP CONSTRAINT FK_Voorwerp_Verkoper_Ref_Gebruikersnaam
-
-ALTER TABLE Verkoper
-ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
-
---feedback
-ALTER TABLE Feedback
-ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
-
-
---gebruikerstelefoon
-ALTER TABLE gebruikerstelefoon
-ALTER COLUMN gebruikersnaam VARCHAR(200) NOT NULL
-
---voorwerp
-ALTER TABLE Voorwerp
-ALTER COLUMN verkoper VARCHAR(200) NOT NULL
-
-ALTER TABLE Voorwerp
-ALTER COLUMN koper VARCHAR(200) NOT NULL
-
---voorwerp
-ALTER TABLE Voorwerp
-ALTER COLUMN Titel VARCHAR(255)
-
-ALTER TABLE Voorwerp
-ALTER COLUMN land VARCHAR(60)
-
-ALTER TABLE Gebruiker
-ALTER COLUMN land VARCHAR(60)
-
---bestand
-ALTER TABLE bestand
-ALTER COLUMN filenaam VARCHAR(100) NOT NULL
-
-ALTER TABLE Bestand
-DROP CONSTRAINT PK_Bestand
-ALTER TABLE Bestand
-ADD CONSTRAINT PK_Bestand PRIMARY KEY (filenaam, voorwerpnummer);
