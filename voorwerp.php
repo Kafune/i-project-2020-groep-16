@@ -74,6 +74,7 @@ if (isset($_GET['status'])) {
             <div class="column is-half">
                 <img src="<?php echo 'upload/' . $row_image['filenaam'] ?>" alt="Placeholder" style="width:100%; max-height:500px ;object-fit: contain"
                      class="image">
+                <p class="has-text-weight-bold">Verkoper</p>
                 <p><?php echo $row_details['plaatsnaam'] ?></p>
                 <br>
                 <p class="has-text-weight-bold">Verkoper</p>
@@ -81,7 +82,11 @@ if (isset($_GET['status'])) {
                 <p class="has-text-weight-bold">Betalingswijze</p>
                 <p><?php echo $row_details['betalingswijze'] ?></p>
                 <p class="has-text-weight-bold">Betalingsinstructies</p>
-                <p><?php echo $row_details['betalingsinstructie'] ?></p>
+                <p><?php if(empty($row_details['betalingsinstructie'])){echo "Geen";} else { echo $row_details['betalingsinstructie'];} ?></p>
+                <p class="has-text-weight-bold">Verzendkosten</p>
+                <p><?php if($row_details['verzendinstructies']= 0.00){echo "Geen";} else { echo $row_details['verzendkosten'];} ?></p>
+                <p class="has-text-weight-bold">Verzend instructies</p>
+                <p><?php if(empty($row_details['verzendinstructies'])){echo "Geen";} else { echo $row_details['verzendinstructies'];} ?></p>
                 <br>
                 <p class="has-text-weight-bold">Startverkoop</p>
                 <p><?php $phpdate = strtotime($row_details['veilingbegin']);
@@ -98,7 +103,7 @@ if (isset($_GET['status'])) {
                 <p><?php echo $row_details['beschrijving'] ?></p>
                 <br>
                 <h2 class="subtitle is-4">Startprijs</h2>
-                <p>€<?php echo $row_details['startprijs'] ?></p>
+                <h2>€<?php echo $row_details['startprijs'] ?></h2>
                 <br>
                 <div class="box">
                     <h1 id="countdown" style="padding: 1rem"
