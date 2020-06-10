@@ -7,17 +7,17 @@ if ($_SESSION['registratieStatus'] == 3) {
         $email = $_SESSION['email'];
         $gebruikersnaam = $_SESSION['gebruikersnaam'];
         $wachtwoord = $_SESSION['wachtwoord'];
-        $voornaam = $_POST['voornaam'];
-        $achternaam = $_POST['achternaam'];
-        $adresregel1 = $_POST['adresregel1'];
-        $adresregel2 = $_POST['adresregel2'];
-        $postcode = $_POST['postcode'];
-        $plaatsnaam = $_POST['plaatsnaam'];
+        $voornaam = strip_tags($_POST['voornaam']);
+        $achternaam = strip_tags($_POST['achternaam']);
+        $adresregel1 = strip_tags($_POST['adresregel1']);
+        $adresregel2 = strip_tags($_POST['adresregel2']);
+        $postcode = strip_tags($_POST['postcode']);
+        $plaatsnaam = strip_tags($_POST['plaatsnaam']);
         $land = $_POST['land'];
         $telefoonnummer = $_POST['telefoonnummer'];
         $geboortedag = $_POST['geboortedag'];
         $vraag = $_POST['vraag'];
-        $antwoord = $_POST['antwoord'];
+        $antwoord = strip_tags($_POST['antwoord']);
 
         //maak een datetime object aan die de formaat van de ingevulde formulier veld van de gebruiker overneemt overneemt
         $leeftijdsverificatie = DateTime::createFromFormat('Y-m-d', $geboortedag);
