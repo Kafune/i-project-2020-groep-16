@@ -110,6 +110,7 @@ if (isset($_SESSION['gebruiker'])) {
                             <p><?= $rekeningnummer ?></p>
                         </div>
                     </div>
+                    <a href="/verkoper/mijnVoorwerpen.php" class="button is-primary">Naar mijn voorwerpen</a>
                 </div>
             </div>
             <br><br>
