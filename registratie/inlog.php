@@ -32,7 +32,7 @@ include_once("../includes/header.php");
                         <form action="../scripts/registreren/inlog_script.php" method="post">
                             <div class="field">
                                 <label for="gebruikersnaam" class="label has-text-white">Gebruikersnaam</label>
-                                <input type="text" class="input" id="gebruikersnaam" name="gebruikersnaam" required>
+                                <input type="text" class="input" id="gebruikersnaam" name="gebruikersnaam" maxlength="50" required>
                             </div>
                             <div class="field">
                                 <label for="wachtwoord" class="label has-text-white">Wachtwoord</label>
