@@ -22,8 +22,4 @@ include_once('../menu.php');
         <iframe width="759.765243902439" height="469.97916666666663" seamless frameborder="0" scrolling="no"
                 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRaJ-OhdUqGdzLjPGYv-JxGKHqmyzauIiNDa3ytdU_7pgBfQZ5KtK5RFkrUDTMIl3yLeJcxEBCUrAk/pubchart?oid=1249060359&amp;format=interactive"></iframe>
     </div>
-    <div class="column is-full">
-        <iframe width="685.5" height="423.8675" seamless frameborder="0" scrolling="no"
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRaJ-OhdUqGdzLjPGYv-JxGKHqmyzauIiNDa3ytdU_7pgBfQZ5KtK5RFkrUDTMIl3yLeJcxEBCUrAk/pubchart?oid=1170664117&amp;format=interactive"></iframe>
-    </div>
 </div>
