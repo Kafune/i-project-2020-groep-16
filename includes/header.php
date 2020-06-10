@@ -40,7 +40,6 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
     </div>
 
 
-
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-start">
             <a class="navbar-item" href="/index.php">Home</a>
@@ -51,7 +50,7 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/contact.php">Contact EenmaalAndermaal</a>
                     <?php
-                    if (isset($_SESSION['gebruiker'])){
+                    if (isset($_SESSION['gebruiker'])) {
                         echo "<a class=\"navbar-item\" href=\"/contact/ContactVerkoper.php\">Contact Verkoper</a>";
                     }
                     ?>
@@ -112,7 +111,11 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150449112-2"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
 
     gtag('config', 'UA-150449112-2');
