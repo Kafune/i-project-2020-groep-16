@@ -1,6 +1,4 @@
 <?php
-include_once('../includes/db.php');
-global $conn;
 
 $voorwerpdetails = $conn->prepare("SELECT * FROM Voorwerp WHERE veilingGesloten = 1 AND veilingeinde >= DATEADD(DAY, -5, GETDATE()) AND mailVerzonden = 0");
 $voorwerpdetails->execute();
