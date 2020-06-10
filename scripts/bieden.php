@@ -2,6 +2,7 @@
 include_once("../includes/db.php");
 session_start();
 
+/*Update gesloten veilingen*/
 $sql = "UPDATE Voorwerp
 SET veilinggesloten = (case when veilingeinde > CURRENT_TIMESTAMP THEN 0 ELSE 1 END)";
 
@@ -10,6 +11,7 @@ $stmt->execute();
 
 $voorwerpnummer = $_POST['voorwerpnummer'];
 
+/*Checkt of de gebruiker is ingelogd*/
 if (isset($_SESSION['gebruiker'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
 } else {
@@ -17,8 +19,8 @@ if (isset($_SESSION['gebruiker'])) {
     header('Location: ../voorwerp.php?voorwerpnummer=' . $voorwerpnummer . '');
 }
 
+/*Checkt of de gebruiker een bod heeft geplaatst*/
 if (isset($_POST['bied'])) {
-
     $tijdstip = date('Y-m-d H:i:s');
     $bod = $_POST['bodbedrag'];
 
@@ -49,6 +51,7 @@ if (isset($_POST['bied'])) {
                 if ($bod >= $startprijs) {
                     if ($bod > $hoogstebod) {
                         if ($gebruikersnaam != $laatstebieder) {
+                            /*Plaats bod als er voldaan is aan alle rand voorwaarden*/
                             $sql_insertbod = "INSERT INTO Bod(Voorwerp, bodbedrag, gebruiker, bodtijdstip) VALUES (:voorwerp, :bod, :gebruiker, :bodtijdstip)";
                             $stmt = $conn->prepare($sql_insertbod);
                             $stmt->bindParam(':voorwerp', $voorwerpnummer);
