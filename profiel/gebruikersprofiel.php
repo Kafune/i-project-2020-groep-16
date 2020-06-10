@@ -96,20 +96,23 @@ if (isset($_SESSION['gebruiker'])) {
                         <div class="column has-text-weight-bold">
                             <p>Bank</p>
                             <p>Controle via</p>
-                            <?php if($controle === 'Creditcard') { ?>
-                            <p>Creditcardnummer</p>
+                            <?php if ($controle === 'Creditcard') { ?>
+                                <p>Creditcardnummer</p>
                             <?php } ?>
                             <p>Rekeningnummer</p>
                         </div>
                         <div class="column">
                             <p><?= $bank ?></p>
                             <p><?= $controle ?></p>
-                            <?php if($controle === 'Creditcard') { ?>
-                            <p><?= $creditcardnummer ?></p>
+                            <?php if ($controle === 'Creditcard') { ?>
+                                <p><?= $creditcardnummer ?></p>
                             <?php } ?>
                             <p><?= $rekeningnummer ?></p>
                         </div>
                     </div>
+                    <?php if (isset($_SESSION['verkoper'])) {
+                        echo "<a href=\"/verkoper/mijnVoorwerpen.php\" class=\"button is-primary\">Naar mijn voorwerpen</a>";
+                    } ?>
                 </div>
             </div>
             <br><br>
@@ -127,11 +130,11 @@ if (isset($_SESSION['gebruiker'])) {
             <a href="/scripts/verwijder-gebruiker.php"
                onclick="return confirm('Weet je zeker deze account te verwijderen ?')">Account verwijderen</a>
 
-            <?php if(!$isVerkoper) { ?>
-            <br>
-            <a href="registrerenVerkoper.php">Registreren als verkoper</a>
-            <br>
-            <a href="verifierenVerkoper.php">Verifiëren voor verkoper</a>
+            <?php if (!$isVerkoper) { ?>
+                <br>
+                <a href="registrerenVerkoper.php">Registreren als verkoper</a>
+                <br>
+                <a href="verifierenVerkoper.php">Verifiëren voor verkoper</a>
             <?php } ?>
             <br><br>
 
