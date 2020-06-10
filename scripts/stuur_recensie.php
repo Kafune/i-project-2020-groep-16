@@ -5,19 +5,21 @@ include_once("../includes/db.php");
 global $conn;
 $verkoper_redirect = $_SESSION['verkoper'];
 
+/* Checkt of de gebruiker is ingelogd */
 if (empty($_SESSION['gebruiker'])) {
     header("Location: ../index.php");
 }
 
-
+/* Checkt of de gebruiker een recensie wilt versturen */
 if (isset($_POST['recenseren'])) {
     $gebruikersnaam = $_SESSION['gebruiker'];
     $waardering = $_POST['waardering'];
     $voorwerp = $_POST['voorwerp'];
-    $bericht = $_POST['bericht'];
+    $bericht = strip_tags($_POST['bericht']);
     $datum = date('Y-m-d');
     $gebruikerssoort = "koper";
 
+    /* Insert de recensie in de database */
     try {
         $sql = "INSERT INTO FEEDBACK (voorwerpnummer, soortgebruiker, gebruikersnaam, feedbacksoort, datum, commentaar)
             VALUES (

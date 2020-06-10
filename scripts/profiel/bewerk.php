@@ -3,14 +3,6 @@ session_start();
 require_once('../../includes/root.php');
 include_once('../../includes/db.php');
 
-
-//$aanvraagmethode = $_SERVER['REQUEST_METHOD'];
-//
-//switch($aanvraagmethode) {
-//    case 'PUT':
-//        $data = json_decode(file_get_contents("php://input"));
-//}
-
 //check of gebruiker is ingelogd
 if (isset($_SESSION['gebruiker'])) {
     //check of gebruiker daadwerkelijk op verzenden knop heeft gedrukt
@@ -25,7 +17,7 @@ if (isset($_SESSION['gebruiker'])) {
 
     $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //check of gebruiker bestaat
+    // Checkt of gebruiker bestaat
     if (!empty($resultaat)) {
         // check of ingelogde gebruiker overeen komt met opgehaalde gebruiker.
         // laat gebruiker anders niet bewerken
@@ -36,7 +28,7 @@ if (isset($_SESSION['gebruiker'])) {
                 $wachtwoord = $_POST['wachtwoord'];
                 $hashedWachtwoord = sha1($wachtwoord);
 
-                // check daarna of de gebruiker de wachtwoord heeft ingevoerd voordat de wachtwoord verandering ingaat.
+                // Checkt eerst of het wachtwoord klopt, voordat de query wordt uitgevoerd
                 if ($hashedWachtwoord == $resultaat['wachtwoord']) {
                     $voornaam = $_POST['voornaam'];
                     $achternaam = $_POST['achternaam'];
@@ -46,13 +38,12 @@ if (isset($_SESSION['gebruiker'])) {
                     $plaatsnaam = $_POST['plaatsnaam'];
                     $land = $_POST['land'];
 
-
+                    // Update de gebruikers gegevens in de database.
                     $sql = "UPDATE Gebruiker 
-                SET voornaam = :voornaam, achternaam = :achternaam, adresregel1 = :adresregel1,
-                adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land
-                WHERE gebruikersnaam = :gebruikersnaam";
+                            SET voornaam = :voornaam, achternaam = :achternaam, adresregel1 = :adresregel1,
+                            adresregel2 = :adresregel2, postcode = :postcode, plaatsnaam = :plaatsnaam, land = :land
+                            WHERE gebruikersnaam = :gebruikersnaam";
 
-                    //voer query uit wanneer wachtwoord correct is
                     $stmt = $conn->prepare($sql);
 
                     $stmt->bindParam(':voornaam', $voornaam);

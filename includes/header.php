@@ -2,6 +2,7 @@
 session_start();
 include_once("root.php");
 include_once("meldingen.php");
+include_once("sql_scripts.php");
 include_once("db.php");
 include_once("../scripts/veiling-status.php");
 
@@ -11,20 +12,6 @@ if (!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
     header("Location: $redirect_url");
     exit();
 }
-
-$sql = "UPDATE Voorwerp
-SET veilinggesloten = (case when veilingeinde > CURRENT_TIMESTAMP THEN 0 ELSE 1 END)";
-
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-
-$sql = "UPDATE Voorwerp
-SET Koper = (SELECT TOP 1 gebruiker FROM Bod WHERE bod.Voorwerp = Voorwerp.voorwerpnummer ORDER BY bodbedrag DESC)
-WHERE veilingGesloten = 1";
-
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +61,6 @@ $stmt->execute();
         </div>
         <div class="navbar-end is">
             <?php
-
             if (!isset($_SESSION['ingelogd'])) {
                 echo '<a class="button is-black" href="/registratie/email.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Registreren</a>
                   <a class="button is-black" href="/login.php" style="margin-right: 2rem; margin-top: auto; margin-bottom: auto">Log In</a>';
@@ -93,7 +79,6 @@ $stmt->execute();
         </div>
     </div>
 </nav>
-<?php laatMeldingZien();?>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

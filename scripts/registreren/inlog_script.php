@@ -5,7 +5,7 @@ include_once('../../includes/functies.php');
 
 if ($_SESSION["registratieStatus"] == 2) {
     if (isset($_POST['accountCheck'])) {
-        $gebruikersnaam = $_POST['gebruikersnaam'];
+        $gebruikersnaam = strip_tags($_POST['gebruikersnaam']);
 
         $sql = "SELECT gebruikersnaam FROM Gebruiker
             WHERE gebruikersnaam = :gebruikersnaam";

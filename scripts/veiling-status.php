@@ -5,19 +5,22 @@ $voorwerpdetails = $conn->prepare("SELECT * FROM Voorwerp WHERE veilingGesloten 
 $voorwerpdetails->execute();
 
 while ($row_voorwerp = $voorwerpdetails->fetch(PDO::FETCH_ASSOC)) {
-    $voorwerp_row = $conn->prepare("select * from Voorwerp where voorwerpnummer = '" . $row_voorwerp["voorwerpnummer"] . "'");
-    $voorwerp_row->execute();
-    $result_voorwerp = $voorwerp_row->fetch(PDO::FETCH_ASSOC);
+        /* Haalt de gegevens op van het product. */
+        $voorwerp_row = $conn->prepare("select * from Voorwerp where voorwerpnummer = '".$row_voorwerp["voorwerpnummer"]."'");
+        $voorwerp_row->execute();
+        $result_voorwerp = $voorwerp_row->fetch(PDO::FETCH_ASSOC);
 
-    $row_koper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '" . $row_voorwerp["koper"] . "'");
-    $row_koper->execute();
-    $result_koper = $row_koper->fetch(PDO::FETCH_ASSOC);
+        /* Haalt de gegevens op van de hoogste bieder van het product. */
+        $row_koper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '".$row_voorwerp["koper"]."'");
+        $row_koper->execute();
+        $result_koper = $row_koper->fetch(PDO::FETCH_ASSOC);
 
-    $row_verkoper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '" . $row_voorwerp["verkoper"] . "'");
-    $row_verkoper->execute();
-    $result_verkoper = $row_verkoper->fetch(PDO::FETCH_ASSOC);
+        /* Haalt de gegevens op van de verkoper van het product. */
+        $row_verkoper = $conn->prepare("select * from Gebruiker where gebruikersnaam = '".$row_voorwerp["verkoper"]."'");
+        $row_verkoper->execute();
+        $result_verkoper = $row_verkoper->fetch(PDO::FETCH_ASSOC);
 
-    $bericht_verkoper = "
+        $bericht_verkoper = "
 Beste verkoper van EenmaalAndermaal,
 
 We willen u graag informeren dat de volgende veiling: {$result_voorwerp["titel"]} verkocht is.
@@ -30,7 +33,7 @@ Met vriendelijke groet,
 Team EenmaalAndermaal.
         ";
 
-    $bericht_koper = "
+        $bericht_koper = "
 Beste gebruiker van EenmaalAndermaal,
 
 We willen u graag informeren dat u de volgende veiling gewonnen hebt: {$result_voorwerp["titel"]}.
@@ -42,9 +45,11 @@ Met vriendelijke groet,
 Team EenmaalAndermaal.
         ";
 
-    mail($result_koper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_koper);
-    mail($result_verkoper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_verkoper);
+        /* Verstuurt een mail naar zowel de koper als de verkoper. */
+        mail($result_koper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_koper);
+        mail($result_verkoper["email"], 'EenmaalAndermaal - Belangrijke informatie over een veiling', $bericht_verkoper);
 
-    $update_row = $conn->prepare("UPDATE Voorwerp SET mailVerzonden = 1 WHERE voorwerpnummer = '" . $result_voorwerp['voorwerpnummer'] . "'");
-    $update_row->execute();
+        /* Update de tabel voorwerp, zodat er gezien kan worden dat er een mail is verzonden. */
+        $update_row = $conn->prepare("UPDATE Voorwerp SET mailVerzonden = 1 WHERE voorwerpnummer = '".$result_voorwerp['voorwerpnummer']."'");
+        $update_row->execute();
 }

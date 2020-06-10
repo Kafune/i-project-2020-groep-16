@@ -70,10 +70,9 @@ if(empty($_SESSION['verkoper'])) {
             } else {
                 $sql = "SELECT * FROM Rubriek WHERE rubriek = :rubrieknummer ORDER BY rubrieknaam ASC";
 
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':rubrieknummer', $_GET['rubriek']);
-                $stmt->execute();
-                $result = $stmt->fetch();
+                $result = $conn->prepare($sql);
+                $result->bindParam(':rubrieknummer', $_GET['rubriek']);
+                $result->execute();
 
                 echo '
                 <div class="card-table">
@@ -81,7 +80,7 @@ if(empty($_SESSION['verkoper'])) {
                         <table class="table is-fullwidth is-striped">
                             <tbody>';
 
-                if (empty($result)) {
+                if (empty($result->fetch())) {
                     header("Location: voorwerptoevoegen.php?rubriek=" . $_GET['rubriek'] . "");
                 }
 

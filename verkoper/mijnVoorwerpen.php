@@ -12,40 +12,22 @@ if (isset($_SESSION['gebruiker'])) {
 $sql = "SELECT voorwerpnummer, titel,veilingeinde, startprijs,
         max(bodbedrag) as 'hoogste bod', gebruiker, geblokkeerd, veilingGesloten
         FROM voorwerp
-        LEFT JOIN Bod ON voorwerp.voorwerpnummer = bod.Voorwerp";
+        LEFT JOIN Bod ON voorwerp.voorwerpnummer = bod.Voorwerp
+        WHERE verkoper = :verkoper ";
 
-$gevuldeVelden = array();
-$queryArray = array();
-
-$gevuldeVelden[] = "verkoper= :verkoper ";
-$queryArray[':verkoper'] = $gebruikersnaam;
-
-if (!empty($_GET['voorwerpnummer'])) {
-    $gevuldeVelden[] = "voorwerpnummer = " . $_GET['voorwerpnummer'];
+if (isset($_GET['gesloten'])) {
+    $sql .= " and veilingGesloten = 1 ";
 }
-if(!empty($_GET['titel'])) {
-    $gevuldeVelden[] = "titel LIKE CONCAT('%', :titel, '%')";
-    $queryArray[':titel'] = $_GET['titel'];
+if (isset($_GET['geblokkeerd'])) {
+    $sql .= " and geblokkeerd = 1 ";
 }
-
-if (!empty($_GET['gesloten'])) {
-    $gevuldeVelden[] = "veilingGesloten = 1";
-}
-if (!empty($_GET['geblokkeerd'])) {
-    $gevuldeVelden[] = "geblokkeerd = 1";
-}
-if (count($gevuldeVelden) > 0) {
-    $sql .= " WHERE " . implode(' AND ', $gevuldeVelden);
-}
-
-
-$sql .= "GROUP BY voorwerpnummer, titel, veilingeinde, gebruiker, startprijs, geblokkeerd, veilingGesloten";
-
+//
+$sql .= " GROUP BY voorwerpnummer, titel, veilingeinde, gebruiker, startprijs, geblokkeerd, veilingGesloten";
 //
 $stmt = $conn->prepare($sql);
 //
-//$stmt->bindParam(':verkoper', $gebruikersnaam);
-$stmt->execute($queryArray);
+$stmt->bindParam(':verkoper', $gebruikersnaam);
+$stmt->execute();
 ?>
 
     <link rel="stylesheet" href="styles/css/mystyles.css">
@@ -62,7 +44,6 @@ $stmt->execute($queryArray);
                             <tbody>
                             <tr>
                                 <th></th>
-                                <th><abbr title="Voorwerpnummer">Nr.</abbr></th>
                                 <th>Titel</th>
                                 <th>Veilingeinde</th>
                                 <th>Startprijs</th>
@@ -98,12 +79,12 @@ $stmt->execute($queryArray);
                                 }
 
                                 echo "
-                                    <td>" . $voorwerpnummer . "</td>
                                     <td>" . $titel . "</td>
                                     <td>" . $veilingeinde . "</td>
                                     <td>€" . $startprijs . "</td>
                                     <td>" . $hoogstebod . "</td>
                                     <td>" . $gebruiker . "</td>
+                                    <td><a href='/voorwerp.php?voorwerpnummer=". $voorwerpnummer ."' <button class='button is-primary'>Bekijk</button></td>
                                     </tr>";
                             }
                             ?>
