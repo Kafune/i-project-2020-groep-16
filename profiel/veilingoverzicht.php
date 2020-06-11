@@ -31,6 +31,7 @@ $resultaat = haalAlleGegevensArray($conn, $sql, $queryArray);
 $bodstatusItem = array();
 $bodstatusBedrag = array();
 
+// haal de hoogste bieder op van het product
 foreach ($resultaat as $waarde) {
     $sql2 = "SELECT TOP 1 gebruiker, voorwerp, bodbedrag FROM Bod WHERE voorwerp = :voorwerp ORDER BY bodbedrag DESC";
 
@@ -42,12 +43,13 @@ foreach ($resultaat as $waarde) {
 
 
     $resultaat2 = $stmt->fetch();
-
+    //kijk of de opgehaalde bieder gelijk is aan de ingelogde gebruiker
     if ($resultaat2['gebruiker'] !== $_SESSION['gebruiker']) {
         array_push($bodstatusItem, "Overboden");
     } else {
         array_push($bodstatusItem, "Hoogste bieder");
     }
+    // sla binnen deze array op welke bod het hoogste is.
     array_push($bodstatusBedrag, $resultaat2['bodbedrag']);
 }
 
