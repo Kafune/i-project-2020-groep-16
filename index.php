@@ -88,6 +88,7 @@ if (isset($_GET['filter'])) {
         }
         $q .= " ORDER BY veilingbegin DESC";
 
+
         $row = haalAlleGegevensArray($conn, $q, $queryArray);
         //print_r($row);
     } else {
@@ -115,8 +116,7 @@ if (isset($_GET['filter'])) {
                         <input type="submit" class="button is-black" value="Zoeken" name="Zoeken">
                     </p>
                 </div>
-
-                <br>
+            <br>
                 <br>
                 <div class="field has-addons has-addons-centered">
                     <p class="control">
@@ -158,8 +158,19 @@ if (isset($_GET['filter'])) {
 
                         <div class="card-image">
                             <figure class="image is-3by2">
-                                <img src="<?php echo 'upload/' . $row_image['filenaam']; ?>" alt="Voorwerp afbeelding"
-                                     class="voorwerp-afbeelding">
+                                <?php
+                                $eersteLetter = substr($row_image['filenaam'], 0, 1);
+                                if ($eersteLetter == 'd') {
+                                    ?>
+                                    <img src='pics/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                                         class='voorwerp-afbeelding'>
+                                <?php } else {
+                                    ?>
+                                    <img src='upload/<?= $row_image['filenaam'] ?>' alt='Voorwerp afbeelding'
+                                         class='voorwerp-afbeelding'>
+                                    <?php
+                                }
+                                ?>
                             </figure>
                         </div>
                         <div class="card-content">
